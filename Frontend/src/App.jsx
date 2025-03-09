@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Courses from "./pages/courses";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
+import Dashboard from "./pages/Dashboard";
 
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
@@ -16,8 +17,8 @@ function App() {
 
     <Router>
       <Routes>
-        <Route element={<MainLayout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
         <Route path="/courses" element={<Courses />} />
         </Route>
         
@@ -26,6 +27,10 @@ function App() {
 
         <Route path="/auth/login" element={<Login />} />
 </Route>
+
+<Route path="/dashboard" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />            
+          </Route>
       </Routes>
     </Router>
     </AuthProvider>
