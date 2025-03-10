@@ -20,11 +20,33 @@ function AuthLayout() {
             </div>
           </main>
     
-          <footer className="bg-gray-800 text-white py-4">
-            <div className="container mx-auto px-4 text-center">
-              <p>&copy; {new Date().getFullYear()} AI Learning Platform. All rights reserved.</p>
+          <footer className="bg-gray-800 text-white py-10">
+            <div className="container mx-auto px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                    <div>
+                        <h3 className="text-lg font-semibold">About Us</h3>
+                        <p className="mt-2 text-sm">AI Learning Platform provides high-quality courses to enhance your skills and knowledge.</p>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold">Quick Links</h3>
+                        <ul className="mt-2 text-sm space-y-2">
+                            <li><a href="#" className="hover:text-indigo-300">Courses</a></li>
+                            <li><a href="#" className="hover:text-indigo-300">FAQ</a></li>
+                            <li><a href="#" className="hover:text-indigo-300">Support</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold">Follow Us</h3>
+                        <div className="flex justify-center md:justify-start space-x-4 mt-2">
+                            <a href="#" className="hover:text-indigo-300">Facebook</a>
+                            <a href="#" className="hover:text-indigo-300">Twitter</a>
+                            <a href="#" className="hover:text-indigo-300">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+                <p className="text-center text-sm mt-6">&copy; {new Date().getFullYear()} AI Learning Platform. All rights reserved.</p>
             </div>
-          </footer>
+        </footer>
         </div>
       )
 }
