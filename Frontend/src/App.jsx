@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -11,8 +11,12 @@ import Profile from "./pages/Profile";
 
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminLayout from "./layout/AdminLayout";
 
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
     <AuthProvider>
 
@@ -21,7 +25,6 @@ function App() {
         <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/profile" element={<Profile />} />
         </Route>
         
         <Route element={<AuthLayout />}>
@@ -31,8 +34,8 @@ function App() {
 </Route>
 
 <Route path="/dashboard" element={<MainLayout />}>
-                    <Route index element={<Dashboard />} />            
-               </Route>
+            <Route index element={<Dashboard />} />            
+          </Route>
       </Routes>
     </Router>
     </AuthProvider>
