@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-
 import Home from "./pages/Home";
 import Courses from "./pages/courses";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
 import Dashboard from "./pages/Dashboard";
-
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminLayout from "./layout/AdminLayout";
+import UserStudent from "./pages/Users/UserStudent";
+import UserTeacher from "./pages/Users/UserTeacher";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <AuthProvider>
       <Router>
@@ -37,13 +35,15 @@ function App() {
             <Route index element={<Dashboard />} />
           </Route>
 
-          {/* Admin Layout with Nested Dashboard */}
-          <Route path="/auth/login/admin" element={<AdminLayout />}>
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
+            <Route path="students/:id" element={<UserStudent />} />
+            <Route path="teachers/:id" element={<UserTeacher />} />
           </Route>
         </Routes>
       </Router>
-    </AuthProvider>
+    </AuthProvider> 
   );
 }
 

@@ -92,7 +92,13 @@ const AdminDashboard = () => {
                   )}
                   <td className="px-6 py-4">
                     <Link
-                      to={`/admin/users/${user.id}`}
+                      to={
+                        activeTab === "teachers"
+                          ? `/admin/teachers/${user.id}`
+                          : activeTab === "students"
+                          ? `/admin/students/${user.id}`
+                          : `/admin/admins/${user.id}`
+                      }
                       className="text-indigo-600 hover:underline"
                     >
                       View

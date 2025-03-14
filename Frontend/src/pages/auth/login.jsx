@@ -23,7 +23,7 @@ const Login = () => {
       }
       // admin login
       if (email === "admin@gmail.com" && password === "admin") {
-        navigate("/auth/login/admin");
+        navigate("/admin");
         return;
       }
       await login(email, password);
