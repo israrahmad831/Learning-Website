@@ -26,6 +26,10 @@ const Login = () => {
         navigate("/admin");
         return;
       }
+      if (email === "teacher@gmail.com" && password === "teacher") {
+        navigate("/teacher");
+        return;
+      }
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {

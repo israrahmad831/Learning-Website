@@ -12,6 +12,8 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminLayout from "./layout/AdminLayout";
 import UserStudent from "./pages/Users/UserStudent";
 import UserTeacher from "./pages/Users/UserTeacher";
+import TeacherLayout from "./layout/TeacherLayout";
+import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 function App() {
   return (
@@ -41,9 +43,12 @@ function App() {
             <Route path="students/:id" element={<UserStudent />} />
             <Route path="teachers/:id" element={<UserTeacher />} />
           </Route>
+          <Route path="/teacher" element={<TeacherLayout />}>
+            <Route index element={<TeacherDashboard />} />
+          </Route>
         </Routes>
       </Router>
-    </AuthProvider> 
+    </AuthProvider>
   );
 }
 
