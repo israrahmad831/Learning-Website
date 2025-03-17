@@ -26,6 +26,61 @@ const Courses = () => {
             students: 1245,
             rating: 4.7,
             image: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            },
+            {
+              _id: '2',
+              title: 'Python for Beginners',
+              description: 'Start your journey with Python, one of the most popular programming languages.',
+              language: 'Python',
+              level: 'Beginner',
+              lessons: 15,
+              students: 2130,
+              rating: 4.8,
+              image: 'https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            },
+            {
+              _id: '3',
+              title: 'Advanced React Patterns',
+              description: 'Master advanced React concepts and patterns for building scalable applications.',
+              language: 'JavaScript',
+              level: 'Advanced',
+              lessons: 10,
+              students: 845,
+              rating: 4.9,
+              image: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            },
+            {
+              _id: '4',
+              title: 'Java Programming Masterclass',
+              description: 'Comprehensive guide to Java programming from basics to advanced topics.',
+              language: 'Java',
+              level: 'Intermediate',
+              lessons: 20,
+              students: 1560,
+              rating: 4.6,
+              image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            },
+            {
+              _id: '5',
+              title: 'C++ Fundamentals',
+              description: 'Learn the basics of C++ programming language and object-oriented concepts.',
+              language: 'C++',
+              level: 'Beginner',
+              lessons: 14,
+              students: 980,
+              rating: 4.5,
+              image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            },
+            {
+              _id: '6',
+              title: 'Data Structures in Python',
+              description: 'Master essential data structures implementation using Python.',
+              language: 'Python',
+              level: 'Intermediate',
+              lessons: 16,
+              students: 1120,
+              rating: 4.7,
+              image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
             }
         ];
 

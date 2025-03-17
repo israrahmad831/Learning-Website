@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 import { Users, UserCheck, UserCog, MessageCircle, Star } from "lucide-react";
 
 const AdminDashboard = () => {
@@ -10,6 +11,7 @@ const AdminDashboard = () => {
   const [admins, setAdmins] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [user] =useAuth();
 
   useEffect(() => {
     setTeachers([
@@ -63,6 +65,10 @@ const AdminDashboard = () => {
 
     return (
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+      <div>
+        <h1 className="text-2xl font-bold mb-2">Admin Dashboard</h1>
+        <p className="text-gray-600">Welcome back, {user?.name}. Here's what's happening on your platform.</p>
+      </div>
         <table className="min-w-full">
           <thead>
             <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white">
