@@ -10,8 +10,8 @@ const AdminDashboard = () => {
   const [admins, setAdmins] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [replyText, setReplyText] = useState({});
   const [user] = useAuth();
+  const [replyText, setReplyText] = useState({});
 
   useEffect(() => {
     setTeachers([
