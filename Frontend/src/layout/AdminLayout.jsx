@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-
+import { useAuth } from "../contexts/AuthContext";
 const AdminLayout = () => {
+  const { user, logout } = useAuth();
+
+  // Redirect if not authenticated or not an admin
+  if (!user || user.role !== "admin") {
+    return <Navigate to="" replace />;
+  }
   return (
     <div className="min-h-screen ">
       {/* Navbar */}
@@ -10,6 +16,7 @@ const AdminLayout = () => {
         <NavLink
           to="/"
           className="bg-blue-600 text-white p-2 rounded-lg shadow-lg flex items-center"
+          onClick={logout}
         >
           Logout
         </NavLink>

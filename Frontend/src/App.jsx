@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
-//Student
+
+// Student Pages
 import Home from "./pages/Home";
 import Courses from "./pages/courses";
 import Register from "./pages/auth/register";
@@ -14,7 +15,8 @@ import Lesson from "./pages/Lesson";
 import Quiz from "./pages/Quiz";
 import Discussions from "./pages/Discussions";
 import NewDiscussions from "./pages/NewDidsussions";
-//Layout
+
+// Layouts
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
@@ -26,9 +28,9 @@ import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 function App() {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <Router>
+    <Router>
+      <AuthProvider>
+        <ThemeProvider>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<MainLayout />}>
@@ -45,10 +47,10 @@ function App() {
 
             {/* User Dashboard */}
             <Route element={<MainLayout />}>
-              <Route path="/dashboard" in element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/lesson/:id" element={<Lesson />} />
               <Route path="/dashboard/quiz/:id" element={<Quiz />} />
-              <Route path="discussions" element={<Discussions />} />
+              <Route path="/discussions" element={<Discussions />} />
               <Route
                 path="/discussions/new"
                 element={
@@ -64,16 +66,18 @@ function App() {
             {/* Admin Layout with Nested Dashboard */}
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
-              <Route path="/admin/student/:id" element={<UserStudent />} />
-              <Route path="/admin/teacher/:id" element={<UserTeacher />} />
+              <Route path="/admin/student/id" element={<UserStudent />} />
+              <Route path="/admin/teacher/id" element={<UserTeacher />} />
             </Route>
+
+            {/* Teacher Dashboard */}
             <Route path="/teacher" element={<TeacherLayout />}>
               <Route index element={<TeacherDashboard />} />
             </Route>
           </Routes>
-        </Router>
-      </ThemeProvider>
-    </AuthProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

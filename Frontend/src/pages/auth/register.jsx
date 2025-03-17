@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { UserPlus } from 'lucide-react';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { UserPlus } from "lucide-react";
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('student');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("student");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match.");
       return;
     }
 
@@ -27,13 +27,15 @@ const Register = () => {
 
     try {
       await register(name, email, password, role);
-      navigate('/dashboard');
+      alert("Registration successful! You can now log in.");
+      navigate("/auth/login");
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to register. Please try again.');
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="bg-white rounded-lg shadow-md p-5">
@@ -50,7 +52,10 @@ const Register = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Full Name
           </label>
           <input
@@ -64,7 +69,10 @@ const Register = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Email Address
           </label>
           <input
@@ -78,7 +86,10 @@ const Register = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="role"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             I am a:
           </label>
           <select
@@ -90,7 +101,7 @@ const Register = () => {
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
           </select>
-          {role === 'teacher' && (
+          {role === "teacher" && (
             <p className="mt-1 text-sm text-gray-500">
               Note: Teacher accounts require admin approval before activation.
             </p>
@@ -98,7 +109,10 @@ const Register = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Password
           </label>
           <input
@@ -113,7 +127,10 @@ const Register = () => {
         </div>
 
         <div className="mb-6">
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
             Confirm Password
           </label>
           <input
@@ -144,8 +161,11 @@ const Register = () => {
 
       <div className="mt-6 text-center">
         <p className="text-gray-600">
-          Already have an account?{' '}
-          <Link to="/auth/login" className="text-indigo-600 hover:text-indigo-800">
+          Already have an account?{" "}
+          <Link
+            to="/auth/login"
+            className="text-indigo-600 hover:text-indigo-800"
+          >
             Sign In
           </Link>
         </p>

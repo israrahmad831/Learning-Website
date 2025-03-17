@@ -1,12 +1,20 @@
-import React, { useState } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  Outlet,
+  Link,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { BookOpen, User, LogOut, Menu, X } from "lucide-react";
 
 function MainLayout() {
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout } = useAuth();
+  const isAuthenticated = !!user; // Convert user object to boolean
   const navigate = useNavigate();
+  const location = useLocation();
   const { darkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -14,9 +22,19 @@ function MainLayout() {
     logout();
     navigate("/");
   };
+  useEffect(() => {
+    // If user is NOT logged in and trying to access a protected route, redirect them
+    if (!isAuthenticated && location.pathname.startsWith("/dashboard")) {
+      navigate("/");
+    }
+  }, [isAuthenticated, location.pathname, navigate]);
 
   return (
-    <div className={`${darkMode ? "dark bg-gray-900 text-white" : "bg-gray-50 text-gray-900"} min-h-screen flex flex-col`}>
+    <div
+      className={`${
+        darkMode ? "dark bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      } min-h-screen flex flex-col`}
+    >
       <header className="bg-indigo-600 text-white shadow-md">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
@@ -38,7 +56,7 @@ function MainLayout() {
             >
               Courses
             </Link>
-            {isAuthenticated ? (
+            {user ? (
               <>
                 <Link
                   to="/dashboard"
@@ -71,7 +89,10 @@ function MainLayout() {
                     <span>{user?.name}</span>
                   </Link>
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
                     className="flex items-center space-x-1 hover:text-indigo-200 transition-colors"
                   >
                     <LogOut size={18} />
@@ -108,7 +129,7 @@ function MainLayout() {
               >
                 Courses
               </Link>
-              {isAuthenticated ? (
+              {user ? (
                 <>
                   <Link
                     to="/dashboard"

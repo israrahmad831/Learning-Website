@@ -1,7 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 const TeacherLayout = () => {
+  const { user, logout } = useAuth();
+  if (!user || user.role !== "teacher") {
+    return <Navigate to="" replace />;
+  }
   return (
     <div className="min-h-screen ">
       {/* Navbar */}
@@ -9,6 +14,7 @@ const TeacherLayout = () => {
         <h1 className="text-xl font-bold">Teacher</h1>
         <NavLink
           to="/"
+          onClick={logout}
           className="bg-blue-600 text-white p-2 rounded-lg shadow-lg flex items-center"
         >
           Logout

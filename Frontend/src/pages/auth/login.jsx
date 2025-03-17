@@ -6,46 +6,36 @@ import { LogIn } from "lucide-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(null);
     setIsLoading(true);
 
-    if (!email || !password) {
-      setError("Please fill in all the fields.");
+    if (!email.trim() || !password.trim()) {
+      setError("Please fill in all fields.");
       setIsLoading(false);
       return;
     }
 
     try {
-      // Admin login
-      if (email === "admin@gmail.com" && password === "admin") {
-        navigate("/admin");
-        return;
-      }
-      if (email === "teacher@gmail.com" && password === "teacher") {
-        navigate("/teacher");
-        return;
-      }
-      // Student login
-      if (email === "std@std.edu.pk" && password === "std") {
-        navigate("/dashboard");
+      const user = await login(email, password);
+
+      // 🔹 Check if user is a teacher and needs approval
+      if (user.role === "teacher" && !user.isApproved) {
+        setError(
+          "Your account is pending approval. Please wait for admin approval."
+        );
         return;
       }
 
-      // Regular user login
-      await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setError(
-        err?.response?.data?.message ||
-          "Failed to login. Please check your credentials."
-      );
+      setError(err.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -53,70 +43,56 @@ const Login = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
-        <p className="text-gray-600">Sign in to continue to your account</p>
-      </div>
+      <h1 className="text-2xl font-bold text-gray-800 text-center mb-2">
+        Welcome Back
+      </h1>
+      <p className="text-gray-600 text-center mb-4">Sign in to continue</p>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-center">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address
-          </label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          />
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            required
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full p-2 border rounded-md"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full p-2 border rounded-md"
+        />
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors flex items-center justify-center"
+          className="w-full flex items-center justify-center bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition disabled:bg-gray-400"
         >
           {isLoading ? (
-            <span>Logging in...</span>
+            "Logging in..."
           ) : (
             <>
-              <LogIn className="mr-2 h-5 w-5" />
-              <span>Sign In</span>
+              <LogIn className="mr-2 h-5 w-5" /> Sign In
             </>
           )}
         </button>
       </form>
 
-      <div className="mt-6 text-center">
-        <p className="text-gray-600">
-          Don't have an account?{" "}
-          <Link to="/auth/register" className="text-indigo-600 hover:text-indigo-800">
-            Register
-          </Link>
-        </p>
-      </div>
+      <p className="text-center mt-4">
+        Don't have an account?{" "}
+        <Link to="/auth/register" className="text-blue-600 hover:underline">
+          Register
+        </Link>
+      </p>
     </div>
   );
 };
