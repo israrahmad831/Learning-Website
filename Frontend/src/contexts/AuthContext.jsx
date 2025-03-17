@@ -25,15 +25,14 @@ export const AuthProvider = ({ children }) => {
           const response = await axios.get('/api/auth/me');
           setUser(response.data);
         }
-      } catch (err) {
-        setError(err.response?.data?.message || 'Failed to login. Please check your credentials.');
+      } catch (error) {
+        console.error(error);
         localStorage.removeItem('token');
         delete axios.defaults.headers.common['Authorization'];
       } finally {
         setLoading(false);
       }
     };
-
     checkLoggedIn();
   }, []);
 
@@ -47,7 +46,6 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
-      throw err;
     } finally {
       setLoading(false);
     }
@@ -63,7 +61,6 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
-      throw err;
     } finally {
       setLoading(false);
     }
@@ -73,6 +70,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
+    setError(null); // Clear error on logout
   };
 
   return (

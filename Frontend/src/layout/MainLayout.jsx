@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
 import { BookOpen, User, LogOut, Menu, X } from "lucide-react";
 
 function MainLayout() {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { darkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
@@ -14,7 +16,7 @@ function MainLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className={`${darkMode ? "dark bg-gray-900 text-white" : "bg-gray-50 text-gray-900"} min-h-screen flex flex-col`}>
       <header className="bg-indigo-600 text-white shadow-md">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">

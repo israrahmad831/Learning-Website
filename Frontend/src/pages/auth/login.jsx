@@ -16,12 +16,14 @@ const Login = () => {
     setError("");
     setIsLoading(true);
 
+    if (!email || !password) {
+      setError("Please fill in all the fields.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      if (!email || !password) {
-        setError("Please fill in all the fields.");
-        return;
-      }
-      // admin login
+      // Admin login
       if (email === "admin@gmail.com" && password === "admin") {
         navigate("/admin");
         return;
@@ -30,11 +32,18 @@ const Login = () => {
         navigate("/teacher");
         return;
       }
+      // Student login
+      if (email === "std@std.edu.pk" && password === "std") {
+        navigate("/dashboard");
+        return;
+      }
+
+      // Regular user login
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
       setError(
-        err.response?.data?.message ||
+        err?.response?.data?.message ||
           "Failed to login. Please check your credentials."
       );
     } finally {
@@ -43,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-8">
+    <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold text-gray-800">Welcome Back</h1>
         <p className="text-gray-600">Sign in to continue to your account</p>
@@ -57,10 +66,7 @@ const Login = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email Address
           </label>
           <input
@@ -74,10 +80,7 @@ const Login = () => {
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
             Password
           </label>
           <input
@@ -109,10 +112,7 @@ const Login = () => {
       <div className="mt-6 text-center">
         <p className="text-gray-600">
           Don't have an account?{" "}
-          <Link
-            to="/auth/register"
-            className="text-indigo-600 hover:text-indigo-800"
-          >
+          <Link to="/auth/register" className="text-indigo-600 hover:text-indigo-800">
             Register
           </Link>
         </p>

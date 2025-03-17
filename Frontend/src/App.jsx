@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
+//Student
 import Home from "./pages/Home";
 import Courses from "./pages/courses";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
@@ -17,31 +20,29 @@ import TeacherLayout from "./layout/TeacherLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 function App() {
+  const [count, setCount] = useState(0);
+
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
+
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="/courses" element={<Courses />} />
+        </Route>
+        
+        <Route element={<AuthLayout />}>
+        <Route path="/auth/register" element={<Register/>} />
+
+        <Route path="/auth/login" element={<Login />} />
+</Route>
+
+<Route path="/dashboard" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />            
           </Route>
-          <Route element={<AuthLayout />}>
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="/auth/login" element={<Login />} />
-          </Route>
-          <Route path="/dashboard" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />
-          </Route>
-          <Route path="/teacher" element={<TeacherLayout />}>
-            <Route index element={<TeacherDashboard />} />
-          </Route>
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="students/:id" element={<UserStudent />} />
-            <Route path="teachers/:id" element={<UserTeacher />} />
-          </Route>
-        </Routes>
-      </Router>
+      </Routes>
+    </Router>
     </AuthProvider>
   );
 }
