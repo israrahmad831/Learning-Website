@@ -64,8 +64,8 @@ function App() {
             {/* Admin Layout with Nested Dashboard */}
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
-              <Route path="student/:id" element={<UserStudent />} />
-              <Route path="teacher/:id" element={<UserTeacher />} />
+              <Route path="/admin/student/:id" element={<UserStudent />} />
+              <Route path="/admin/teacher/:id" element={<UserTeacher />} />
             </Route>
             <Route path="/teacher" element={<TeacherLayout />}>
               <Route index element={<TeacherDashboard />} />

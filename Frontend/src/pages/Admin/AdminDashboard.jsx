@@ -4,15 +4,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Users, UserCheck, UserCog, MessageCircle, Star } from "lucide-react";
 
 const AdminDashboard = () => {
+  const { currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState("teachers");
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [user] = useAuth();
   const [replyText, setReplyText] = useState({});
-
   useEffect(() => {
     setTeachers([
       { id: 1, name: "Teacher Jawaad", email: "Jawaad@gmail.com" },
@@ -114,13 +113,6 @@ const AdminDashboard = () => {
 
     return (
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-        <div>
-          <h1 className="text-2xl font-bold mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">
-            Welcome back, {user?.name}. Here's what's happening on your
-            platform.
-          </p>
-        </div>
         <table className="min-w-full">
           <thead>
             <tr className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
@@ -173,8 +165,11 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto px-6 py-8">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Admin Dashboard</h1>
-
+      <h1 className="text-3xl font-bold text-gray-800 mb-1">Admin Dashboard</h1>
+      <p className="text-gray-600  mb-6">
+        Welcome back, {currentUser?.name}. Here's what's happening on your
+        platform.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {[
           { icon: UserCheck, title: "Total Teachers", count: teachers.length },
