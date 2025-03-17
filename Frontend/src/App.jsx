@@ -19,6 +19,10 @@ import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminLayout from "./layout/AdminLayout";
+import UserStudent from "./pages/Users/UserStudent";
+import UserTeacher from "./pages/Users/UserTeacher";
+import TeacherLayout from "./layout/TeacherLayout";
+import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 function App() {
 

@@ -25,7 +25,11 @@ const Login = () => {
     try {
       // Admin login
       if (email === "admin@gmail.com" && password === "admin") {
-        navigate("/auth/login/admin");
+        navigate("/admin");
+        return;
+      }
+      if (email === "teacher@gmail.com" && password === "teacher") {
+        navigate("/teacher");
         return;
       }
       // Student login
