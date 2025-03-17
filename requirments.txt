@@ -127,8 +127,6 @@ The application will:
 
 - **Register/Login** with admin approval.
 - **Add/edit lesson titles**.
-
-
 - **Respond to student queries**.
 - **Track student progress**.
 - **Participate in discussions**.
