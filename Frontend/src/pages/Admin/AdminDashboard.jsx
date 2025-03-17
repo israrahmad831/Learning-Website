@@ -4,13 +4,12 @@ import { Users, UserCheck, UserCog, MessageCircle, Star } from "lucide-react";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("teachers");
-
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [replyText, setReplyText] = useState({}); // State for replies
+  const [replyText, setReplyText] = useState({});
 
   useEffect(() => {
     setTeachers([

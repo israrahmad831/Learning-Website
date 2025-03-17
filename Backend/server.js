@@ -1,3 +1,8 @@
-const app=require("express");
-const server=app();
-const port=3000;
+//start backend code
+const express = require("express");
+const app = express();
+const cors = require("cors");
+
+app.listen(5000, () => {
+  console.log("Server is running on port 5000");
+});

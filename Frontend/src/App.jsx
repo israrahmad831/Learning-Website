@@ -19,25 +19,29 @@ import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 function App() {
   return (
     <AuthProvider>
-
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
-        </Route>
-        
-        <Route element={<AuthLayout />}>
-        <Route path="/auth/register" element={<Register/>} />
-
-        <Route path="/auth/login" element={<Login />} />
-</Route>
-
-<Route path="/dashboard" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />            
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
           </Route>
-      </Routes>
-    </Router>
+          <Route element={<AuthLayout />}>
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="/auth/login" element={<Login />} />
+          </Route>
+          <Route path="/dashboard" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />
+          </Route>
+          <Route path="/teacher" element={<TeacherLayout />}>
+            <Route index element={<TeacherDashboard />} />
+          </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="students/:id" element={<UserStudent />} />
+            <Route path="teachers/:id" element={<UserTeacher />} />
+          </Route>
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
