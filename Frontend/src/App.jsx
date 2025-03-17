@@ -20,29 +20,34 @@ import TeacherLayout from "./layout/TeacherLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <AuthProvider>
-
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
-        </Route>
-        
-        <Route element={<AuthLayout />}>
-        <Route path="/auth/register" element={<Register/>} />
-
-        <Route path="/auth/login" element={<Login />} />
-</Route>
-
-<Route path="/dashboard" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />            
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
           </Route>
-      </Routes>
-    </Router>
+
+          <Route element={<AuthLayout />}>
+            <Route path="/auth/register" element={<Register />} />
+
+            <Route path="/auth/login" element={<Login />} />
+          </Route>
+
+          <Route path="/dashboard" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />
+          </Route>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="/student/:id" element={<UserStudent />} />
+            <Route path="/teacher/:id" element={<UserTeacher />} />
+          </Route>
+          <Route path="/teacher" element={<TeacherLayout />}>
+            <Route index element={<TeacherDashboard />} />
+          </Route>
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
