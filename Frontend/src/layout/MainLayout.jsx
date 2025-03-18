@@ -50,21 +50,28 @@ function MainLayout() {
           </button>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <Link
-              to="/courses"
-              className="hover:text-indigo-200 transition-colors"
-            >
-              Courses
-            </Link>
             {user ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="hover:text-indigo-200 transition-colors"
-                >
-                  Dashboard
-                </Link>
-                {user?.role === "teacher" && (
+                {/* Common Dashboard Link for Students */}
+                {user.role === "student" && (
+                  <div className="md:flex space-x-6">
+                    <Link
+                      to="/dashboard"
+                      className="hover:text-indigo-200 transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/courses"
+                      className="hover:text-indigo-200 transition-colors"
+                    >
+                      Courses
+                    </Link>
+                  </div>
+                )}
+
+                {/* Teacher Portal Link */}
+                {user.role === "teacher" && (
                   <Link
                     to="/teacher"
                     className="hover:text-indigo-200 transition-colors"
@@ -72,7 +79,9 @@ function MainLayout() {
                     Teacher Portal
                   </Link>
                 )}
-                {user?.role === "admin" && (
+
+                {/* Admin Portal Link */}
+                {user.role === "admin" && (
                   <Link
                     to="/admin"
                     className="hover:text-indigo-200 transition-colors"
@@ -80,13 +89,15 @@ function MainLayout() {
                     Admin Portal
                   </Link>
                 )}
+
+                {/* Profile and Logout */}
                 <div className="flex items-center space-x-4">
                   <Link
                     to="/dashboard/profile"
                     className="flex items-center space-x-1 hover:text-indigo-200 transition-colors"
                   >
                     <User size={18} />
-                    <span>{user?.name}</span>
+                    <span>{user.name}</span>
                   </Link>
                   <button
                     onClick={() => {
@@ -101,6 +112,7 @@ function MainLayout() {
                 </div>
               </>
             ) : (
+              // Show Login/Register if user is not logged in
               <div className="flex items-center space-x-4">
                 <Link
                   to="/auth/login"

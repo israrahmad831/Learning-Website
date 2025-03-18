@@ -172,6 +172,66 @@ app.get("/api/admin/users", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+app.get("/api/admin/users/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+    const decodedName = decodeURIComponent(name);
+
+    console.log("Searching for user:", decodedName); // Debugging
+
+    const user = await User.findOne({ name: decodedName });
+
+    if (!user) {
+      console.log("User not found in database.");
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+app.patch("/api/admin/users/approve/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+    const decodedName = decodeURIComponent(name);
+
+    const updatedUser = await User.findOneAndUpdate(
+      { name: decodedName },
+      { isApproved: true }, // Set isApproved to true
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User approved successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error approving user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+app.delete("/api/admin/users/delete/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+    const decodedName = decodeURIComponent(name);
+
+    const deletedUser = await User.findOneAndDelete({ name: decodedName });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

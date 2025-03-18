@@ -128,7 +128,12 @@ const AdminDashboard = () => {
               {activeTab === "students" && (
                 <th className="px-6 py-3 text-left">Progress</th>
               )}
-              <th className="px-6 py-3 text-left">Actions</th>
+              {(activeTab === "students" || activeTab === "teachers") && (
+                <th className="px-6 py-3 text-left">Actions</th>
+              )}
+              {activeTab === "admins" && (
+                <th className="px-6 py-3 text-left"></th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -144,12 +149,16 @@ const AdminDashboard = () => {
                     <td className="px-6 py-4">{user.progress}</td>
                   )}
                   <td className="px-6 py-4">
-                    <Link
-                      to={`/admin/${activeTab}/${user.id}`}
-                      className="text-indigo-600 hover:underline"
-                    >
-                      View
-                    </Link>
+                    {(activeTab === "students" || activeTab === "teachers") && (
+                      <Link
+                        to={`/admin/${activeTab}/${encodeURIComponent(
+                          user.name
+                        )}`}
+                        className="text-indigo-600 hover:underline"
+                      >
+                        View
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))
