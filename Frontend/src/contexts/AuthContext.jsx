@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get("http://localhost:5001/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
@@ -46,28 +46,46 @@ export const AuthProvider = ({ children }) => {
   // 📝 Register Function
   const register = async (name, email, password, role = "student") => {
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
-        name,
-        email,
-        password,
-        role,
-      });
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/register",
+        {
+          name,
+          email,
+          password,
+          role,
+        }
+      );
 
-      // Automatically log in after registration
+      // Check if the account requires admin approval
+      if (response.data.isApproved === false) {
+        return {
+          success: true,
+          message: "Account created but pending admin approval.",
+        };
+      }
+
+      // Automatically log in only if approved
       await login(email, password);
+      return {
+        success: true,
+        message: "Registration successful! You are now logged in.",
+      };
     } catch (err) {
       console.error(
         "Registration failed:",
         err.response?.data?.message || err.message
       );
-      throw new Error(err.response?.data?.message || "Registration failed");
+      return {
+        success: false,
+        message: err.response?.data?.message || "Registration failed",
+      };
     }
   };
 
   // 🔐 Login Function
   const login = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("http://localhost:5001/api/auth/login", {
         email,
         password,
       });

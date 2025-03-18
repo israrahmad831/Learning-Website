@@ -4,7 +4,6 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/authDB";
@@ -35,6 +34,12 @@ const userSchema = new mongoose.Schema({
     enum: ["admin", "teacher", "student"],
     default: "student",
   },
+  isApproved: {
+    type: Boolean,
+    default: function () {
+      return this.role !== "teacher";
+    },
+  },
 });
 
 const User = mongoose.model("User", userSchema);
@@ -64,10 +69,35 @@ app.post("/api/auth/register", async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword, role });
-    await newUser.save();
+    const isApproved = role !== "teacher"; // ✅ Teachers require approval
 
-    res.status(201).json({ message: "User registered successfully" });
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      isApproved,
+    });
+    await newUser.save();
+    if (role === "teacher") {
+      return res.status(201).json({
+        message:
+          "User registered successfully. Your account is pending approval.",
+        isApproved,
+      });
+    }
+    if (isApproved === false) {
+      return res.status(201).json({
+        message:
+          "User registered successfully. Your account is pending approval.",
+        isApproved,
+      });
+    }
+
+    res.status(201).json({
+      message: "User registered successfully",
+      isApproved,
+    });
   } catch (error) {
     console.error("Registration Error:", error);
     res.status(500).json({ message: "Registration failed" });
@@ -84,6 +114,13 @@ app.post("/api/auth/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
+    // 🚫 Prevent unapproved teachers from logging in
+    if (user.role === "teacher" && !user.isApproved) {
+      return res
+        .status(403)
+        .json({ message: "Your account is pending approval." });
+    }
+
     const token = jwt.sign({ userId: user._id, role: user.role }, SECRET_KEY, {
       expiresIn: "1h",
     });
@@ -95,6 +132,7 @@ app.post("/api/auth/login", async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        isApproved: user.isApproved,
       },
     });
   } catch (error) {
@@ -111,6 +149,26 @@ app.get("/api/auth/me", verifyToken, async (req, res) => {
     res.json(user);
   } catch (error) {
     console.error("Auth Check Error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// 👤 Get Users by Role (Admin Only)
+app.get("/api/admin/users", verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const { role } = req.query;
+    if (!["admin", "teacher", "student"].includes(role)) {
+      return res.status(400).json({ message: "Invalid role" });
+    }
+
+    const users = await User.find({ role }).select("-password");
+    res.json(users);
+  } catch (error) {
+    console.error("Fetch Users Error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

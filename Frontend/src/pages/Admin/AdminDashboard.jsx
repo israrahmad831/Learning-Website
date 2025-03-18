@@ -2,42 +2,35 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Users, UserCheck, UserCog, MessageCircle, Star } from "lucide-react";
-
+import axios from "axios";
 const AdminDashboard = () => {
   const { currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState("teachers");
-  const [teachers, setTeachers] = useState([]);
-  const [students, setStudents] = useState([]);
-  const [admins, setAdmins] = useState([]);
+  const [users, setUsers] = useState({
+    admins: [],
+    teachers: [],
+    students: [],
+  });
   const [discussions, setDiscussions] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const [replyText, setReplyText] = useState({});
+  const { admins, teachers, students } = users;
+
+  const fetchUsers = async (role) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:5001/api/admin/users?role=${role}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching ${role}s:`, error);
+      return [];
+    }
+  };
+
   useEffect(() => {
-    setTeachers([
-      { id: 1, name: "Teacher Jawaad", email: "Jawaad@gmail.com" },
-      { id: 2, name: "Teacher Ahmad", email: "Ahmad@gmail.com" },
-    ]);
-
-    setStudents([
-      {
-        id: 1,
-        name: "Israr Ahmad",
-        email: "Israrahmad@gmail.com",
-        progress: "80%",
-      },
-      {
-        id: 2,
-        name: "Mehboob Ali",
-        email: "Mehboobali@gmail.com",
-        progress: "60%",
-      },
-    ]);
-
-    setAdmins([
-      { id: 1, name: "Jawaad", email: "Jawaad@gmail.com" },
-      { id: 2, name: "Ahmad", email: "Ahmad@gmail.com" },
-    ]);
-
     setDiscussions([
       {
         id: 1,
@@ -79,6 +72,17 @@ const AdminDashboard = () => {
         comment: "Very helpful courses.",
       },
     ]);
+
+    const loadUsers = async () => {
+      const [admins, teachers, students] = await Promise.all([
+        fetchUsers("admin"),
+        fetchUsers("teacher"),
+        fetchUsers("student"),
+      ]);
+      setUsers({ admins, teachers, students });
+    };
+
+    loadUsers();
   }, []);
 
   const handleReply = (discussionId) => {
@@ -106,11 +110,10 @@ const AdminDashboard = () => {
   const renderTable = () => {
     let data =
       activeTab === "teachers"
-        ? teachers
+        ? users?.teachers || []
         : activeTab === "students"
-        ? students
-        : admins;
-
+        ? users?.students || []
+        : users?.admins || [];
     return (
       <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
         <table className="min-w-full">
@@ -130,9 +133,9 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {data.length > 0 ? (
-              data.map((user) => (
+              data.map((user, index) => (
                 <tr
-                  key={user.id}
+                  key={user.id || index}
                   className="border-b border-gray-200 hover:bg-gray-100 transition"
                 >
                   <td className="px-6 py-4">{user.name}</td>

@@ -13,10 +13,11 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
-
+  const [successMessage, setSuccessMessage] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccessMessage(""); // Clear old messages
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
@@ -26,28 +27,43 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      await register(name, email, password, role);
-      alert("Registration successful! You can now log in.");
-      navigate("/auth/login");
+      const response = await register(name, email, password, role);
+
+      if (response.success) {
+        if (role === "teacher") {
+          setSuccessMessage(
+            "Registration successful! Your account is pending approval."
+          );
+        } else {
+          setSuccessMessage("Registration successful! Redirecting to login...");
+          setTimeout(() => navigate("/auth/login"), 2000); // Redirect after 2s
+        }
+      } else {
+        setError(response.message);
+      }
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Registration failed.");
     } finally {
       setIsLoading(false);
     }
   };
 
-
   return (
     <div className="bg-white rounded-lg shadow-md p-5">
-      <div className="text-center mb-8">
+      <div className="text-center mb-2">
         <h1 className="text-2xl font-bold text-gray-800">Create an Account</h1>
         <p className="text-gray-600">Join our learning platform today</p>
       </div>
 
+      {successMessage && (
+        <p className="bg-green-100 text-green-800 border border-green-400 rounded-lg p-3 text-sm text-center w-full mb-2">
+          {successMessage}
+        </p>
+      )}
       {error && (
-        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+        <p className="bg-red-100 text-red-800 border border-red-400 rounded-lg p-3 text-sm text-center w-full mb-2">
           {error}
-        </div>
+        </p>
       )}
 
       <form onSubmit={handleSubmit}>

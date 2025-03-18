@@ -16,16 +16,9 @@ const Login = () => {
     setError(null);
     setIsLoading(true);
 
-    if (!email.trim() || !password.trim()) {
-      setError("Please fill in all fields.");
-      setIsLoading(false);
-      return;
-    }
-
     try {
       const user = await login(email, password);
 
-      // 🔹 Check if user is a teacher and needs approval
       if (user.role === "teacher" && !user.isApproved) {
         setError(
           "Your account is pending approval. Please wait for admin approval."
@@ -40,6 +33,7 @@ const Login = () => {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
