@@ -11,34 +11,50 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Fetch user on initial render
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
 
-      if (!token) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const res = await axios.get("http://localhost:5001/api/auth/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setUser(res.data);
-      } catch (err) {
-        console.error(
-          "Auth check failed:",
-          err.response?.data?.message || err.message
-        );
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
+    if (token && storedUser) {
+      setUser(JSON.parse(storedUser)); // ✅ Load user from localStorage
+      setLoading(false);
+    } else {
+      fetchUser();
+    }
   }, []);
+
+  // Function to fetch authenticated user from API
+  const fetchUser = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await axios.get("http://localhost:5001/api/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (res.data) {
+        setUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data)); // ✅ Store user in localStorage
+      } else {
+        setUser(null);
+      }
+    } catch (err) {
+      console.error(
+        "Auth check failed:",
+        err.response?.data?.message || err.message
+      );
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // 🔑 Check if user is authenticated
   const isAuthenticated = !!user;
@@ -48,15 +64,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post(
         "http://localhost:5001/api/auth/register",
-        {
-          name,
-          email,
-          password,
-          role,
-        }
+        { name, email, password, role }
       );
 
-      // Check if the account requires admin approval
+      // If the account requires admin approval
       if (response.data.isApproved === false) {
         return {
           success: true,
@@ -64,8 +75,6 @@ export const AuthProvider = ({ children }) => {
         };
       }
 
-      // Automatically log in only if approved
-      await login(email, password);
       return {
         success: true,
         message: "Registration successful! You are now logged in.",
@@ -90,7 +99,9 @@ export const AuthProvider = ({ children }) => {
         password,
       });
 
-      localStorage.setItem("token", res.data.token); // ✅ Store token in localStorage
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user)); // ✅ Store user in localStorage
+
       setUser(res.data.user);
 
       // Redirect based on role
@@ -119,6 +130,7 @@ export const AuthProvider = ({ children }) => {
   // 🚪 Logout Function
   const logout = () => {
     localStorage.removeItem("token"); // ❌ Remove token
+    localStorage.removeItem("user"); // ❌ Remove user
     setUser(null);
     navigate("/", { replace: true }); // Ensure redirection
   };
