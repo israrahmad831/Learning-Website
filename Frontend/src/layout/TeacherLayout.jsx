@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 const TeacherLayout = () => {

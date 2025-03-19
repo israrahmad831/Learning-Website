@@ -14,8 +14,7 @@ import CourseDetails from "./pages/CoursesDetails";
 import Lesson from "./pages/Lesson";
 import Quiz from "./pages/Quiz";
 import Discussions from "./pages/Discussions";
-import NewDiscussions from "./pages/NewDidsussions";
-
+  
 // Layouts
 import MainLayout from "./layout/MainLayout";
 import AuthLayout from "./layout/AuthLayout";
@@ -50,16 +49,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/lesson/:id" element={<Lesson />} />
               <Route path="/dashboard/quiz/:id" element={<Quiz />} />
-              <Route path="/discussions" element={<Discussions />} />
-              <Route
-                path="/discussions/new"
-                element={
-                  <NewDiscussions
-                    courses={["java", "python"]}
-                    addDiscussion={Discussions}
-                  />
-                }
-              />
+              <Route path="/dashboard/discussions" element={<Discussions />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
 
