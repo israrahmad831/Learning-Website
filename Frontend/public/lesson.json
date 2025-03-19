@@ -1,0 +1,485 @@
+[
+    {
+      "_id": 101,
+      "title": "Introduction to JavaScript",
+      "courseId": "1",
+      "courseName": "JavaScript Fundamentals",
+      "content": "Lesson 1: Introduction to JavaScript\n\n### **What is JavaScript?**\nJavaScript is a programming language used to create interactive websites.\nIt can modify HTML, CSS, and handle user actions.\n\n#### Why Learn JavaScript?\n- Works in all modern browsers\n- Essential for web development\n- Used for both frontend and backend\n- Supports different programming styles\n\n#### How to Run JavaScript?\n- Browser Console (Press F12 and go to the Console tab).\n- Inside an HTML file:\n```html\n<script>\nconsole.log(\"Hello, JavaScript!\");\n</script>\n```\n- External JavaScript file (.js file):\n```html\n<script src=\"script.js\"></script>\n```\n\n#### Basic JavaScript Rules:\n- JavaScript is case-sensitive.\n- Statements end with a semicolon (;).\n- Comments help explain code:\n```js\n// This is a single-line comment\n\n/* This is a multi-line comment */\n```\n\n#### Displaying Output:\n```js\nconsole.log(\"Hello, World!\"); // Shows message in console\nalert(\"Welcome to JavaScript!\"); // Shows popup alert\n```\n\n#### Declaring Variables:\nJavaScript has three ways to declare variables:\n```js\nlet name = \"John\"; // Can change value\nconst age = 25; // Cannot change value\nvar score = 100; // Old method (not recommended)\n```\n",
+      "order": 2,
+      "duration": 15,
+      "codeExamples": [
+        {
+          "id": "1",
+          "title": "Variable Declaration",
+          "code": "// Different ways to declare variables\nlet name = \"John\";\nconst age = 25;\nvar score = 100;\n\n// Let allows reassignment\nname = \"Jane\";\n\n// Const prevents reassignment\n// age = 26; // This would cause an error\n\nconsole.log(name, age, score);",
+          "explanation": "This example shows the different ways to declare variables in JavaScript and demonstrates the difference between let, const, and var."
+        },
+        {
+          "id": "2",
+          "title": "Data Types Example",
+          "code": "// Primitive types\nlet string = \"Hello\";\nlet number = 42;\nlet boolean = true;\nlet undefinedVar;\nlet nullVar = null;\nlet symbol = Symbol('description');\nlet bigInt = BigInt(9007199254740991);\n\n// Complex types\nlet array = [1, 2, 3];\nlet object = { name: \"John\", age: 25 };\nlet func = () => console.log(\"Hello!\");\n\n// Check types\nconsole.log(typeof string);    // \"string\"\nconsole.log(typeof number);    // \"number\"\nconsole.log(typeof boolean);   // \"boolean\"\nconsole.log(typeof array);     // \"object\"\nconsole.log(typeof object);    // \"object\"\nconsole.log(typeof func);      // \"function\";",
+          "explanation": "This example demonstrates all the different data types available in JavaScript and how to check their types using the typeof operator."
+        }
+      ],
+      "resources": [
+        {
+          "title": "MDN: JavaScript Data Types",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures",
+          "type": "documentation"
+        },
+        {
+          "title": "Variables and Data Types in JavaScript",
+          "url": "https://www.youtube.com/watch?v=example",
+          "type": "video"
+        }
+      ],
+      "quiz": {
+        "id": "201",
+        "title": "Variables and Data Types Quiz"
+      },
+      "nextLesson": { "id": "102", "title": "Variables and Data Types" }
+    },
+    {
+        "_id": 102,
+        "title": "Variables and Data Types",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 2: Variables and Data Types\n\n### **What are Variables?**\nVariables are containers used to store data values in JavaScript.\n\n#### Declaring Variables:\nJavaScript provides three ways to declare variables:\n```js\nlet name = \"Alice\"; // Block-scoped, recommended\nconst age = 30; // Immutable, cannot be reassigned\nvar score = 50; // Function-scoped, avoid using\n```\n\n#### JavaScript Data Types:\nJavaScript has **two** main types of data:\n1. **Primitive Data Types**:\n   - `String`: \"Hello, world!\"\n   - `Number`: 42, 3.14\n   - `Boolean`: true, false\n   - `Undefined`: A variable with no assigned value\n   - `Null`: Represents an intentional absence of value\n   - `Symbol`: Unique and immutable identifier\n   - `BigInt`: Large numbers beyond the limit of Number type\n\n2. **Reference Data Types**:\n   - `Array`: `[1, 2, 3, 4]`\n   - `Object`: `{ name: \"Alice\", age: 30 }`\n   - `Function`: `function greet() { console.log(\"Hello!\"); }`\n\n#### Checking Data Types:\nUse the `typeof` operator to check variable types:\n```js\nconsole.log(typeof \"Hello\"); // \"string\"\nconsole.log(typeof 42); // \"number\"\nconsole.log(typeof true); // \"boolean\"\nconsole.log(typeof {}); // \"object\"\nconsole.log(typeof []); // \"object\" (Arrays are objects!)\nconsole.log(typeof function(){}); // \"function\"\n```\n",
+        "order": 3,
+        "duration": 20,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Declaring and Assigning Variables",
+            "code": "// Declaring variables\nlet username = \"JohnDoe\";\nconst birthYear = 1995;\nvar score = 100;\n\n// Changing values\nusername = \"JaneDoe\";\n// birthYear = 2000; // This will cause an error (const cannot be changed)\n\nconsole.log(username, birthYear, score);",
+            "explanation": "This example shows how to declare variables using let, const, and var, and how const variables cannot be reassigned."
+          },
+          {
+            "id": "2",
+            "title": "Data Types in Action",
+            "code": "// Different types of variables\nlet str = \"Hello\"; // String\nlet num = 25; // Number\nlet bool = true; // Boolean\nlet undef; // Undefined\nlet nul = null; // Null\nlet obj = { name: \"Alice\", age: 30 }; // Object\n\nconsole.log(typeof str); // \"string\"\nconsole.log(typeof num); // \"number\"\nconsole.log(typeof bool); // \"boolean\"\nconsole.log(typeof undef); // \"undefined\"\nconsole.log(typeof nul); // \"object\" (null is an object in JS!)\nconsole.log(typeof obj); // \"object\"",
+            "explanation": "This example demonstrates the different data types in JavaScript and how to check their types using `typeof`."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Variables and Data Types",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript Variables Explained",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "202",
+          "title": "JavaScript Variables Quiz"
+        },
+        "previousLesson": { "id": "101", "title": "Introduction to JavaScript" },
+        "nextLesson": { "id": "103", "title": "Operators and Expressions" }
+      },
+      {
+        "_id": 103,
+        "title": "Operators and Expressions",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 3: Operators and Expressions\n\n### **What are Operators?**\nOperators are symbols that perform operations on values and variables.\n\n#### 1. **Arithmetic Operators** (Perform mathematical calculations):\n```js\nlet a = 10, b = 5;\nconsole.log(a + b); // 15 (Addition)\nconsole.log(a - b); // 5 (Subtraction)\nconsole.log(a * b); // 50 (Multiplication)\nconsole.log(a / b); // 2 (Division)\nconsole.log(a % b); // 0 (Modulus - Remainder)\nconsole.log(a ** b); // 100000 (Exponentiation)\n```\n\n#### 2. **Assignment Operators** (Assign values to variables):\n```js\nlet x = 10;\nx += 5; // x = x + 5 (x is now 15)\nx -= 3; // x = x - 3 (x is now 12)\nx *= 2; // x = x * 2 (x is now 24)\nx /= 4; // x = x / 4 (x is now 6)\n```\n\n#### 3. **Comparison Operators** (Compare values, return true/false):\n```js\nconsole.log(10 == \"10\"); // true (loose equality)\nconsole.log(10 === \"10\"); // false (strict equality - checks type too)\nconsole.log(10 != 5); // true (not equal)\nconsole.log(10 > 5); // true (greater than)\nconsole.log(10 <= 10); // true (less than or equal to)\n```\n\n#### 4. **Logical Operators** (Combine boolean values):\n```js\nconsole.log(true && false); // false (AND - both must be true)\nconsole.log(true || false); // true (OR - at least one must be true)\nconsole.log(!true); // false (NOT - negates the value)\n```\n\n#### 5. **Unary Operators** (Operate on a single value):\n```js\nlet num = 5;\nconsole.log(++num); // 6 (Pre-increment)\nconsole.log(num--); // 6 (Post-decrement, returns 6 but num becomes 5)\n```\n\n#### 6. **Ternary Operator** (Shortcut for `if-else` statements):\n```js\nlet age = 18;\nlet canVote = (age >= 18) ? \"Yes\" : \"No\";\nconsole.log(canVote); // \"Yes\"\n```\n\n### **What are Expressions?**\nAn **expression** is any valid unit of code that results in a value.\n\n#### Examples of expressions:\n```js\n5 * 10; // Arithmetic expression\ntrue && false; // Logical expression\nlet result = (10 > 5) ? \"Greater\" : \"Smaller\"; // Ternary expression\nconsole.log(\"Hello \" + \"World!\"); // String concatenation expression\n```\n",
+        "order": 3,
+        "duration": 25,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Using Different Operators",
+            "code": "// Arithmetic Operators\nlet sum = 10 + 5;\nlet diff = 10 - 5;\nlet product = 10 * 5;\nlet quotient = 10 / 5;\n\n// Comparison Operators\nconsole.log(10 == \"10\"); // true\nconsole.log(10 === \"10\"); // false\n\n// Logical Operators\nconsole.log(true && false); // false\nconsole.log(true || false); // true\n\n// Ternary Operator\nlet age = 20;\nlet message = age >= 18 ? \"Adult\" : \"Minor\";\nconsole.log(message);",
+            "explanation": "This example demonstrates how different operators work in JavaScript, including arithmetic, comparison, logical, and ternary operators."
+          },{
+            "id": "2",
+            "title": "Operator Precedence",
+            "code": "// Operator Precedence Example\nlet result1 = 10 + 5 * 2; // Multiplication happens first (10 + (5 * 2) = 20)\nlet result2 = (10 + 5) * 2; // Parentheses change order ((10 + 5) * 2 = 30)\n\n// Logical Operator Precedence\nlet bool1 = true || false && false; // AND executes first (true || (false && false) = true)\nlet bool2 = (true || false) && false; // Parentheses change order ((true || false) && false = false)\n\nconsole.log(result1, result2); // 20, 30\nconsole.log(bool1, bool2); // true, false",
+            "explanation": "This example demonstrates how operator precedence affects the outcome of expressions in JavaScript. Multiplication happens before addition unless parentheses are used, and logical AND has a higher precedence than OR."
+          }
+          
+        ],
+        "resources": [
+          {
+            "title": "MDN: JavaScript Operators",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators",
+            "type": "documentation"
+          }
+        ],
+        "quiz": {
+          "id": "203",
+          "title": "JavaScript Operators Quiz"
+        },
+        "previousLesson": { "id": "102", "title": "Variables and Data Types" },
+        "nextLesson": { "id": "104", "title": "Control Flow and Loops" }
+      }
+      ,
+      {
+        "_id": 104,
+        "title": "Control Flow: Conditionals",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 3: Control Flow and Loops\n\n### **Control Flow in JavaScript**\nControl flow determines the order in which statements are executed.\n\n#### **Conditional Statements**\nConditional statements help us make decisions in code:\n\n```js\nlet age = 18;\nif (age >= 18) {\n  console.log(\"You are eligible to vote.\");\n} else {\n  console.log(\"You are not eligible to vote.\");\n}\n```\n\n#### **Switch Case Statement**\n```js\nlet day = \"Monday\";\nswitch (day) {\n  case \"Monday\":\n    console.log(\"Start of the workweek!\");\n    break;\n  case \"Friday\":\n    console.log(\"Weekend is near!\");\n    break;\n  default:\n    console.log(\"It's a regular day.\");\n}\n```\n\n### **Loops in JavaScript**\nLoops help execute a block of code multiple times.\n\n#### **For Loop**\n```js\nfor (let i = 1; i <= 5; i++) {\n  console.log(\"Iteration\", i);\n}\n```\n\n#### **While Loop**\n```js\nlet count = 1;\nwhile (count <= 3) {\n  console.log(\"Count is\", count);\n  count++;\n}\n```\n\n#### **Do-While Loop**\n```js\nlet num = 1;\ndo {\n  console.log(\"Number:\", num);\n  num++;\n} while (num <= 3);\n```",
+        "order": 4,
+        "duration": 20,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Looping Through an Array",
+            "code": "// Looping through an array\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nfor (let i = 0; i < fruits.length; i++) {\n  console.log(fruits[i]);\n}",
+            "explanation": "This example iterates through an array using a for loop and prints each element."
+          },
+          {
+            "id": "2",
+            "title": "Break and Continue in Loops",
+            "code": "// Using break and continue in loops\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    console.log(\"Skipping 3 with continue\");\n    continue;\n  }\n  if (i === 5) {\n    console.log(\"Stopping loop with break\");\n    break;\n  }\n  console.log(\"Number:\", i);\n}",
+            "explanation": "The 'continue' statement skips iteration when i equals 3, and 'break' exits the loop when i equals 5."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Loops and Iteration",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript Control Flow Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "202",
+          "title": "Control Flow and Loops Quiz"
+        },
+        "previousLesson": { "id": "102", "title": "Operators and Expressions" },
+        "nextLesson": { "id": "104", "title": "Functions in JavaScript" }
+    }
+    ,{
+        "_id": 105,
+        "title": "Control Flow: Loops",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 3: Control Flow and Loops\n\n### **Control Flow in JavaScript**\nControl flow determines the order in which statements are executed.\n\n#### **Conditional Statements**\nConditional statements help us make decisions in code:\n\n```js\nlet age = 18;\nif (age >= 18) {\n  console.log(\"You are eligible to vote.\");\n} else {\n  console.log(\"You are not eligible to vote.\");\n}\n```\n\n#### **Switch Case Statement**\n```js\nlet day = \"Monday\";\nswitch (day) {\n  case \"Monday\":\n    console.log(\"Start of the workweek!\");\n    break;\n  case \"Friday\":\n    console.log(\"Weekend is near!\");\n    break;\n  default:\n    console.log(\"It's a regular day.\");\n}\n```\n\n### **Loops in JavaScript**\nLoops help execute a block of code multiple times.\n\n#### **For Loop**\n```js\nfor (let i = 1; i <= 5; i++) {\n  console.log(\"Iteration\", i);\n}\n```\n\n#### **While Loop**\n```js\nlet count = 1;\nwhile (count <= 3) {\n  console.log(\"Count is\", count);\n  count++;\n}\n```\n\n#### **Do-While Loop**\n```js\nlet num = 1;\ndo {\n  console.log(\"Number:\", num);\n  num++;\n} while (num <= 3);\n```",
+        "order": 4,
+        "duration": 20,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Looping Through an Array",
+            "code": "// Looping through an array\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nfor (let i = 0; i < fruits.length; i++) {\n  console.log(fruits[i]);\n}",
+            "explanation": "This example iterates through an array using a for loop and prints each element."
+          },
+          {
+            "id": "2",
+            "title": "Break and Continue in Loops",
+            "code": "// Using break and continue in loops\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    console.log(\"Skipping 3 with continue\");\n    continue;\n  }\n  if (i === 5) {\n    console.log(\"Stopping loop with break\");\n    break;\n  }\n  console.log(\"Number:\", i);\n}",
+            "explanation": "The 'continue' statement skips iteration when i equals 3, and 'break' exits the loop when i equals 5."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Loops and Iteration",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript Control Flow Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "202",
+          "title": "Control Flow and Loops Quiz"
+        },
+        "previousLesson": { "id": "102", "title": "Operators and Expressions" },
+        "nextLesson": { "id": "104", "title": "Functions in JavaScript" }
+
+    }
+    ,
+    {
+        "_id": 106,
+        "title": "Functions",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 4: Functions in JavaScript\n\n### **What are Functions?**\nFunctions are reusable blocks of code that perform a specific task.\n\n#### **Function Declaration**\n```js\nfunction greet() {\n  console.log(\"Hello, World!\");\n}\n```\n\n#### **Function Expression**\n```js\nlet greet = function() {\n  console.log(\"Hello, World!\");\n};\n```\n\n#### **Arrow Function**\n```js\nlet greet = () => {\n  console.log(\"Hello, World!\");\n};\n```\n\n#### **Function Parameters**\n```js\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\n// Call the function\ngreet(\"Alice\"); // Output: Hello, Alice!\n```\n\n#### **Return Statement**\n```js\nfunction add(a, b) {\n  return a + b;\n}\n\nlet sum = add(5, 3);\nconsole.log(sum); // Output: 8\n```\n\n#### **Function Scope**\nVariables declared inside a function are local to that function:\n```js\nfunction sayHello() {\n  let message = \"Hello, World!\";\n  console.log(message);\n}\n\n// console.log(message); // Error: message is not defined\n```\n",
+        "order": 5,
+        "duration": 25,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Creating and Calling Functions",
+            "code": "// Function Declaration\nfunction greet() {\n  console.log(\"Hello, World!\");\n}\n\n// Function Call\ngreet();",
+            "explanation": "This example demonstrates how to create a function using function declaration and call it to execute the code inside."
+          },
+          {
+            "id": "2",
+            "title": "Function with Parameters",
+            "code": "// Function with Parameters\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\n// Call the function\ngreet(\"Alice\"); // Output: Hello, Alice!",
+            "explanation": "This example shows how to define a function that accepts parameters and use those parameters to customize the output."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Functions",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript Functions Explained",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "204",
+          "title": "Functions in JavaScript Quiz"
+        },
+        "previousLesson": { "id": "103", "title": "Control Flow and Loops" },
+        "nextLesson": { "id": "105", "title": "Arrays and Objects" }
+    }
+    ,
+    {
+        "_id": 107,
+        "title": "Arrays and Objects",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 5: Arrays and Objects\n\n### **Arrays in JavaScript**\nArrays are used to store multiple values in a single variable.\n\n#### **Creating Arrays**\n```js\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nlet numbers = [1, 2, 3, 4, 5];\nlet mixed = [\"Hello\", 42, true];\n```\n\n#### **Accessing Array Elements**\n```js\nconsole.log(fruits[0]); // Apple\nconsole.log(numbers[2]); // 3\n```\n\n#### **Array Methods**\n```js\nconsole.log(fruits.length); // 3 (Number of elements)\nfruits.push(\"Orange\"); // Add to end\nfruits.pop(); // Remove from end\nfruits.shift(); // Remove from start\nfruits.unshift(\"Kiwi\"); // Add to start\n```\n\n### **Objects in JavaScript**\nObjects are used to store key-value pairs.\n\n#### **Creating Objects**\n```js\nlet person = {\n  name: \"Alice\",\n  age: 30,\n  isAdmin: false\n};\n```\n\n#### **Accessing Object Properties**\n```js\nconsole.log(person.name); // Alice\nconsole.log(person[\"age\"]); // 30\n```\n\n#### **Object Methods**\n```js\nlet person = {\n  name: \"Alice\",\n  greet: function() {\n    console.log(`Hello, ${this.name}!`);\n  }\n};\n\nperson.greet(); // Output: Hello, Alice!\n```\n",
+        "order": 6,
+        "duration": 30,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Working with Arrays",
+            "code": "// Array Example\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nconsole.log(fruits[0]); // Apple\nfruits.push(\"Orange\"); // Add to end\nconsole.log(fruits);",
+            "explanation": "This example demonstrates how to create an array, access its elements, and use array methods like push to add elements."
+            },
+            {
+            "id": "2",
+            "title": "Using Objects in JavaScript", 
+            "code": "// Object Example\nlet person = {\n  name: \"Alice\",\n  age: 30,\n  isAdmin: false\n};\n\nconsole.log(person.name); // Alice\nperson.isAdmin = true; // Update property\nconsole.log(person);",
+            "explanation": "This example shows how to create an object with key-value pairs, access object properties, and update object values."
+            }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Arrays",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+            "type": "documentation"
+          },
+          {
+            "title": "MDN: Objects",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects",
+            "type": "documentation"
+          }
+        ],
+        "quiz": {
+          "id": "205",
+          "title": "Arrays and Objects Quiz"
+        },
+        "previousLesson": { "id": "106", "title": "Functions in JavaScript" },
+        "nextLesson": { "id": "108", "title": "DOM Manipulation" }
+    },
+    {
+        "_id": 108,
+        "title": "DOM Manipulation",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 6: DOM Manipulation\n\n### **What is the DOM?**\nThe Document Object Model (DOM) is a programming interface for web documents.\n\n#### **Accessing Elements**\n```js\n// By ID\nlet element = document.getElementById(\"myId\");\n\n// By Class\nlet elements = document.getElementsByClassName(\"myClass\");\n\n// By Tag\nlet tags = document.getElementsByTagName(\"div\");\n\n// By Selector\nlet selector = document.querySelector(\".myClass\");\nlet selectors = document.querySelectorAll(\".myClass\");\n```\n\n#### **Changing Elements**\n```js\n// Change Text\nelement.textContent = \"New Text\";\n\n// Change Style\nelement.style.color = \"red\";\n\n// Change Attribute\nelement.setAttribute(\"src\", \"image.jpg\");\n```\n\n#### **Creating Elements**\n```js\nlet newElement = document.createElement(\"div\");\nnewElement.textContent = \"New Element\";\ndocument.body.appendChild(newElement);\n```\n\n### **Event Handling**\nEvents are actions that occur on web pages (click, hover, submit, etc.).\n\n#### **Adding Event Listeners**\n```js\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});\n```\n\n#### **Event Object**\n```js\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});\n```\n",
+        "order": 7,
+        "duration": 30,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Changing Text Content",
+            "code": "// Changing Text Content\nlet element = document.getElementById(\"myId\");\nelement.textContent = \"New Text\";",
+            "explanation": "This example shows how to change the text content of an HTML element using JavaScript."
+          },
+          {
+            "id": "2",
+            "title": "Creating and Appending Elements",
+            "code": "// Creating and Appending Elements\nlet newElement = document.createElement(\"div\");\nnewElement.textContent = \"New Element\";\ndocument.body.appendChild(newElement);",
+            "explanation": "This example demonstrates how to create a new HTML element, set its content, and append it to the document."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Document Object Model",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript DOM Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "206",
+          "title": "DOM Manipulation Quiz"
+        },
+        "previousLesson": { "id": "107", "title": "Arrays and Objects" },
+        "nextLesson": { "id": "109", "title": "Events" }
+    },
+    {
+        "_id": 109,
+        "title": "Event",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 10: Event\n\n### **What is Event?**\nEvent is an action that occurs on web pages (click, hover, submit, etc.).\n\n#### **Event Listener**\n```js\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});\n```\n\n#### **Event Object**\n```js\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});\n```\n\n### **Event Types**\nThere are many types of events in JavaScript:\n\n- `click`: Occurs when an element is clicked.\n- `mouseover`: Occurs when the mouse pointer is over an element.\n- `submit`: Occurs when a form is submitted.\n- `keydown`: Occurs when a key is pressed down.\n- `load`: Occurs when a resource and its dependent resources have finished loading.\n",
+        "order": 11,
+        "duration": 30,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Adding Event Listeners",
+            "code": "// Adding Event Listeners\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});",
+            "explanation": "This example shows how to add an event listener to an HTML element to listen for click events."
+          },
+          {
+            "id": "2",
+            "title": "Event Object",
+            "code": "// Event Object\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});",
+            "explanation": "This example demonstrates how to access the event object in an event listener to get information about the event."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Events",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/Events",
+            "type": "documentation"
+            },
+            {
+            "title": "JavaScript Event Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",   
+            "type": "video"
+            }
+        ],
+        "quiz": {
+          "id": "210",
+          "title": "Event Quiz"
+        },
+        "previousLesson": { "id": "108", "title": "DOM Manipulation " },
+        "nextLesson": { "id": "110", "title": "Asynchronous JavaScript" }
+    },
+   
+    {
+        "_id": 110,
+        "title": "Asynchronous JavaScript",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 12: Asynchronous JavaScript\n\n### **What is Asynchronous JavaScript?**\nAsynchronous JavaScript allows code to run without blocking other operations.\n\n#### **Callbacks**\n```js\nfunction fetchData(callback) {\n  setTimeout(() => {\n    callback(\"Data fetched!\");\n  }, 2000);\n}\n\nfetchData(function(data) {\n  console.log(data);\n});\n```\n\n#### **Promises**\n```js\nfunction fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nfetchData()\n  .then(data => console.log(data))\n  .catch(error => console.error(error));\n```\n\n#### **Async/Await**\n```js\nasync function fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nasync function getData() {\n  let data = await fetchData();\n  console.log(data);\n}\n\ngetData();\n```\n",
+        "order": 13,
+        "duration": 30,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Using Callbacks",
+            "code": "// Using Callbacks\nfunction fetchData(callback) {\n  setTimeout(() => {\n    callback(\"Data fetched!\");\n  }, 2000);\n}\n\nfetchData(function(data) {\n  console.log(data);\n});",
+            "explanation": "This example demonstrates how to use callbacks to handle asynchronous operations in JavaScript."
+          },
+          {
+            "id": "2",
+            "title": "Using Promises",
+            "code": "// Using Promises\nfunction fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nfetchData()\n  .then(data => console.log(data))\n  .catch(error => console.error(error));",
+            "explanation": "This example shows how to use promises to handle asynchronous operations and handle success or error responses."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Asynchronous JavaScript",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous",
+            "type": "documentation"
+          },
+          {
+            "title": "JavaScript Promises Explained",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+          }
+        ],
+        "quiz": {
+          "id": "212",
+          "title": "Asynchronous JavaScript Quiz"
+        },
+        "previousLesson": { "id": "109", "title": "Event" },
+        "nextLesson": { "id": "111", "title": "Error Handling" }
+    },
+    {
+        "_id": 111,
+        "title": "Error Handling",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 13: Error Handling\n\n### **What is Error Handling?**\nError handling is the process of catching and handling errors in code.\n\n#### **Try...Catch**\n```js\ntry {\n  let result = 1 / 0;\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}\n```\n\n#### **Throwing Errors**\n```js\nfunction divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Division by zero!\");\n  }\n  return a / b;\n}\n\ntry {\n  let result = divide(10, 0);\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}\n```\n",
+        "order": 14,
+        "duration": 30,
+        "codeExamples": [
+          {
+            "id": "1",
+            "title": "Using Try...Catch",
+            "code": "// Using Try...Catch\ntry {\n  let result = 1 / 0;\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}",
+            "explanation": "This example demonstrates how to use try...catch to handle errors in JavaScript code."
+          },
+          {
+            "id": "2",
+            "title": "Throwing Errors",
+            "code": "// Throwing Errors\nfunction divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Division by zero!\");\n  }\n  return a / b;\n}\n\ntry {\n  let result = divide(10, 0);\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}",
+            "explanation": "This example shows how to throw custom errors in JavaScript and handle them using try...catch."
+          }
+        ],
+        "resources": [
+          {
+            "title": "MDN: Error Handling",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling",
+            "type": "documentation"
+            },
+            {
+            "title": "JavaScript Error Handling Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+            }
+        ],
+        "quiz": {
+          "id": "213",
+          "title": "Error Handling Quiz"
+        },
+        "previousLesson": { "id": "112", "title": "Asynchronous JavaScript" },
+        "nextLesson": { "id": "114", "title": "Final project" }
+    },
+    {
+        "_id": 112,
+        "title": "Final project",
+        "courseId": "1",
+        "courseName": "JavaScript Fundamentals",
+        "content": "Lesson 14: Final project\n\n### **Project Description**\nFor the final project, you will create a web application using HTML, CSS, and JavaScript.\n\n#### **Requirements**\n- Use HTML to create the structure of the web page.\n- Use CSS to style the elements and layout of the page.\n- Use JavaScript to add interactivity and functionality to the page.\n\n#### **Project Ideas**\n- To-Do List App\n- Weather App\n- Quiz Game\n- Portfolio Website\n\n### **Submission**\nSubmit your project by uploading the files to a code hosting platform (GitHub, CodePen, etc.) and sharing the link with your instructor.\n",
+        "order": 15,
+        "duration": 30,
+        "codeExamples": [],
+        "resources": [
+          {
+            "title": "GitHub",
+            "url": "https://codepen.io/",   
+             "type": "documentation"
+          },
+          {
+            "title": "CodePen",
+            "url": "https://codepen.io/",
+            "type": "documentation"
+          } 
+        ],
+        "quiz": {
+          "id": "214",
+          "title": "Final project Quiz"
+        },
+        "previousLesson": { "id": "111", "title": "Error Handling" }
+
+
+    }
+    
+       
+
+  ]
+  
