@@ -17,11 +17,37 @@ function MainLayout() {
   const location = useLocation();
   const { darkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [newRating, setNewRating] = useState(0);
+  const [newComment, setNewComment] = useState("");
+  const StarRating = ({ rating, onRate }) => {
+    return (
+      <div className="flex items-center text-yellow-500 cursor-pointer">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span key={star} className="text-2xl" onClick={() => onRate(star)}>
+            {star <= rating ? "★" : "☆"}
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  const handleSubmit = () => {
+    if (newRating > 0 && newComment.trim()) {
+      setReviews([
+        ...reviews,
+        { user: "Anonymous", rating: newRating, comment: newComment },
+      ]);
+      setNewRating(0);
+      setNewComment("");
+    }
+  }; // ✅ Properly close the function
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
   useEffect(() => {
     // If user is NOT logged in and trying to access a protected route, redirect them
     if (!isAuthenticated && location.pathname.startsWith("/dashboard")) {
@@ -216,7 +242,7 @@ function MainLayout() {
         <Outlet />
       </main>
 
-      <footer className="bg-gray-800 text-white py-10">
+      <footer className="bg-gray-800 text-white py-10 pb-0">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div>
@@ -259,14 +285,46 @@ function MainLayout() {
                   LinkedIn
                 </a>
               </div>
+              {user ? (
+                <>
+                  <div className="max-w-md ">
+                    {user.role === "student" && (
+                      <div className="">
+                        <p className="text-lg font-semibold text-white-800">
+                          Your Rating:
+                        </p>
+                        <StarRating rating={newRating} onRate={setNewRating} />
+                        <textarea
+                          className="w-full p-2 border rounded-md mt-2"
+                          placeholder="Leave a comment..."
+                          value={newComment}
+                          onChange={(e) => setNewComment(e.target.value)}
+                        />
+                        <button
+                          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                          onClick={handleSubmit}
+                        >
+                          Submit Review
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <div className="max-w-md ">
+                  <p className="text-lg text-white-800">
+                    Please login to leave a review
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-          <p className="text-center text-sm mt-6">
-            &copy; {new Date().getFullYear()} AI Learning Platform. All rights
-            reserved.
-          </p>
         </div>
       </footer>
+      <p className="bg-gray-800 text-center text-sm text-white">
+        &copy; {new Date().getFullYear()} AI Learning Platform. All rights
+        reserved.
+      </p>
     </div>
   );
 }
