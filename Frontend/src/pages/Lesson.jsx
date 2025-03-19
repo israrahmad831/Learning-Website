@@ -12,8 +12,11 @@ import {
   CheckCircle,
   X,
 } from "lucide-react";
+import ReactMarkdown from 'react-markdown'
+
 
 const Lesson = () => {
+
   const { id } = useParams();
   const [lesson, setLesson] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +38,7 @@ const Lesson = () => {
             courseName: "JavaScript Fundamentals",
             content: `Lesson 1: Introduction to JavaScript
 
-What is JavaScript?
+### **What is JavaScript?**
 JavaScript is a programming language used to create interactive websites.
 It can modify HTML, CSS, and handle user actions.
 
@@ -45,7 +48,6 @@ Why Learn JavaScript?
 - Essential for web development
 - Used for both frontend and backend
 - Supports different programming styles
-
 How to Run JavaScript?
 
 - Browser Console (Press F12 and go to the Console tab).
@@ -183,6 +185,9 @@ var score = 100; // Old method (not recommended)
             content: `
 
 **Variables and Data Types in JavaScript**  
+
+
+
 
 ### **What are Variables?**  
 Variables are used to store data in JavaScript. They act as containers for values.  
@@ -1223,6 +1228,7 @@ This helps in debugging and ensures you are using the correct data type in your 
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
+            //dp mapping of Lessons
             <h1 className="text-2xl font-bold mb-2">{lesson?.title}</h1>
             <p className="text-gray-600">
               {lesson?.courseName} • Lesson {lesson?.order}
@@ -1235,7 +1241,7 @@ This helps in debugging and ensures you are using the correct data type in your 
               <span>{lesson?.duration} min</span>
             </div>
             <Link
-              to={`/discussions?lesson=${lesson?._id}`}
+              to={`/discussions/lesson=${lesson?._id}`}
               className="flex items-center text-indigo-600 hover:text-indigo-800"
             >
               <MessageSquare className="h-5 w-5 mr-1" />
@@ -1308,8 +1314,9 @@ This helps in debugging and ensures you are using the correct data type in your 
             <div className="p-6">
               {activeTab === "content" ? (
                 <div className="prose max-w-none">
-                  {/* Render markdown content */}
-                  <div dangerouslySetInnerHTML={{ __html: lesson?.content }} />
+                  {/* map content in html tags*/}
+                  <ReactMarkdown>{lesson?.content}</ReactMarkdown>
+
                 </div>
               ) : (
                 <div className="space-y-6">
