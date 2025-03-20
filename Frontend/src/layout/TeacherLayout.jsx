@@ -1,11 +1,11 @@
 import React from "react";
-import { NavLink,Navigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 const TeacherLayout = () => {
   const { user, logout } = useAuth();
   if (!user || user.role !== "teacher") {
-    return <Navigate to="" replace />;
+    return <Navigate to="/" replace />;
   }
   return (
     <div className="min-h-screen ">

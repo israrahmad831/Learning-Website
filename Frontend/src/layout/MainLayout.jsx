@@ -12,36 +12,16 @@ import { BookOpen, User, LogOut, Menu, X } from "lucide-react";
 
 function MainLayout() {
   const { user, logout } = useAuth();
+  const token = localStorage.getItem("token");
   const isAuthenticated = !!user; // Convert user object to boolean
   const navigate = useNavigate();
   const location = useLocation();
   const { darkMode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [reviews, setReviews] = useState([]);
-  const [newRating, setNewRating] = useState(0);
-  const [newComment, setNewComment] = useState("");
-  const StarRating = ({ rating, onRate }) => {
-    return (
-      <div className="flex items-center text-yellow-500 cursor-pointer">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <span key={star} className="text-2xl" onClick={() => onRate(star)}>
-            {star <= rating ? "★" : "☆"}
-          </span>
-        ))}
-      </div>
-    );
-  };
 
-  const handleSubmit = () => {
-    if (newRating > 0 && newComment.trim()) {
-      setReviews([
-        ...reviews,
-        { user: "Anonymous", rating: newRating, comment: newComment },
-      ]);
-      setNewRating(0);
-      setNewComment("");
-    }
-  }; // ✅ Properly close the function
+  const [newComment, setNewComment] = useState("");
+  const [newRating, setNewRating] = useState(0);
+  const [feedbacks, setFeedbacks] = useState([]);
 
   const handleLogout = () => {
     logout();
@@ -54,6 +34,46 @@ function MainLayout() {
       navigate("/");
     }
   }, [isAuthenticated, location.pathname, navigate]);
+
+  const fetchFeedbacks = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/api/feedback");
+      const data = await response.json();
+      setFeedbacks(data);
+    } catch (error) {
+      console.error("Error fetching feedback:", error);
+    }
+  };
+
+  const handleReviewSubmit = async () => {
+    if (!newComment.trim() || newRating === 0) {
+      alert("Please enter a comment and rating before submitting.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5001/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ message: newComment, rating: newRating }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Feedback submitted successfully!");
+        setNewComment(""); // Clear input field
+        setNewRating(0); // Reset rating
+      } else {
+        alert(data.message || "Failed to submit feedback");
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
 
   return (
     <div
@@ -287,32 +307,53 @@ function MainLayout() {
               </div>
               {user ? (
                 <>
-                  <div className="max-w-md ">
+                  <div className="max-w-md">
                     {user.role === "student" && (
-                      <div className="">
-                        <p className="text-lg font-semibold text-white-800">
+                      <div>
+                        <p className="text-lg font-semibold text-white">
                           Your Rating:
                         </p>
-                        <StarRating rating={newRating} onRate={setNewRating} />
+
+                        {/* Star Rating Component */}
+                        {/* Star Rating */}
+                        <div className="flex space-x-1 mt-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span
+                              key={star}
+                              onClick={() => setNewRating(star)}
+                              className={`cursor-pointer text-2xl ${
+                                star <= newRating
+                                  ? "text-yellow-400"
+                                  : "text-gray-400"
+                              }`}
+                            >
+                              ★
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Comment Box */}
                         <textarea
                           className="w-full p-2 border rounded-md mt-2"
                           placeholder="Leave a comment..."
                           value={newComment}
                           onChange={(e) => setNewComment(e.target.value)}
                         />
+
+                        {/* Submit Button */}
                         <button
                           className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
-                          onClick={handleSubmit}
+                          onClick={handleReviewSubmit}
                         >
-                          Submit Review
+                          Submit Feedback
                         </button>
                       </div>
                     )}
                   </div>
                 </>
               ) : (
-                <div className="max-w-md ">
-                  <p className="text-lg text-white-800">
+                <div className="max-w-md">
+                  <p className="text-lg text-white">
                     Please login to leave a review
                   </p>
                 </div>
