@@ -232,6 +232,84 @@ app.delete("/api/admin/users/delete/:name", async (req, res) => {
   }
 });
 
+const feedbackSchema = new mongoose.Schema({
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  message: { type: String, required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 }, // ⭐ Include Rating
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Feedback = mongoose.model("Feedback", feedbackSchema);
+
+// Submit Feedback
+app.post("/api/feedback", verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== "student") {
+      return res
+        .status(403)
+        .json({ message: "Only students can submit feedback" });
+    }
+
+    const { message, rating } = req.body;
+    if (!message || !rating) {
+      return res
+        .status(400)
+        .json({ message: "Message and rating are required" });
+    }
+
+    const feedback = new Feedback({
+      studentId: req.user.userId,
+      message,
+      rating,
+    });
+
+    await feedback.save();
+    res.status(201).json({ message: "Feedback submitted successfully" });
+  } catch (error) {
+    console.error("Error submitting feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get All Feedbacks
+app.get("/api/feedback", async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find()
+      .populate("studentId", "name") // Fetch student's name
+      .sort({ createdAt: -1 });
+
+    res.json(feedbacks);
+  } catch (error) {
+    console.error("Error fetching feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Delete Feedback (Only Admins)
+app.delete("/api/feedback/:id", verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "Only admins can delete feedback" });
+    }
+
+    const feedback = await Feedback.findById(req.params.id);
+    if (!feedback) {
+      return res.status(404).json({ message: "Feedback not found" });
+    }
+
+    await Feedback.deleteOne({ _id: req.params.id });
+    res.json({ message: "Feedback deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
