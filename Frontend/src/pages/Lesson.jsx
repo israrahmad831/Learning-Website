@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import ReactMarkdown from 'react-markdown'
 
-const TypingEffect = ({ text, speed = 5, cacheKey }) => {
+const TypingEffect = ({ text, speed = 10, cacheKey }) => {
   const [displayedText, setDisplayedText] = useState(
     sessionStorage.getItem(cacheKey) || ""
   );
@@ -52,7 +52,7 @@ const Lesson = () => {
     const fetchLessonDetails = async () => {
         try {
             setIsLoading(true); 
-            await new Promise((resolve) => setTimeout(resolve, 10000)); 
+            await new Promise((resolve) => setTimeout(resolve, 500)); 
             
             const response = await fetch("/lesson.json"); 
             const data = await response.json();
@@ -115,7 +115,7 @@ if (isLoading) {
               <span>{lesson?.duration} min</span>
             </div>
             <Link
-              to={`/discussions/lesson=${lesson?._id}`}
+              to={`/dashboard/discussions`}
               className="flex items-center text-indigo-600 hover:text-indigo-800"
             >
               <MessageSquare className="h-5 w-5 mr-1" />
@@ -327,12 +327,12 @@ if (isLoading) {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold mb-4">Next Steps</h2>
             <div className="space-y-4">
-              <Link
+              {lesson.nextLesson===null&& <Link
                 to={`/dashboard/quiz/${lesson?.quiz?.id}`}
                 className="block w-full bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700 transition-colors"
               >
                 Take Quiz
-              </Link>
+              </Link>}
 
               {lesson?.nextLesson && (
                 <Link

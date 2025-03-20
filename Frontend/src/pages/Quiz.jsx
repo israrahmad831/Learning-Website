@@ -128,15 +128,19 @@ const Quiz = () => {
         setTimeRemaining(prev => {
           if (prev <= 1) {
             clearInterval(timer);
-            handleSubmitQuiz();
+            handleSubmitQuiz(); // Auto-submit when time is up
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
     }
-    return () => timer && clearInterval(timer);
+  
+    return () => {
+      if (timer) clearInterval(timer); // Proper cleanup
+    };
   }, [quizStarted, quizSubmitted, timeRemaining]);
+  
 
   const handleStartQuiz = () => {
     setQuizStarted(true);
@@ -145,16 +149,20 @@ const Quiz = () => {
   const handleSelectOption = (questionId, optionId) => {
     setSelectedOptions(prev => ({
       ...prev,
-      [questionId]: optionId
+      [questionId]: optionId // Persist selection per question
     }));
   };
+  
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < (quiz?.questions.length || 0) - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setShowExplanation(false);
+    } else {
+      handleSubmitQuiz(); // Auto-submit on the last question
     }
   };
+  
 
   const handlePrevQuestion = () => {
     if (currentQuestionIndex > 0) {
@@ -168,20 +176,20 @@ const Quiz = () => {
     
     const endTime = Date.now();
     const timeSpent = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
-
+  
     let correctAnswers = 0;
     let totalPoints = 0;
     let score = 0;
-    
+  
     const answers = quiz.questions.map(question => {
       const selectedOptionId = selectedOptions[question.id] || '';
       const isCorrect = question.options.find(opt => opt.id === selectedOptionId)?.isCorrect || false;
-      
+  
       if (isCorrect) {
         correctAnswers++;
         score += question.points;
       }
-      
+  
       totalPoints += question.points;
       
       return {
@@ -190,11 +198,11 @@ const Quiz = () => {
         isCorrect
       };
     });
-    
-    const percentage = Math.round((score / totalPoints) * 100);
+  
+    const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0; // Prevent NaN%
     const passed = percentage >= quiz.passingScore;
-    
-    const result= {
+  
+    setQuizResult({
       score,
       totalPoints,
       percentage,
@@ -203,12 +211,11 @@ const Quiz = () => {
       passed,
       answers,
       timeSpent
-    };
-    
-    setQuizResult(result);
+    });
+  
     setQuizSubmitted(true);
   };
-
+  
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -236,6 +243,7 @@ const Quiz = () => {
   }
 
   if (!quiz) {
+    
     return (
       <div className="text-center py-12">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Quiz Not Found</h2>
