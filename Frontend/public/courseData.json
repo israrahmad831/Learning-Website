@@ -1,0 +1,182 @@
+[
+        {
+            "_id": "1",
+            "title": "JavaScript Fundamentals",
+            "description": "Learn the core concepts of JavaScript programming language. This comprehensive course covers everything from basic syntax to advanced concepts like closures, promises, and async/await. By the end of this course, you will have a solid understanding of JavaScript and be able to build interactive web applications.",
+            "language": "JavaScript",
+            "level": "Beginner",
+            "image": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+            "lessons": [
+            { "_id": "101", "title": "Introduction to JavaScript", "order": 1, "duration": 15 },
+            { "_id": "102", "title": "Variables and Data Types", "order": 2, "duration": 25 },
+            { "_id": "103", "title": "Operators and Expressions", "order": 3, "duration": 20 },
+            { "_id": "104", "title": "Control Flow: Conditionals", "order": 4, "duration": 30 },
+            { "_id": "105", "title": "Control Flow: Loops", "order": 5, "duration": 25 },
+            { "_id": "106", "title": "Functions", "order": 6, "duration": 35 },
+            { "_id": "107", "title": "Objects and Arrays", "order": 7, "duration": 40 },
+            { "_id": "108", "title": "DOM Manipulation", "order": 8, "duration": 45 },
+            { "_id": "109", "title": "Events", "order": 9, "duration": 30 },
+            { "_id": "110", "title": "Asynchronous JavaScript", "order": 10, "duration": 50 },
+            { "_id": "111", "title": "Error Handling", "order": 11, "duration": 20 },
+            { "_id": "112", "title": "Final Project", "order": 12, "duration": 60 }
+            ],
+            "students": 1245,
+            "rating": 4.7,
+            "createdBy": {
+            "_id": "teacher1",
+            "name": "John Smith"
+            },
+            "progress": 35
+        }
+,
+{
+    "_id": "2",
+    "title": "Python for Beginners",
+    "description": "Learn the core concepts of the Python programming language. This comprehensive course covers everything from basic syntax to advanced concepts like functions, object-oriented programming, and asynchronous programming. By the end of this course, you will have a solid understanding of Python and be able to build interactive applications.",
+    "language": "Python",
+    "level": "Beginner",
+    "image": "https://images.unsplash.com/photo-1624953587687-daf255b6b80a?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "lessons": [
+      { "_id": "201", "title": "Introduction to Python", "order": 1, "duration": 15 },
+      { "_id": "202", "title": "Variables and Data Types", "order": 2, "duration": 25 },
+      { "_id": "203", "title": "Operators and Expressions", "order": 3, "duration": 20 },
+      { "_id": "204", "title": "Control Flow: Conditionals", "order": 4, "duration": 30 },
+      { "_id": "205", "title": "Control Flow: Loops", "order": 5, "duration": 25 },
+      { "_id": "206", "title": "Functions", "order": 6, "duration": 35 },
+      { "_id": "207", "title": "Lists and Dictionaries", "order": 7, "duration": 40 },
+      { "_id": "208", "title": "File Handling", "order": 8, "duration": 45 },
+      { "_id": "209", "title": "Object-Oriented Programming", "order": 9, "duration": 50 },
+      { "_id": "210", "title": "Modules and Packages", "order": 10, "duration": 30 },
+      { "_id": "211", "title": "Error Handling", "order": 11, "duration": 20 },
+      { "_id": "212", "title": "Final Project", "order": 12, "duration": 60 }
+    ],
+    "students": 980,
+    "rating": 4.8,
+    "createdBy": {
+      "_id": "teacher2",
+      "name": "Jane Doe"
+    },
+    "progress": 40
+  }
+    
+,{
+    
+        "_id": "3",
+        "title": "Advanced React Patterns",
+        "description": "Take your React skills to the next level with this advanced course on React design patterns. Learn how to build scalable and maintainable React applications using advanced techniques such as Higher-Order Components (HOCs), Render Props, Compound Components, and Custom Hooks. By the end of this course, you will be able to create highly reusable and efficient React components.",
+        "language": "JavaScript",
+        "level": "Advanced",
+        "image": "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=90",
+        "lessons": [
+          { "_id": "301", "title": "Introduction to Advanced React", "order": 1, "duration": 20 },
+          { "_id": "302", "title": "Higher-Order Components (HOCs)", "order": 2, "duration": 30 },
+          { "_id": "303", "title": "Render Props Pattern", "order": 3, "duration": 25 },
+          { "_id": "304", "title": "Compound Components", "order": 4, "duration": 35 },
+          { "_id": "305", "title": "Custom Hooks", "order": 5, "duration": 40 },
+          { "_id": "306", "title": "Context API & State Management", "order": 6, "duration": 45 },
+          { "_id": "307", "title": "React Performance Optimization", "order": 7, "duration": 50 },
+          { "_id": "308", "title": "Code Splitting & Lazy Loading", "order": 8, "duration": 40 },
+          { "_id": "309", "title": "Testing React Components", "order": 9, "duration": 50 },
+          { "_id": "310", "title": "Server-Side Rendering (SSR) & Static Site Generation (SSG)", "order": 10, "duration": 60 },
+          { "_id": "311", "title": "Error Boundaries & Suspense", "order": 11, "duration": 35 },
+          { "_id": "312", "title": "Final Project", "order": 12, "duration": 70 }
+        ],
+        "students": 765,
+        "rating": 4.9,
+        "createdBy": {
+          "_id": "teacher3",
+          "name": "Michael Johnson"
+        },
+        "progress": 20
+      }
+      
+    ,{
+        "_id": "4",
+        "title": "Java Programming Masterclass",
+        "description": "Comprehensive guide to Java programming from basics to advanced topics. This course covers everything from fundamental syntax to object-oriented programming, data structures, multi-threading, and real-world projects. By the end of this course, you will be able to develop robust and efficient Java applications.",
+        "language": "Java",
+        "level": "Intermediate",
+        "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "lessons": [
+          { "_id": "401", "title": "Introduction to Java", "order": 1, "duration": 20 },
+          { "_id": "402", "title": "Java Syntax and Basics", "order": 2, "duration": 30 },
+          { "_id": "403", "title": "Control Flow Statements", "order": 3, "duration": 25 },
+          { "_id": "404", "title": "Object-Oriented Programming (OOP)", "order": 4, "duration": 40 },
+          { "_id": "405", "title": "Java Collections Framework", "order": 5, "duration": 45 },
+          { "_id": "406", "title": "Exception Handling", "order": 6, "duration": 35 },
+          { "_id": "407", "title": "File Handling in Java", "order": 7, "duration": 30 },
+          { "_id": "408", "title": "Multi-threading & Concurrency", "order": 8, "duration": 50 },
+          { "_id": "409", "title": "JDBC & Database Connectivity", "order": 9, "duration": 45 },
+          { "_id": "410", "title": "JavaFX and GUI Development", "order": 10, "duration": 60 },
+          { "_id": "411", "title": "Spring Framework Basics", "order": 11, "duration": 50 },
+          { "_id": "412", "title": "Final Project: Building a Java Application", "order": 12, "duration": 70 }
+        ],
+        "students": 980,
+        "rating": 4.8,
+        "createdBy": {
+          "_id": "teacher4",
+          "name": "David Williams"
+        },
+        "progress": 15
+      }
+,{
+    "_id": "5",
+    "title": "C++ Fundamentals",
+    "description": "Master the basics of C++ programming with this beginner-friendly course. Learn syntax, data structures, object-oriented programming, memory management, and more. By the end of this course, you'll be able to write efficient and structured C++ programs.",
+    "language": "C++",
+    "level": "Beginner",
+    "image": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    "lessons": [
+      { "_id": "501", "title": "Introduction to C++", "order": 1, "duration": 20 },
+      { "_id": "502", "title": "Variables and Data Types", "order": 2, "duration": 25 },
+      { "_id": "503", "title": "Operators and Expressions", "order": 3, "duration": 30 },
+      { "_id": "504", "title": "Control Flow: Conditionals and Loops", "order": 4, "duration": 35 },
+      { "_id": "505", "title": "Functions in C++", "order": 5, "duration": 40 },
+      { "_id": "506", "title": "Arrays and Pointers", "order": 6, "duration": 45 },
+      { "_id": "507", "title": "Object-Oriented Programming (OOP)", "order": 7, "duration": 50 },
+      { "_id": "508", "title": "Memory Management and Dynamic Allocation", "order": 8, "duration": 55 },
+      { "_id": "509", "title": "File Handling in C++", "order": 9, "duration": 40 },
+      { "_id": "510", "title": "Standard Template Library (STL)", "order": 10, "duration": 50 },
+      { "_id": "511", "title": "Exception Handling", "order": 11, "duration": 35 },
+      { "_id": "512", "title": "Final Project: Building a C++ Application", "order": 12, "duration": 60 }
+    ],
+    "students": 875,
+    "rating": 4.6,
+    "createdBy": {
+      "_id": "teacher5",
+      "name": "Michael Johnson"
+    },
+    "progress": 20
+  }
+     ,{
+        "_id": "6",
+        "title": "Data Structures in Python",
+        "description": "Master essential data structures and their implementations using Python. This course covers arrays, linked lists, stacks, queues, trees, graphs, hash tables, and more. By the end of this course, you will have a strong grasp of data structures and their applications in problem-solving.",
+        "language": "Python",
+        "level": "Intermediate",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        "lessons": [
+          { "_id": "601", "title": "Introduction to Data Structures", "order": 1, "duration": 20 },
+          { "_id": "602", "title": "Arrays and Lists", "order": 2, "duration": 30 },
+          { "_id": "603", "title": "Stacks and Queues", "order": 3, "duration": 35 },
+          { "_id": "604", "title": "Linked Lists", "order": 4, "duration": 40 },
+          { "_id": "605", "title": "Hash Tables and Dictionaries", "order": 5, "duration": 45 },
+          { "_id": "606", "title": "Trees and Binary Search Trees", "order": 6, "duration": 50 },
+          { "_id": "607", "title": "Heaps and Priority Queues", "order": 7, "duration": 50 },
+          { "_id": "608", "title": "Graphs and Graph Algorithms", "order": 8, "duration": 60 },
+          { "_id": "609", "title": "Sorting Algorithms", "order": 9, "duration": 50 },
+          { "_id": "610", "title": "Searching Algorithms", "order": 10, "duration": 45 },
+          { "_id": "611", "title": "Time Complexity and Big-O Notation", "order": 11, "duration": 40 },
+          { "_id": "612", "title": "Final Project: Implementing Data Structures", "order": 12, "duration": 60 }
+        ],
+        "students": 920,
+        "rating": 4.7,
+        "createdBy": {
+          "_id": "teacher6",
+          "name": "Sophia Williams"
+        },
+        "progress": 25
+      }
+      
+
+]

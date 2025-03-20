@@ -14,6 +14,30 @@ import {
 } from "lucide-react";
 import ReactMarkdown from 'react-markdown'
 
+const TypingEffect = ({ text, speed = 5, cacheKey }) => {
+  const [displayedText, setDisplayedText] = useState(
+    sessionStorage.getItem(cacheKey) || ""
+  );
+
+  useEffect(() => {
+    if (!text || sessionStorage.getItem(cacheKey)) return; // Prevent re-typing
+
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < text.length) {
+        setDisplayedText((prev) => prev + text[index]);
+        index++;
+      } else {
+        clearInterval(interval);
+        sessionStorage.setItem(cacheKey, text); // Store in sessionStorage
+      }
+    }, speed); // Faster typing speed
+
+    return () => clearInterval(interval);
+  }, [text, cacheKey]);
+
+  return <ReactMarkdown>{displayedText}</ReactMarkdown>;
+};
 
 const Lesson = () => {
 
@@ -27,19 +51,20 @@ const Lesson = () => {
   useEffect(() => { 
     const fetchLessonDetails = async () => {
         try {
-            setIsLoading(true); // Start loading
-            await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulate delay
+            setIsLoading(true); 
+            await new Promise((resolve) => setTimeout(resolve, 10000)); 
             
-            const response = await fetch("/lesson.json"); // Fetching from the public folder
+            const response = await fetch("/lesson.json"); 
             const data = await response.json();
 
-            // Convert lessonId to a number before searching
-            const foundLesson = data.find((lesson) => lesson._id === Number(id));
+            
+            const foundLesson = data.find((lesson) => String(lesson._id) === id);
+
             setLesson(foundLesson || null);
         } catch (error) {
             console.error("Error fetching lesson details:", error);
         } finally {
-            setIsLoading(false); // Stop loading
+            setIsLoading(false); 
         }
     };
 
@@ -48,18 +73,9 @@ const Lesson = () => {
 
 
 if (isLoading) {
-  return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
-      <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-4 animate-pulse">
-        Generating with AI...
-      </p>
-      <div className="relative">
-        <div className="absolute inset-0 bg-indigo-300 opacity-30 rounded-full animate-ping"></div>
-        <div className="animate-spin rounded-full h-16 w-16 border-4 border-t-indigo-600 border-b-indigo-600 border-l-transparent border-r-transparent"></div>
-      </div>
-    </div>
-  );
+  return <AILoading />;
 }
+
 
 
   if (!lesson) {
@@ -87,7 +103,6 @@ if (isLoading) {
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            //dp mapping of Lessons
             <h1 className="text-2xl font-bold mb-2">{lesson?.title}</h1>
             <p className="text-gray-600">
               {lesson?.courseName} • Lesson {lesson?.order}
@@ -141,86 +156,93 @@ if (isLoading) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Content Tabs */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="border-b border-gray-200">
-              <nav className="flex -mb-px">
-                <button
-                  onClick={() => setActiveTab("content")}
-                  className={`py-4 px-6 text-sm font-medium ${
-                    activeTab === "content"
-                      ? "border-b-2 border-indigo-500 text-indigo-600"
-                      : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }`}
-                >
-                  <FileText className="h-5 w-5 inline mr-2" />
-                  Lesson Content
-                </button>
-                <button
-                  onClick={() => setActiveTab("examples")}
-                  className={`py-4 px-6 text-sm font-medium ${
-                    activeTab === "examples"
-                      ? "border-b-2 border-indigo-500 text-indigo-600"
-                      : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                  }`}
-                >
-                  <Code className="h-5 w-5 inline mr-2" />
-                  Code Examples
-                </button>
-              </nav>
-            </div>
+      {/* Content Tabs */}
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="border-b border-gray-200">
+          <nav className="flex -mb-px">
+            <button
+              onClick={() => setActiveTab("content")}
+              className={`py-4 px-6 text-sm font-medium ${
+                activeTab === "content"
+                  ? "border-b-2 border-indigo-500 text-indigo-600"
+                  : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              <FileText className="h-5 w-5 inline mr-2" />
+              Lesson Content
+            </button>
+            <button
+              onClick={() => setActiveTab("examples")}
+              className={`py-4 px-6 text-sm font-medium ${
+                activeTab === "examples"
+                  ? "border-b-2 border-indigo-500 text-indigo-600"
+                  : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
+              }`}
+            >
+              <Code className="h-5 w-5 inline mr-2" />
+              Code Examples
+            </button>
+          </nav>
+        </div>
 
-            <div className="p-6">
-              {activeTab === "content" ? (
-                <div className="prose max-w-none">
-                  {/* map content in html tags*/}
-                  <ReactMarkdown>{lesson?.content}</ReactMarkdown>
-
-                </div>
+        <div className="p-6">
+          {activeTab === "content" ? (
+            <div className="prose max-w-none">
+              {lesson?.content ? (
+                <TypingEffect text={lesson.content} cacheKey={`lesson-${lesson._id}`} />
               ) : (
-                <div className="space-y-6">
-                  {lesson?.codeExamples.map((example) => (
-                    <div
-                      key={example.id}
-                      className={`border rounded-lg p-4 ${
-                        selectedExample === example.id
-                          ? "border-indigo-500"
-                          : "border-gray-200"
-                      }`}
-                    >
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="font-medium">{example?.title}</h3>
-                        <button
-                          onClick={() =>
-                            setSelectedExample(
-                              selectedExample === example.id ? null : example.id
-                            )
-                          }
-                          className="text-indigo-600 hover:text-indigo-800"
-                        >
-                          {selectedExample === example.id ? "Hide" : "Show"}{" "}
-                          Explanation
-                        </button>
-                      </div>
-
-                      <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
-                        <code>{example.code}</code>
-                      </pre>
-
-                      {selectedExample === example.id && (
-                        <div className="mt-4 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md">
-                          <p className="text-sm text-gray-800">
-                            {example.explanation}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                  <span className="animate-pulse">Generating with AI...</span>
                 </div>
               )}
             </div>
-          </div>
+          ) : (
+            <div className="space-y-6">
+              {lesson?.codeExamples?.length > 0 ? (
+                lesson.codeExamples.map((example) => (
+                  <div
+                    key={example.id}
+                    className={`border rounded-lg p-4 ${
+                      selectedExample === example.id
+                        ? "border-indigo-500"
+                        : "border-gray-200"
+                    }`}
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="font-medium">{example?.title}</h3>
+                      <button
+                        onClick={() =>
+                          setSelectedExample(
+                            selectedExample === example.id ? null : example.id
+                          )
+                        }
+                        className="text-indigo-600 hover:text-indigo-800"
+                      >
+                        {selectedExample === example.id ? "Hide" : "Show"} Explanation
+                      </button>
+                    </div>
+
+                    <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
+                      <TypingEffect text={example.code} speed={3} cacheKey={`code-${example.id}`} />
+                    </pre>
+
+                    {selectedExample === example.id && (
+                      <div className="mt-4 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md">
+                        <TypingEffect text={example.explanation} speed={4} cacheKey={`explain-${example.id}`} />
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                  <span className="animate-pulse">Generating with AI...</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
+      </div>
+    </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
@@ -306,7 +328,7 @@ if (isLoading) {
             <h2 className="text-lg font-semibold mb-4">Next Steps</h2>
             <div className="space-y-4">
               <Link
-                to={`/dashboard/quiz/${lesson?.quiz.id}`}
+                to={`/dashboard/quiz/${lesson?.quiz?.id}`}
                 className="block w-full bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700 transition-colors"
               >
                 Take Quiz
@@ -329,3 +351,39 @@ if (isLoading) {
 };
 
 export default Lesson;
+const AILoading = () => {
+  const [loadingText, setLoadingText] = useState("Initializing AI...");
+  const messages = [
+    "Gathering knowledge...",
+    "Analyzing data...",
+    "Generating insights...",
+    "Finalizing response...",
+  ];
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < messages.length-1) {
+        setLoadingText(messages[index]);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 2000); // Changes text every 2 seconds for realism
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
+      <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-4 animate-pulse">
+        {loadingText}
+      </p>
+      <div className="relative flex space-x-2">
+        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-100"></div>
+        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
+        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-300"></div>
+      </div>
+    </div>
+  );
+};
