@@ -14,15 +14,16 @@ import {
 
 import axios from "axios";
 const AdminDashboard = () => {
-  const { currentUser } = useAuth();
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("teachers");
+  const [discussions, setDiscussions] = useState([]);
+  const [replyText, setReplyText] = useState({});
   const [users, setUsers] = useState({
     admins: [],
     teachers: [],
     students: [],
   });
-  const [discussions, setDiscussions] = useState([]);
-  const [replyText, setReplyText] = useState({});
+
   const [feedbacks, setFeedbacks] = useState([]);
   //delete feedback
   const handleDeleteFeedback = async (id) => {
@@ -81,40 +82,9 @@ const AdminDashboard = () => {
       return [];
     }
   };
+  //write code to get current user
 
   useEffect(() => {
-    setDiscussions([
-      {
-        id: 1,
-        user: "Israr Ahmad",
-        question: "How does React state work?",
-        responses: [
-          {
-            responder: "Teacher Jawaad",
-            role: "Teacher",
-            response: "React state stores dynamic data.",
-          },
-          {
-            responder: "Admin Ahmad",
-            role: "Admin",
-            response: "State updates cause component re-renders.",
-          },
-        ],
-      },
-      {
-        id: 2,
-        user: "Mehboob Ali",
-        question: "What is Express.js?",
-        responses: [
-          {
-            responder: "Teacher Ahmad",
-            role: "Teacher",
-            response: "It's a web framework for Node.js.",
-          },
-        ],
-      },
-    ]);
-
     const loadUsers = async () => {
       const [admins, teachers, students] = await Promise.all([
         fetchUsers("admin"),
@@ -127,44 +97,95 @@ const AdminDashboard = () => {
     loadUsers();
   }, []);
 
+  useEffect(() => {
+    axios.get("http://localhost:5001/api/discussions").then((res) => {
+      setDiscussions(res.data);
+    });
+  }, []);
+
+  // Function to handle teacher replies
   const handleReply = (discussionId) => {
-    if (!replyText[discussionId]) return;
-    setDiscussions((prev) =>
-      prev.map((d) =>
-        d.id === discussionId
-          ? {
-              ...d,
-              responses: [
-                ...d.responses,
-                {
-                  responder: "Admin (You)",
-                  role: "Admin",
-                  response: replyText[discussionId],
-                },
-              ],
-            }
-          : d
-      )
-    );
-    setReplyText({ ...replyText, [discussionId]: "" });
-  };
-  const handleDeleteDiscussion = (id) => {
-    setDiscussions(discussions.filter((d) => d.id !== id));
+    if (!replyText[discussionId] || !user) return;
+
+    axios
+      .post(`http://localhost:5001/api/discussions/${discussionId}/reply`, {
+        responder: user.name,
+        role: "admin",
+        response: replyText[discussionId],
+        responderId: user.id,
+      })
+      .then((res) => {
+        setDiscussions((prev) =>
+          prev.map((discussion) =>
+            discussion._id === discussionId ? res.data : discussion
+          )
+        );
+        setReplyText((prev) => ({ ...prev, [discussionId]: "" }));
+      });
   };
 
-  const handleDeleteReply = (discussionId, replyIndex) => {
-    setDiscussions((prevDiscussions) =>
-      prevDiscussions.map((discussion) =>
-        discussion.id === discussionId
-          ? {
-              ...discussion,
-              responses: discussion.responses.filter(
-                (_, index) => index !== replyIndex
-              ),
-            }
-          : discussion
-      )
-    );
+  const handleDeleteDiscussion = async (discussionId) => {
+    if (!user || (user.role !== "admin" && user.name !== discussion.user)) {
+      console.error("Not authorized to delete this discussion.");
+      return;
+    }
+
+    try {
+      const endpoint =
+        user.role === "admin"
+          ? `/api/admin/discussions/${discussionId}`
+          : `/api/discussions/${discussionId}`;
+
+      await axios.delete(`http://localhost:5001${endpoint}`, {
+        data: { user: user.name, role: user.role },
+      });
+
+      setDiscussions((prev) =>
+        prev.filter((discussion) => discussion._id !== discussionId)
+      );
+    } catch (err) {
+      console.error(
+        "Error deleting discussion:",
+        err.response?.data || err.message
+      );
+    }
+  };
+
+  const handleDeleteReply = async (discussionId, replyId, responder) => {
+    if (!user) return;
+
+    const isAdmin = user.role === "admin";
+    const isReplyOwner = user.name === responder;
+
+    if (!isAdmin && !isReplyOwner) {
+      console.error("Not authorized to delete this reply.");
+      return;
+    }
+
+    try {
+      const endpoint = isAdmin
+        ? `/api/admin/discussions/${discussionId}/replies/${replyId}`
+        : `/api/discussions/${discussionId}/reply/${replyId}`;
+
+      await axios.delete(`http://localhost:5001${endpoint}`, {
+        data: { user: user.name, role: user.role },
+      });
+
+      setDiscussions((prev) =>
+        prev.map((discussion) =>
+          discussion._id === discussionId
+            ? {
+                ...discussion,
+                responses: discussion.responses.filter(
+                  (r) => r._id !== replyId
+                ),
+              }
+            : discussion
+        )
+      );
+    } catch (err) {
+      console.error("Error deleting reply:", err.response?.data || err.message);
+    }
   };
 
   const renderTable = () => {
@@ -240,8 +261,7 @@ const AdminDashboard = () => {
     <div className="container mx-auto px-6 py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-1">Admin Dashboard</h1>
       <p className="text-gray-600  mb-6">
-        Welcome back, {currentUser?.name}. Here's what's happening on your
-        platform.
+        Welcome back, {user.name}. Here's what's happening on your platform.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {[
@@ -261,7 +281,6 @@ const AdminDashboard = () => {
           </div>
         ))}
       </div>
-
       <div className="flex space-x-4 mb-6">
         {["teachers", "students", "admins"].map((tab) => (
           <button
@@ -277,18 +296,17 @@ const AdminDashboard = () => {
           </button>
         ))}
       </div>
-
       {renderTable()}
-
       {/* Discussion Section */}
-      <div className="bg-white rounded-lg shadow-md divide-y divide-gray-200 my-5 ">
+      <div className="bg-white rounded-lg shadow-md divide-y divide-gray-200 my-5">
         <div className="flex justify-between items-center bg-indigo-600 p-3 rounded-t-lg">
-          <h2 className=" text-lg font-semibold flex items-center text-white mb-4">
+          <h2 className="text-lg font-semibold flex items-center text-white">
             <MessageCircle className="mr-2" /> Student Discussions (Admin Panel)
           </h2>
         </div>
+
         {discussions.map((discussion) => (
-          <div key={discussion.id} className="p-6 hover:bg-gray-50">
+          <div key={discussion._id} className="p-6 hover:bg-gray-50">
             {/* Question Section */}
             <div className="flex justify-between items-center">
               <div>
@@ -300,12 +318,15 @@ const AdminDashboard = () => {
                 </p>
               </div>
 
-              <button
-                onClick={() => handleDeleteDiscussion(discussion.id)}
-                className="text-red-600 hover:text-red-800"
-              >
-                <Trash2 className="h-5 w-5" />
-              </button>
+              {/* Admin Delete Discussion Button */}
+              {user && user.role === "admin" && (
+                <button
+                  onClick={() => handleDeleteDiscussion(discussion._id)}
+                  className="text-red-600 hover:text-red-800"
+                >
+                  <Trash2 className="h-5 w-5" />
+                </button>
+              )}
             </div>
 
             {/* Responses Section */}
@@ -314,26 +335,38 @@ const AdminDashboard = () => {
                 <h3 className="text-md font-medium text-gray-700">
                   Responses:
                 </h3>
-                {discussion.responses.map((reply, index) => (
+                {discussion.responses.map((reply) => (
                   <div
-                    key={index}
+                    key={reply._id}
                     className="bg-gray-100 rounded-md p-4 flex justify-between items-center"
                   >
                     <div>
                       <p className="text-sm text-gray-500">
                         {reply.responder}
-                        <span className="m-7 px-4 py-1   rounded-2xl text-white bg-blue-500">
+                        <span className="ml-4 px-4 py-1 rounded-2xl text-white bg-blue-500">
                           {reply.role}
-                        </span>{" "}
+                        </span>
                       </p>
                       <p className="text-gray-800">{reply.response}</p>
                     </div>
-                    <button
-                      onClick={() => handleDeleteReply(discussion.id, index)}
-                      className="text-red-600 hover:text-red-800"
-                    >
-                      <Trash2 className="h-5 w-5" />
-                    </button>
+
+                    {/* Admin can delete any reply, users can delete their own */}
+                    {user &&
+                      (user.role === "admin" ||
+                        user.name === reply.responder) && (
+                        <button
+                          onClick={() =>
+                            handleDeleteReply(
+                              discussion._id,
+                              reply._id,
+                              reply.responder
+                            )
+                          }
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <Trash2 className="h-5 w-5" />
+                        </button>
+                      )}
                   </div>
                 ))}
               </div>
@@ -344,17 +377,17 @@ const AdminDashboard = () => {
               <input
                 type="text"
                 placeholder="Reply to this discussion..."
-                value={replyText[discussion.id] || ""}
+                value={replyText[discussion._id] || ""}
                 onChange={(e) =>
                   setReplyText((prev) => ({
                     ...prev,
-                    [discussion.id]: e.target.value,
+                    [discussion._id]: e.target.value,
                   }))
                 }
                 className="w-full p-2 border rounded-md"
               />
               <button
-                onClick={() => handleReply(discussion.id)}
+                onClick={() => handleReply(discussion._id)}
                 className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
               >
                 Reply
@@ -363,7 +396,6 @@ const AdminDashboard = () => {
           </div>
         ))}
       </div>
-
       {/* Feedback & Ratings Section */}
       <div className="bg-white shadow-lg rounded-lg mt-8">
         <h2 className="text-lg font-semibold p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white flex items-center rounded-t-lg">

@@ -9,7 +9,9 @@ const Profile = () => {
   const [email, setEmail] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const { darkMode, setDarkMode } = useTheme();
-  const [notifications, setNotifications] = useState(localStorage.getItem("notifications") === "true");
+  const [notifications, setNotifications] = useState(
+    localStorage.getItem("notifications") === "true"
+  );
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const navigate = useNavigate();
   const [completedCourses, setCompletedCourses] = useState([
@@ -37,10 +39,24 @@ const Profile = () => {
   };
 
   return (
-    <div className={`max-w-3xl mx-auto p-6 transition-all ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
-      <div className={`rounded-xl shadow-lg overflow-hidden ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+    <div
+      className={`max-w-3xl mx-auto p-6 transition-all ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <div
+        className={`rounded-xl shadow-lg overflow-hidden ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
         {/* Tabs */}
-        <div className={`flex border-b ${darkMode ? "border-gray-700 bg-gray-700" : "border-gray-200 bg-gray-100"} p-3`}>
+        <div
+          className={`flex border-b ${
+            darkMode
+              ? "border-gray-700 bg-gray-700"
+              : "border-gray-200 bg-gray-100"
+          } p-3`}
+        >
           {["profile", "settings", "achievements"].map((tab) => (
             <button
               key={tab}
@@ -65,7 +81,9 @@ const Profile = () => {
         <div className="p-6">
           {activeTab === "profile" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">Profile Information</h2>
+              <h2 className="text-xl font-semibold mb-6">
+                Profile Information
+              </h2>
               <form onSubmit={handleUpdateProfile} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium">Full Name</label>
@@ -82,7 +100,9 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Email Address</label>
+                  <label className="block text-sm font-medium">
+                    Email Address
+                  </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input
@@ -116,7 +136,7 @@ const Profile = () => {
           {activeTab === "settings" && (
             <div>
               <h2 className="text-xl font-semibold mb-6">Settings</h2>
-              
+
               {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
@@ -124,11 +144,11 @@ const Profile = () => {
                   <span>Dark Mode</span>
                 </div>
                 <button
-        onClick={() => setDarkMode(!darkMode)}
-        className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
-      >
-        {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-      </button>
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+                >
+                  {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                </button>
               </div>
 
               {/* Notification Toggle */}
@@ -139,17 +159,24 @@ const Profile = () => {
                 </div>
                 <button
                   onClick={() => setNotifications(!notifications)}
-                  className={`w-12 h-6 flex items-center rounded-full transition-all ${notifications ? "bg-indigo-600" : "bg-gray-300"}`}
+                  className={`w-12 h-6 flex items-center rounded-full transition-all ${
+                    notifications ? "bg-indigo-600" : "bg-gray-300"
+                  }`}
                 >
                   <div
-                    className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-all ${notifications ? "translate-x-6" : "translate-x-0"}`}
+                    className={`w-6 h-6 bg-white rounded-full shadow-md transform transition-all ${
+                      notifications ? "translate-x-6" : "translate-x-0"
+                    }`}
                   />
                 </button>
               </div>
 
               {/* Delete Account */}
               <div className="mt-6">
-                <button onClick={() => setShowConfirmPopup(true)} className="flex items-center text-red-600 hover:text-red-800 font-medium">
+                <button
+                  onClick={() => setShowConfirmPopup(true)}
+                  className="flex items-center text-red-600 hover:text-red-800 font-medium"
+                >
                   <Trash className="h-5 w-5 mr-2" />
                   Delete Account
                 </button>
@@ -160,13 +187,24 @@ const Profile = () => {
           {showConfirmPopup && (
             <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
               <div className="bg-white rounded-lg p-6 shadow-lg w-96">
-                <h3 className="text-lg font-semibold mb-4">Confirm Account Deletion</h3>
-                <p className="text-sm text-gray-600 mb-6">Are you sure you want to delete your account? This action cannot be undone.</p>
+                <h3 className="text-lg font-semibold mb-4">
+                  Confirm Account Deletion
+                </h3>
+                <p className="text-sm text-gray-600 mb-6">
+                  Are you sure you want to delete your account? This action
+                  cannot be undone.
+                </p>
                 <div className="flex justify-end space-x-4">
-                  <button onClick={() => setShowConfirmPopup(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+                  <button
+                    onClick={() => setShowConfirmPopup(false)}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  >
                     Cancel
                   </button>
-                  <button onClick={handleDeleteAccount} className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                  <button
+                    onClick={handleDeleteAccount}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                  >
                     Delete
                   </button>
                 </div>
@@ -175,7 +213,9 @@ const Profile = () => {
           )}
           {activeTab === "achievements" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6 text-gray-800">Your Achievements</h2>
+              <h2 className="text-xl font-semibold mb-6 text-gray-800">
+                Your Achievements
+              </h2>
 
               <div className="space-y-4">
                 {completedCourses.length === 0 ? (
@@ -184,10 +224,17 @@ const Profile = () => {
                   </p>
                 ) : (
                   completedCourses.map((course) => (
-                    <div key={course._id} className="bg-gray-50 p-4 rounded-md flex justify-between items-center">
+                    <div
+                      key={course._id}
+                      className="bg-gray-50 p-4 rounded-md flex justify-between items-center"
+                    >
                       <div>
-                        <h4 className="font-medium text-gray-700">{course.title}</h4>
-                        <p className="text-sm text-gray-500">Completed on {course.completedAt}</p>
+                        <h4 className="font-medium text-gray-700">
+                          {course.title}
+                        </h4>
+                        <p className="text-sm text-gray-500">
+                          Completed on {course.completedAt}
+                        </p>
                       </div>
                       <button className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
                         View Certificate
