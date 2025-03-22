@@ -5,7 +5,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Student Pages
 import Home from "./pages/Home";
-import Courses from "./pages/courses";
+import Courses from "./pages/Courses";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
 import Dashboard from "./pages/Dashboard";

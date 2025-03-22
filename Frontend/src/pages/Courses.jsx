@@ -36,7 +36,7 @@ const Courses = () => {
               lessons: 15,
               students: 2130,
               rating: 4.8,
-              image: 'https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+              image: 'https://images.unsplash.com/photo-1624953587687-daf255b6b80a?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
             },
             {
               _id: '3',

@@ -3,9 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Clock, AlertCircle, CheckCircle, ChevronRight, ChevronLeft, Award } from 'lucide-react';
 
-
 const Quiz = () => {
-  const { quizId } = useParams();
+  const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState(null);
@@ -18,108 +17,30 @@ const Quiz = () => {
   const [quizResult, setQuizResult] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [startTime, setStartTime] = useState(null);
+  const [showCertificate, setShowCertificate] = useState(false);
 
   useEffect(() => {
     const fetchQuizDetails = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Mock data
-        const mockQuiz = {
-          _id: quizId || '1',
-          title: 'JavaScript Variables and Data Types Quiz',
-          description: 'Test your knowledge of JavaScript variables and data types covered in the lesson.',
-          courseId: '1',
-          courseName: 'JavaScript Fundamentals',
-          lessonId: '101',
-          lessonTitle: 'Variables and Data Types',
-          questions: [
-            {
-              id: '1',
-              question: 'Which of the following is NOT a primitive data type in JavaScript?',
-              options: [
-                { id: 'a', text: 'String', isCorrect: false },
-                { id: 'b', text: 'Number', isCorrect: false },
-                { id: 'c', text: 'Boolean', isCorrect: false },
-                { id: 'd', text: 'Array', isCorrect: true }
-              ],
-              explanation: 'Array is a complex data type (object), not a primitive. The primitive data types in JavaScript are: String, Number, Boolean, Undefined, Null, Symbol, and BigInt.',
-              type: 'multiple-choice',
-              difficulty: 'easy',
-              points: 1
-            },
-            {
-              id: '2',
-              question: 'What will be the output of the following code?\n\nlet x = 10;\nlet y = "5";\nconsole.log(x + y);',
-              options: [
-                { id: 'a', text: '15', isCorrect: false },
-                { id: 'b', text: '"105"', isCorrect: true },
-                { id: 'c', text: '105', isCorrect: false },
-                { id: 'd', text: 'Error', isCorrect: false }
-              ],
-              explanation: 'When you add a number and a string in JavaScript, the number is converted to a string and concatenation occurs. So 10 + "5" becomes "10" + "5", which results in "105".',
-              type: 'multiple-choice',
-              difficulty: 'medium',
-              points: 2
-            },
-            {
-              id: '3',
-              question: 'Which statement about const is true?',
-              options: [
-                { id: 'a', text: 'const variables cannot be reassigned', isCorrect: true },
-                { id: 'b', text: 'const variables cannot be modified at all', isCorrect: false },
-                { id: 'c', text: 'const only works with primitive values', isCorrect: false },
-                { id: 'd', text: 'const is not supported in modern browsers', isCorrect: false }
-              ],
-              explanation: 'const variables cannot be reassigned to a different value, but if the value is an object or array, the properties or elements can still be modified. The variable binding is immutable, not the value itself.',
-              type: 'multiple-choice',
-              difficulty: 'medium',
-              points: 2
-            },
-            {
-              id: '4',
-              question: 'What is the typeof null in JavaScript?',
-              options: [
-                { id: 'a', text: '"null"', isCorrect: false },
-                { id: 'b', text: '"undefined"', isCorrect: false },
-                { id: 'c', text: '"object"', isCorrect: true },
-                { id: 'd', text: '"boolean"', isCorrect: false }
-              ],
-              explanation: 'In JavaScript, typeof null returns "object", which is considered a bug in the language. Ideally, it should return "null", but this behavior has been maintained for backward compatibility.',
-              type: 'multiple-choice',
-              difficulty: 'medium',
-              points: 2
-            },
-            {
-              id: '5',
-              question: 'Which of the following is true about variable hoisting in JavaScript?',
-              options: [
-                { id: 'a', text: 'let and const are hoisted but not initialized', isCorrect: true },
-                { id: 'b', text: 'Only function declarations are hoisted', isCorrect: false },
-                { id: 'c', text: 'var, let, and const are all hoisted and initialized with undefined', isCorrect: false },
-                { id: 'd', text: 'Hoisting is no longer supported in modern JavaScript', isCorrect: false }
-              ],
-              explanation: 'In JavaScript, var declarations are hoisted and initialized with undefined. let and const declarations are also hoisted but not initialized, resulting in a "temporal dead zone" where accessing them before declaration results in a ReferenceError.',
-              type: 'multiple-choice',
-              difficulty: 'hard',
-              points: 3
-            }
-          ],
-          timeLimit: 10, 
-          passingScore: 70
-        };
-        
-        setQuiz(mockQuiz);
-        setTimeRemaining(mockQuiz.timeLimit * 60);
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+  
+        const response = await fetch(`http://localhost:5001/api/quizzes/${id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const foundQuiz = await response.json();
+        setQuiz(foundQuiz);
+        setTimeRemaining(foundQuiz.timeLimit * 60);
       } catch (error) {
-        console.error('Error fetching quiz details:', error);
+        console.error("Error fetching quiz details:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchQuizDetails();
-  }, [quizId]);
+  }, [id]);
 
   useEffect(() => {
     let timer;
@@ -141,7 +62,6 @@ const Quiz = () => {
     };
   }, [quizStarted, quizSubmitted, timeRemaining]);
   
-
   const handleStartQuiz = () => {
     setQuizStarted(true);
     setStartTime(Date.now());
@@ -171,9 +91,9 @@ const Quiz = () => {
     }
   };
 
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = async () => {
     if (!quiz) return;
-    
+  
     const endTime = Date.now();
     const timeSpent = startTime ? Math.floor((endTime - startTime) / 1000) : 0;
   
@@ -199,8 +119,41 @@ const Quiz = () => {
       };
     });
   
-    const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0; // Prevent NaN%
+    const percentage = totalPoints > 0 ? Math.round((score / totalPoints) * 100) : 0;
     const passed = percentage >= quiz.passingScore;
+  
+    if (passed) {
+      const certificateData = {
+        studentId: user?._id, // Ensure correct user ID field
+        studentName: user?.name || "Student",
+        courseId: quiz.courseId,
+        courseName: quiz.courseName,
+        date: new Date().toISOString(),
+        percentage: percentage,
+      };
+  
+      console.log("Sending certificate data:", certificateData); // Debugging
+  
+      try {
+        const response = await fetch("http://localhost:5001/api/certificates", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}` // Ensure token is included
+          },
+          body: JSON.stringify(certificateData),
+        });
+        
+        const responseData = await response.json();
+        console.log("Response from server:", responseData); // Debugging
+  
+        if (!response.ok) {
+          throw new Error(responseData.message || "Failed to save certificate");
+        }
+      } catch (error) {
+        console.error("Error saving certificate:", error);
+      }
+    }
   
     setQuizResult({
       score,
@@ -210,11 +163,13 @@ const Quiz = () => {
       totalQuestions: quiz.questions.length,
       passed,
       answers,
-      timeSpent
+      timeSpent,
     });
   
     setQuizSubmitted(true);
-  };
+};
+  
+  
   
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -441,11 +396,55 @@ const Quiz = () => {
               Back to Lesson
             </Link>
           )}
+  
         </div>
+        {quizResult?.passed && (
+  <div className="text-center mt-6">
+    <h2 className="text-xl font-semibold text-green-600">🎉 Congratulations! 🎉</h2>
+    <p className="text-gray-600">You have successfully completed the course.</p>
+
+    {/* View Certificate Button */}
+    <button 
+      onClick={() => setShowCertificate(true)} 
+      className="bg-indigo-600 text-white px-6 py-3 mt-4 rounded-md hover:bg-indigo-700 transition"
+    >
+      View Certificate 📜
+    </button>
+
+    {/* Certificate Div (Only visible when button is clicked) */}
+    {showCertificate && (
+      <div 
+        id="certificate" 
+        className="bg-white shadow-xl border border-gray-300 p-6 rounded-lg max-w-2xl mx-auto mt-6 text-center"
+      >
+        <h1 className="text-3xl font-bold text-indigo-700">Certificate of Completion</h1>
+        <p className="text-lg text-gray-700 mt-2">
+          This is to certify that
+          <span className="block text-2xl font-semibold mt-1">{user?.name || "Student"}</span>
+          has successfully completed the course
+        </p>
+        <h2 className="text-xl font-bold text-indigo-600 mt-2">{quiz.courseName}</h2>
+        <p className="text-gray-500 mt-1">with a passing score of {quizResult.percentage}%.</p>
+
+        <div className="mt-6 flex justify-between px-8">
+          <div>
+            <p className="border-t border-gray-500 w-40 mx-auto text-gray-700">Instructor</p>
+          </div>
+          <div>
+            <p className="border-t border-gray-500 w-40 mx-auto text-gray-700">Completion Date: {new Date().toLocaleDateString()}</p>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+)}
+
+
+
       </div>
     );
   }
-
+  
   const currentQuestion = getCurrentQuestion();
 
   if (!currentQuestion) {
@@ -574,7 +573,7 @@ const Quiz = () => {
           </div>
         </div>
       </div>
-
+    
       {/* Question Navigation */}
       <div className="border-t border-gray-200 pt-6">
         <h3 className="font-medium mb-3">Question Navigation</h3>

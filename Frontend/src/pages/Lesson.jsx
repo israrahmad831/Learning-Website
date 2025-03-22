@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import {
   BookOpen,
   Clock,
@@ -12,71 +13,173 @@ import {
   CheckCircle,
   X,
 } from "lucide-react";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from "react-markdown";
 
-const TypingEffect = ({ text, speed = 10, cacheKey }) => {
-  const [displayedText, setDisplayedText] = useState(
-    sessionStorage.getItem(cacheKey) || ""
-  );
+const TypingEffect = ({ text = "", speed = 10 }) => {
+  const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    if (!text || sessionStorage.getItem(cacheKey)) return; // Prevent re-typing
+    if (!text) return;
 
     let index = 0;
+    setDisplayedText("");
+
     const interval = setInterval(() => {
       if (index < text.length) {
-        setDisplayedText((prev) => prev + text[index]);
+        setDisplayedText((prev) => prev + text.charAt(index));
         index++;
       } else {
         clearInterval(interval);
-        sessionStorage.setItem(cacheKey, text); // Store in sessionStorage
       }
-    }, speed); // Faster typing speed
+    }, speed);
 
     return () => clearInterval(interval);
-  }, [text, cacheKey]);
+  }, [text]); // Depend only on `text`
 
   return <ReactMarkdown>{displayedText}</ReactMarkdown>;
 };
 
 const Lesson = () => {
-
   const { id } = useParams();
+  const { user, loading, fetchUser, isAuthenticated  } = useAuth();
   const [lesson, setLesson] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("content");
   const [selectedExample, setSelectedExample] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const [hasCertificate, setHasCertificate] = useState(false);
+  const [error, setError] = useState("");
 
-  useEffect(() => { 
+ 
+  useEffect(() => {
+    console.log("🔄 Checking auth state...", { user });
+
+    // If authentication is still loading, wait
+    if (loading) {
+      console.warn("⏳ Waiting for authentication...");
+      return;
+    }
+
+    // If user is null, try fetching user
+    if (!user) {
+      console.warn("🔄 Fetching user...");
+      fetchUser();
+      return;
+    }
+
+    // If authentication still fails, show error
+    if (!isAuthenticated || !user?._id) {
+      console.error("❌ User not authenticated");
+      setError("User not authenticated");
+      setIsLoading(false);
+      return;
+    }
+
     const fetchLessonDetails = async () => {
-        try {
-            setIsLoading(true); 
-            await new Promise((resolve) => setTimeout(resolve, 500)); 
-            
-            const response = await fetch("/lesson.json"); 
-            const data = await response.json();
+      try {
+        setIsLoading(true);
+        setError("");
 
-            
-            const foundLesson = data.find((lesson) => String(lesson._id) === id);
-
-            setLesson(foundLesson || null);
-        } catch (error) {
-            console.error("Error fetching lesson details:", error);
-        } finally {
-            setIsLoading(false); 
+        // Ensure token is present
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("❌ Authentication token missing");
+          setError("Authentication token missing");
+          setIsLoading(false);
+          return;
         }
+
+        console.log("📡 Fetching lesson details...");
+
+        const response = await fetch(`http://localhost:5001/api/lessons/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch lesson details");
+
+        const data = await response.json();
+        setLesson(data);
+        console.log("✅ Lesson fetched:", data);
+
+        // ✅ Fetch progress
+        const progressResponse = await fetch(
+          `http://localhost:5001/api/courses/${data.courseId}/progress`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (progressResponse.ok) {
+          const progressData = await progressResponse.json();
+          setProgress(progressData.progress || 0);
+          setIsCompleted(progressData.completedLessons.includes(id));
+          console.log("📊 Progress:", progressData);
+        }
+
+        // ✅ Fetch certificates
+        const certificateResponse = await fetch(
+          `http://localhost:5001/api/certificates/${user._id || user.id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (certificateResponse.ok) {
+          const certificates = await certificateResponse.json();
+          setHasCertificate(
+            certificates.some((cert) => cert.courseId === data.courseId)
+          );
+          console.log("🎓 Certificates:", certificates);
+        }
+      } catch (err) {
+        console.error("❌ Error fetching lesson details:", err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchLessonDetails();
-}, [id]);
+  }, [id, user, loading]);
+  const handleCompleteLesson = async () => {
+    if (isCompleted || !lesson) return;
 
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You need to log in to complete the lesson.");
+      return;
+    }
 
-if (isLoading) {
-  return <AILoading />;
-}
+    try {
+      console.log("✅ Marking lesson as completed...");
+      const response = await fetch(
+        `http://localhost:5001/api/courses/${lesson.courseId}/complete-lesson`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ lessonId: id }),
+        }
+      );
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to update lesson completion");
+      }
 
+      const data = await response.json();
+      console.log("✅ Lesson completion updated:", data);
+      setIsCompleted(true);
+      setProgress(data.progress);
+    } catch (error) {
+      console.error("❌ Error completing lesson:", error);
+      alert(error.message);
+    }
+  };
+
+  if (isLoading) {
+    return <AILoading />;
+  }
 
   if (!lesson) {
     return (
@@ -156,108 +259,118 @@ if (isLoading) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-      {/* Content Tabs */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="border-b border-gray-200">
-          <nav className="flex -mb-px">
-            <button
-              onClick={() => setActiveTab("content")}
-              className={`py-4 px-6 text-sm font-medium ${
-                activeTab === "content"
-                  ? "border-b-2 border-indigo-500 text-indigo-600"
-                  : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              <FileText className="h-5 w-5 inline mr-2" />
-              Lesson Content
-            </button>
-            <button
-              onClick={() => setActiveTab("examples")}
-              className={`py-4 px-6 text-sm font-medium ${
-                activeTab === "examples"
-                  ? "border-b-2 border-indigo-500 text-indigo-600"
-                  : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-            >
-              <Code className="h-5 w-5 inline mr-2" />
-              Code Examples
-            </button>
-          </nav>
-        </div>
-
-        <div className="p-6">
-          {activeTab === "content" ? (
-            <div className="prose max-w-none">
-              {lesson?.content ? (
-                <TypingEffect text={lesson.content} cacheKey={`lesson-${lesson._id}`} />
-              ) : (
-                <div className="text-indigo-600 text-lg font-semibold flex items-center">
-                  <span className="animate-pulse">Generating with AI...</span>
-                </div>
-              )}
+          {/* Content Tabs */}
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="border-b border-gray-200">
+              <nav className="flex -mb-px">
+                <button
+                  onClick={() => setActiveTab("content")}
+                  className={`py-4 px-6 text-sm font-medium ${
+                    activeTab === "content"
+                      ? "border-b-2 border-indigo-500 text-indigo-600"
+                      : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  <FileText className="h-5 w-5 inline mr-2" />
+                  Lesson Content
+                </button>
+                <button
+                  onClick={() => setActiveTab("examples")}
+                  className={`py-4 px-6 text-sm font-medium ${
+                    activeTab === "examples"
+                      ? "border-b-2 border-indigo-500 text-indigo-600"
+                      : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  }`}
+                >
+                  <Code className="h-5 w-5 inline mr-2" />
+                  Code Examples
+                </button>
+              </nav>
             </div>
-          ) : (
-            <div className="space-y-6">
-              {lesson?.codeExamples?.length > 0 ? (
-                lesson.codeExamples.map((example) => (
-                  <div
-                    key={example.id}
-                    className={`border rounded-lg p-4 ${
-                      selectedExample === example.id
-                        ? "border-indigo-500"
-                        : "border-gray-200"
-                    }`}
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-medium">{example?.title}</h3>
-                      <button
-                        onClick={() =>
-                          setSelectedExample(
-                            selectedExample === example.id ? null : example.id
-                          )
-                        }
-                        className="text-indigo-600 hover:text-indigo-800"
-                      >
-                        {selectedExample === example.id ? "Hide" : "Show"} Explanation
-                      </button>
+
+            <div className="p-6">
+              {activeTab === "content" ? (
+                <div className="prose max-w-none">
+                  {lesson?.content ? (
+                    <TypingEffect text={lesson.content} />
+                  ) : (
+                    <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                      <span className="animate-pulse">
+                        Generating with AI...
+                      </span>
                     </div>
-
-                    <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
-                      <TypingEffect text={example.code} speed={3} cacheKey={`code-${example.id}`} />
-                    </pre>
-
-                    {selectedExample === example.id && (
-                      <div className="mt-4 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md">
-                        <TypingEffect text={example.explanation} speed={4} cacheKey={`explain-${example.id}`} />
-                      </div>
-                    )}
-                  </div>
-                ))
+                  )}
+                </div>
               ) : (
-                <div className="text-indigo-600 text-lg font-semibold flex items-center">
-                  <span className="animate-pulse">Generating with AI...</span>
+                <div className="space-y-6">
+                  {lesson?.codeExamples?.length > 0 ? (
+                    lesson.codeExamples.map((example) => (
+                      <div
+                        key={example.id}
+                        className={`border rounded-lg p-4 ${
+                          selectedExample === example.id
+                            ? "border-indigo-500"
+                            : "border-gray-200"
+                        }`}
+                      >
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="font-medium">{example?.title}</h3>
+                          <button
+                            onClick={() =>
+                              setSelectedExample(
+                                selectedExample === example.id
+                                  ? null
+                                  : example.id
+                              )
+                            }
+                            className="text-indigo-600 hover:text-indigo-800"
+                          >
+                            {selectedExample === example.id ? "Hide" : "Show"}{" "}
+                            Explanation
+                          </button>
+                        </div>
+
+                        <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
+                          <TypingEffect text={example?.code} speed={2} />
+                        </pre>
+
+                        {selectedExample === example?.id && (
+                          <div className="mt-4 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md">
+                            <TypingEffect
+                              text={example?.explanation}
+                              speed={3}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                      <span className="animate-pulse">
+                        This content is out my limit
+                      </span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Progress */}
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="bg-white rounded-lg shadow-md p-6 mt-6">
             <h2 className="text-lg font-semibold mb-4">Your Progress</h2>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-sm">
                 <span>Course Progress</span>
-                <span className="font-medium">65%</span>
+                <span className="font-medium">{progress}%</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
                   className="bg-indigo-600 h-2 rounded-full"
-                  style={{ width: "65%" }}
+                  style={{ width: `${progress}%` }}
                 ></div>
               </div>
             </div>
@@ -327,12 +440,46 @@ if (isLoading) {
           <div className="bg-white rounded-lg shadow-md p-6">
             <h2 className="text-lg font-semibold mb-4">Next Steps</h2>
             <div className="space-y-4">
-              {lesson.nextLesson===null&& <Link
-                to={`/dashboard/quiz/${lesson?.quiz?.id}`}
-                className="block w-full bg-indigo-600 text-white text-center py-2 rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                Take Quiz
-              </Link>}
+              {lesson.nextLesson === null && (
+                <div className="text-center p-4 border border-gray-300 rounded-md bg-gray-50">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    🎓 Earn Your Certificate!
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Complete the final quiz to receive your official course
+                    certificate.
+                  </p>
+                  {hasCertificate ? (
+  <div className="text-center p-4 border border-green-500 rounded-md bg-green-50">
+    <h3 className="text-lg font-semibold text-green-800">🎉 Certificate Earned!</h3>
+    <p className="text-sm text-gray-600">You've successfully completed the course and earned a certificate.</p>
+    <a
+     href={`/dashboard/profile`}
+     // Link to certificate
+      className="mt-3 block w-full text-center py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors"
+    >
+      View Certificate
+    </a>
+  </div>
+) : (
+  <Link
+    to={progress > 80 ? `/dashboard/quiz/${lesson?.courseId}` : "#"}
+    className={`mt-3 block w-full text-center py-2 rounded-md transition-colors ${
+      progress > 80
+        ? "bg-indigo-600 text-white hover:bg-indigo-700"
+        : "bg-gray-400 text-gray-200 cursor-not-allowed"
+    }`}
+  >
+    {progress > 80 ? "Take Final Quiz" : "Complete More Lessons to Unlock"}
+  </Link>
+)}
+
+
+
+
+
+                </div>
+              )}
 
               {lesson?.nextLesson && (
                 <Link
@@ -342,6 +489,17 @@ if (isLoading) {
                   Next Lesson: {lesson?.nextLesson.title}
                 </Link>
               )}
+              <button
+                onClick={handleCompleteLesson}
+                className={`w-full py-3 px-6 rounded-md text-white font-bold transition ${
+                  isCompleted
+                    ? "bg-green-500 cursor-not-allowed"
+                    : "bg-indigo-600 hover:bg-indigo-700"
+                }`}
+                disabled={isCompleted}
+              >
+                {isCompleted ? "✅ Lesson Completed" : "Mark as Completed"}
+              </button>
             </div>
           </div>
         </div>
@@ -363,11 +521,12 @@ const AILoading = () => {
   useEffect(() => {
     let index = 0;
     const interval = setInterval(() => {
-      if (index < messages.length-1) {
-        setLoadingText(messages[index]);
-        index++;
-      } else {
+      setLoadingText(messages[index]);
+
+      if (index >= messages.length - 1) {
         clearInterval(interval);
+      } else {
+        index++;
       }
     }, 2000); // Changes text every 2 seconds for realism
 
