@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PlusCircle, MessageCircle, Edit, User, Trash2 } from "lucide-react"; // Added missing imports
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-
+import axios from "axios";
 const TeacherDashboard = () => {
   const { user } = useAuth();
   const [lessons, setLessons] = useState([]);
@@ -22,83 +22,69 @@ const TeacherDashboard = () => {
       ]);
     };
 
-    setDiscussions([
-      {
-        id: 1,
-        user: "Israr Ahmad",
-        question: "How does React state work?",
-        responses: [
-          {
-            responder: "Teacher Jawaad",
-            role: "Teacher",
-            response: "React state stores dynamic data.",
-          },
-          {
-            responder: "Admin Ahmad",
-            role: "Admin",
-            response: "State updates cause component re-renders.",
-          },
-        ],
-      },
-      {
-        id: 2,
-        user: "Mehboob Ali",
-        question: "What is Express.js?",
-        responses: [
-          {
-            responder: "Teacher Ahmad",
-            role: "Teacher",
-            response: "It's a web framework for Node.js.",
-          },
-        ],
-      },
-    ]);
-
     fetchLessons();
   }, []);
 
-  // Function to handle reply submission
-  const handleReply = (discussionId) => {
-    if (!replyText[discussionId]) return;
-
-    const updatedDiscussions = discussions.map((discussion) => {
-      if (discussion.id === discussionId) {
-        return {
-          ...discussion,
-          responses: [
-            ...discussion.responses,
-            {
-              responder: user.name, 
-              role: "Teacher",
-              response: replyText[discussionId],
-            },
-          ],
-        };
-      }
-      return discussion;
+  useEffect(() => {
+    axios.get("http://localhost:5001/api/discussions").then((res) => {
+      setDiscussions(res.data);
     });
+  }, []);
 
-    setDiscussions(updatedDiscussions);
-    setReplyText({ ...replyText, [discussionId]: "" });
-  };
-  const handleDeleteReply = (discussionId, replyIndex) => {
-    setDiscussions((prevDiscussions) =>
-      prevDiscussions.map((discussion) =>
-        discussion.id === discussionId
-          ? {
-              ...discussion,
-              responses: discussion.responses.filter(
-                (_, index) => index !== replyIndex
-              ),
-            }
-          : discussion
-      )
-    );
+  // Function to handle teacher replies
+  const handleReply = (discussionId) => {
+    if (!replyText[discussionId] || !user) return;
+
+    axios
+      .post(`http://localhost:5001/api/discussions/${discussionId}/reply`, {
+        responder: user.name,
+        role: "teacher",
+        response: replyText[discussionId],
+        responderId: user.id,
+      })
+      .then((res) => {
+        setDiscussions((prev) =>
+          prev.map((discussion) =>
+            discussion._id === discussionId ? res.data : discussion
+          )
+        );
+        setReplyText((prev) => ({ ...prev, [discussionId]: "" }));
+      });
   };
 
+  // Function to delete a teacher's reply
+  const handleDeleteReply = async (discussionId, replyId, responder) => {
+    if (!user || (user.role !== "admin" && user.name !== responder)) {
+      console.error("Not authorized to delete this reply.");
+      return;
+    }
+
+    try {
+      await axios.delete(
+        `http://localhost:5001/api/discussions/${discussionId}/replies/${replyId}`,
+        { data: { user: user.name, role: user.role } }
+      );
+
+      setDiscussions((prev) =>
+        prev.map((discussion) =>
+          discussion._id === discussionId
+            ? {
+                ...discussion,
+                responses: discussion.responses.filter(
+                  (r) => r._id !== replyId
+                ),
+              }
+            : discussion
+        )
+      );
+    } catch (err) {
+      console.error("Error deleting reply:", err.response?.data || err.message);
+    }
+  };
 
   return (
     <div className="space-y-8">
+        <h1 className="text-2xl font-bold mb-4">Welcome back {user.name}</h1>
       {/* Lesson Management */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-4">Manage Your Lessons</h1>
@@ -140,14 +126,16 @@ const TeacherDashboard = () => {
         )}
       </div>
       {/* Discussion Section */}
-      <div className="bg-white rounded-lg shadow-md divide-y divide-gray-200 my-5 ">
+      <div className="bg-white rounded-lg shadow-md divide-y divide-gray-200 my-5">
         <div className="flex justify-between items-center bg-indigo-600 p-3 rounded-t-lg">
-          <h2 className=" text-lg font-semibold flex items-center text-white mb-4">
-            <MessageCircle className="mr-2" /> Student Discussions (Admin Panel)
+          <h2 className="text-lg font-semibold flex items-center text-white">
+            <MessageCircle className="mr-2" /> Student Discussions (Teacher
+            Panel)
           </h2>
         </div>
+
         {discussions.map((discussion) => (
-          <div key={discussion.id} className="p-6 hover:bg-gray-50">
+          <div key={discussion._id} className="p-6 hover:bg-gray-50">
             {/* Question Section */}
             <div className="flex justify-between items-center">
               <div>
@@ -166,23 +154,31 @@ const TeacherDashboard = () => {
                 <h3 className="text-md font-medium text-gray-700">
                   Responses:
                 </h3>
-                {discussion.responses.map((reply, index) => (
+                {discussion.responses.map((reply) => (
                   <div
-                    key={index}
+                    key={reply._id}
                     className="bg-gray-100 rounded-md p-4 flex justify-between items-center"
                   >
                     <div>
                       <p className="text-sm text-gray-500">
                         {reply.responder}
-                        <span className="m-7 px-4 py-1   rounded-2xl text-white bg-blue-500">
+                        <span className="ml-4 px-4 py-1 rounded-2xl text-white bg-blue-500">
                           {reply.role}
-                        </span>{" "}
+                        </span>
                       </p>
                       <p className="text-gray-800">{reply.response}</p>
                     </div>
+
+                    {/* Allow teachers to delete only their own replies */}
                     {user && user.name === reply.responder && (
                       <button
-                        onClick={() => handleDeleteReply(discussion.id, index)}
+                        onClick={() =>
+                          handleDeleteReply(
+                            discussion._id,
+                            reply._id,
+                            reply.responder
+                          )
+                        }
                         className="text-red-600 hover:text-red-800"
                       >
                         <Trash2 className="h-5 w-5" />
@@ -198,17 +194,17 @@ const TeacherDashboard = () => {
               <input
                 type="text"
                 placeholder="Reply to this discussion..."
-                value={replyText[discussion.id] || ""}
+                value={replyText[discussion._id] || ""}
                 onChange={(e) =>
                   setReplyText((prev) => ({
                     ...prev,
-                    [discussion.id]: e.target.value,
+                    [discussion._id]: e.target.value,
                   }))
                 }
                 className="w-full p-2 border rounded-md"
               />
               <button
-                onClick={() => handleReply(discussion.id)}
+                onClick={() => handleReply(discussion._id)}
                 className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
               >
                 Reply

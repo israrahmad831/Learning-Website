@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../contexts/AuthContext";
+
 import {
   Outlet,
   Link,
@@ -6,7 +8,6 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { BookOpen, User, LogOut, Menu, X } from "lucide-react";
 

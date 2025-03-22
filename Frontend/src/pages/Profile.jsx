@@ -24,9 +24,7 @@ const Profile = () => {
 
   const [isUpdating, setIsUpdating] = useState(false);
   const { darkMode, setDarkMode } = useTheme();
-  const [notifications, setNotifications] = useState(
-    localStorage.getItem("notifications") === "true"
-  );
+  const [notifications, setNotifications] = useState(localStorage.getItem("notifications") === "true");
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const navigate = useNavigate();
   const [certificates, setCertificates] = useState([]);
@@ -242,7 +240,9 @@ const Profile = () => {
         <div className="p-6">
         {activeTab === "profile" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">Profile Information</h2>
+              <h2 className="text-xl font-semibold mb-6">
+                Profile Information
+              </h2>
               <form onSubmit={handleUpdateProfile} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium">Full Name</label>
@@ -259,7 +259,9 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Email Address</label>
+                  <label className="block text-sm font-medium">
+                    Email Address
+                  </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input
@@ -377,28 +379,21 @@ const Profile = () => {
           )}
           {activeTab === "achievements" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6 text-gray-800">
-                Your Achievements
-              </h2>
+              <h2 className="text-xl font-semibold mb-6 text-gray-800">Your Achievements</h2>
+
               <div className="space-y-4">
                 {certificates.length === 0 ? (
                   <p className="text-gray-500 text-center py-4">
                     You haven't completed any courses yet.
                   </p>
                 ) : (
-                  certificates.map((certificate, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-md">
-                      <h4 className="font-medium text-gray-700">
-                        {certificate.courseName}
-                      </h4>
-                      <p className="text-sm text-gray-500">
-                        Completed on{" "}
-                        {new Date(certificate.date).toLocaleDateString()}
-                      </p>
-                      <button
-                        onClick={() => setSelectedCertificate(certificate)}
-                        className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
-                      >
+                  completedCourses.map((course) => (
+                    <div key={course._id} className="bg-gray-50 p-4 rounded-md flex justify-between items-center">
+                      <div>
+                        <h4 className="font-medium text-gray-700">{course.title}</h4>
+                        <p className="text-sm text-gray-500">Completed on {course.completedAt}</p>
+                      </div>
+                      <button className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
                         View Certificate
                       </button>
                     </div>
