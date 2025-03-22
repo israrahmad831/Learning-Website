@@ -1,0 +1,698 @@
+[
+    {
+      "_id": "1",
+      "title": "JavaScript Final Quiz",
+      "description": "This quiz will test your knowledge of JavaScript fundamentals.",
+      "courseId": "1",
+      "courseName": "JavaScript Fundamentals",
+      "questions": [
+        {
+          "id": "1",
+          "question": "Which of the following is NOT a valid way to declare a variable in JavaScript?",
+          "options": [
+            { "id": "a", "text": "var x = 10;", "isCorrect": false },
+            { "id": "b", "text": "let x = 10;", "isCorrect": false },
+            { "id": "c", "text": "const x = 10;", "isCorrect": false },
+            { "id": "d", "text": "int x = 10;", "isCorrect": true }
+          ],
+          "explanation": "JavaScript does not have an 'int' keyword. The correct ways to declare variables are using var, let, and const.",
+          "difficulty": "easy",
+          "points": 1
+        },
+        {
+          "id": "2",
+          "question": "What will be the output of the following code?\n\nconsole.log(typeof NaN);",
+          "options": [
+              { "id": "b", "text": "\"NaN\"", "isCorrect": false },
+              { "id": "c", "text": "\"undefined\"", "isCorrect": false },
+              { "id": "d", "text": "\"object\"", "isCorrect": false },
+              { "id": "a", "text": "\"number\"", "isCorrect": true }
+          ],
+          "explanation": "NaN (Not-a-Number) is actually of type 'number' in JavaScript.",
+          "difficulty": "medium",
+          "points": 2
+        },
+        {
+          "id": "3",
+          "question": "Which of the following is NOT a falsy value in JavaScript?",
+          "options": [
+            { "id": "a", "text": "0", "isCorrect": false },
+            { "id": "b", "text": "\"\" (empty string)", "isCorrect": false },
+            { "id": "c", "text": "null", "isCorrect": false },
+            { "id": "d", "text": "'false'", "isCorrect": true }
+          ],
+          "explanation": "The string 'false' is truthy because it is a non-empty string.",
+          "difficulty": "medium",
+          "points": 2
+        },
+        {
+          "id": "4",
+          "question": "What is the purpose of the 'use strict' directive in JavaScript?",
+          "options": [
+              { "id": "b", "text": "It prevents JavaScript from running in modern browsers.", "isCorrect": false },
+              { "id": "c", "text": "It makes JavaScript faster.", "isCorrect": false },
+              { "id": "d", "text": "It disables JavaScript’s event loop.", "isCorrect": false },
+              { "id": "a", "text": "It enforces a strict mode of execution to catch common coding mistakes.", "isCorrect": true }
+          ],
+          "explanation": "The 'use strict' directive helps catch common coding errors by enforcing stricter parsing and error handling.",
+          "difficulty": "medium",
+          "points": 2
+        },
+        {
+          "id": "5",
+          "question": "Which of the following array methods modifies the original array?",
+          "options": [
+            { "id": "a", "text": "map()", "isCorrect": false },
+            { "id": "b", "text": "filter()", "isCorrect": false },
+            { "id": "c", "text": "slice()", "isCorrect": false },
+            { "id": "d", "text": "splice()", "isCorrect": true }
+          ],
+          "explanation": "The splice() method modifies the original array by removing or adding elements.",
+          "difficulty": "hard",
+          "points": 3
+        },
+        {
+          "id": "6",
+          "question": "Which of the following statements about closures in JavaScript is TRUE?",
+          "options": [
+              { "id": "b", "text": "Closures only work with global variables.", "isCorrect": false },
+              { "id": "c", "text": "Closures prevent memory leaks.", "isCorrect": false },
+              { "id": "d", "text": "Closures only work with arrow functions.", "isCorrect": false },
+              { "id": "a", "text": "A closure gives a function access to variables from its parent scope.", "isCorrect": true }
+          ],
+          "explanation": "A closure allows a function to access variables from its parent scope even after the parent function has finished executing.",
+          "difficulty": "hard",
+          "points": 3
+        },
+        {
+          "id": "7",
+          "question": "How does JavaScript handle asynchronous code execution?",
+          "options": [
+              { "id": "b", "text": "By running each function in a separate thread.", "isCorrect": false },
+              { "id": "c", "text": "By compiling the code in parallel.", "isCorrect": false },
+              { "id": "d", "text": "By executing all functions sequentially without delay.", "isCorrect": false },
+              { "id": "a", "text": "By using a single-threaded event loop.", "isCorrect": true }
+          ],
+          "explanation": "JavaScript uses a single-threaded event loop to handle asynchronous operations through callbacks, promises, and async/await.",
+          "difficulty": "hard",
+          "points": 3
+        },
+        {
+          "id": "8",
+          "question": "What will be the output of the following code?\n\nconsole.log(0.1 + 0.2 === 0.3);",
+          "options": [
+            { "id": "a", "text": "true", "isCorrect": false },
+            { "id": "c", "text": "undefined", "isCorrect": false },
+            { "id": "d", "text": "Error", "isCorrect": false },
+            { "id": "b", "text": "false", "isCorrect": true }
+          ],
+          "explanation": "Due to floating-point precision errors, 0.1 + 0.2 does not exactly equal 0.3 in JavaScript.",
+          "difficulty": "hard",
+          "points": 3
+        }
+      ],
+      "timeLimit": 15,
+      "passingScore": 70
+    },
+    {
+        "_id": "2",
+        "title": "Python for Beginners Quiz",
+        "description": "This quiz will test your knowledge of Python basics.",
+        "courseId": "2",
+        "courseName": "Python Basics",
+        "questions": [
+            {
+            "id": "1",
+            "question": "Which of the following is NOT a valid way to declare a variable in Python?",
+            "options": [
+                { "id": "a", "text": "x = 10", "isCorrect": false },
+                { "id": "b", "text": "x = 10.0", "isCorrect": false },
+                { "id": "c", "text": "x = '10'", "isCorrect": false },
+                { "id": "d", "text": "int x = 10", "isCorrect": true }
+            ],
+            "explanation": "Python does not require explicit type declarations like 'int' when declaring variables.",
+            "difficulty": "easy",
+            "points": 1
+            },
+            {
+            "id": "2",
+            "question": "What will be the output of the following code?\n\nprint(3 * '7')",
+            "options": [
+                { "id": "a", "text": "21", "isCorrect": true },
+                { "id": "b", "text": "777", "isCorrect": false },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "7777", "isCorrect": false }
+            ],
+            "explanation": "The expression '3 * '7'' will repeat the string '7' three times, resulting in '777'.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "3",
+            "question": "Which of the following is NOT a valid Python data type?",
+            "options": [
+                { "id": "a", "text": "list", "isCorrect": false },
+                { "id": "b", "text": "tuple", "isCorrect": false },
+                { "id": "c", "text": "array", "isCorrect": true },
+                { "id": "d", "text": "dictionary", "isCorrect": false }
+            ],
+            "explanation": "Python does not have a built-in 'array' data type. You can use lists or NumPy arrays instead.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "4",
+            "question": "What is the output of the following code?\n\nprint('Python'[1:4])",
+            "options": [
+                { "id": "a", "text": "'yth'", "isCorrect": true },
+                { "id": "b", "text": "'Pyt'", "isCorrect": false },
+                { "id": "c", "text": "'tho'", "isCorrect": false },
+                { "id": "d", "text": "'Pyth'", "isCorrect": false }
+            ],
+            "explanation": "The slice [1:4] extracts characters from index 1 to 3 (excluding 4) from the string 'Python'.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "5",
+            "question": "What is the purpose of the 'pass' statement in Python?",
+            "options": [
+                { "id": "a", "text": "To skip a block of code without raising an error.", "isCorrect": true },
+                { "id": "b", "text": "To end the execution of a loop.", "isCorrect": false },
+                { "id": "c", "text": "To raise an exception.", "isCorrect": false },
+                { "id": "d", "text": "To print a message to the console.", "isCorrect": false }
+            ],
+            "explanation": "The 'pass' statement is a null operation that does nothing. It is often used as a placeholder.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "6",
+            "question": "Which of the following statements about Python functions is TRUE?",
+            "options": [
+                { "id": "a", "text": "A function can return multiple values using a tuple.", "isCorrect": true },
+                { "id": "b", "text": "A function can only accept a fixed number of arguments.", "isCorrect": false },
+                { "id": "c", "text": "A function cannot call itself recursively.", "isCorrect": false },
+                { "id": "d", "text": "A function cannot accept keyword arguments.", "isCorrect": false }
+            ],
+            "explanation": "A Python function can return multiple values by packing them into a tuple.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "7",
+            "question": "What will be the output of the following code?\n\nprint(2 ** 3 ** 2)",
+            "options": [
+                { "id": "a", "text": "512", "isCorrect": false },
+                { "id": "b", "text": "64", "isCorrect": true },
+                { "id": "c", "text": "72", "isCorrect": false },
+                { "id": "d", "text": "Error", "isCorrect": false }
+            ],
+            "explanation": "The exponentiation operator (**) is right-associative, so 2 ** 3 ** 2 is equivalent to 2 ** (3 ** 2), which is 2 ** 9 = 512.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "8",
+            "question": "What is the output of the following code?\n\nx = 10\ny = 20\nx, y = y, x\nprint(x, y)",
+            "options": [
+                { "id": "a", "text": "10 20", "isCorrect": false },
+                { "id": "b", "text": "20 10", "isCorrect": true },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "20 20", "isCorrect": false }
+            ],
+            "explanation": "The code swaps the values of x and y using tuple unpacking. After the swap, x = 20 and y = 10.",
+            "difficulty": "hard",
+            "points": 3
+            }
+        ],
+        "timeLimit": 15,
+        "passingScore": 70
+    },
+    {
+        "_id": "3",
+        "title": "Advanced React Patterns Quiz",
+        "description": "This quiz will test your knowledge of advanced React patterns and concepts.",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "questions": [
+            {
+            "id": "1",
+            "question": "Which of the following is NOT a valid way to define a React component?",
+            "options": [
+                { "id": "a", "text": "class MyComponent extends React.Component {}", "isCorrect": false },
+                { "id": "b", "text": "function MyComponent() {}", "isCorrect": false },
+                { "id": "c", "text": "const MyComponent = () => {}", "isCorrect": false },
+                { "id": "d", "text": "const MyComponent = class {}", "isCorrect": true }
+            ],
+            "explanation": "The 'class' keyword is used to define a class component in React. The other options are valid ways to define components.",
+            "difficulty": "easy",
+            "points": 1
+            },
+            {
+            "id": "2",
+            "question": "What is the purpose of React's 'key' prop when rendering lists?",
+            "options": [
+                { "id": "a", "text": "To uniquely identify each item in the list.", "isCorrect": true },
+                { "id": "b", "text": "To style the list items.", "isCorrect": false },
+                { "id": "c", "text": "To filter the list items.", "isCorrect": false },
+                { "id": "d", "text": "To sort the list items.", "isCorrect": false }
+            ],
+            "explanation": "The 'key' prop is used to uniquely identify each item in a list, allowing React to efficiently update the DOM.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "3",
+            "question": "Which of the following React hooks is used to fetch data from an API?",
+            "options": [
+                { "id": "a", "text": "useState()", "isCorrect": false },
+                { "id": "b", "text": "useEffect()", "isCorrect": true },
+                { "id": "c", "text": "useContext()", "isCorrect": false },
+                { "id": "d", "text": "useReducer()", "isCorrect": false }
+            ],
+            "explanation": "The useEffect() hook is used to perform side effects in function components, such as fetching data from an API.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "4",
+            "question": "What is the purpose of React's 'Context' API?",
+            "options": [
+                { "id": "a", "text": "To manage global state in a React application.", "isCorrect": true },
+                { "id": "b", "text": "To style components using CSS-in-JS.", "isCorrect": false },
+                { "id": "c", "text": "To handle form submissions in React.", "isCorrect": false },
+                { "id": "d", "text": "To create reusable custom hooks.", "isCorrect": false }
+            ],
+            "explanation": "The Context API allows you to share state across multiple components without passing props down manually.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "5",
+            "question": "Which of the following is NOT a valid way to optimize performance in a React application?",
+            "options": [
+                { "id": "a", "text": "Memoization", "isCorrect": false },
+                { "id": "b", "text": "Code splitting", "isCorrect": false },
+                { "id": "c", "text": "Inlining all styles in the main bundle", "isCorrect": true },
+                { "id": "d", "text": "Lazy loading", "isCorrect": false }
+            ],
+            "explanation": "Inlining all styles in the main bundle can increase the initial load time of a React application, reducing performance.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "6",
+            "question": "Which of the following statements about React's 'useReducer' hook is TRUE?",
+            "options": [
+                { "id": "a", "text": "useReducer is a simpler alternative to useState for managing complex state logic.", "isCorrect": true },
+                { "id": "b", "text": "useReducer is used to fetch data from an API.", "isCorrect": false },
+                { "id": "c", "text": "useReducer is a replacement for the 'class' keyword in React components.", "isCorrect": false },
+                { "id": "d", "text": "useReducer is used to perform side effects in function components.", "isCorrect": false }
+            ],
+            "explanation": "The useReducer hook is a more powerful alternative to useState for managing complex state logic in React components.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "7",
+            "question": "What is the purpose of React's 'forwardRef' function?",
+            "options": [
+                { "id": "a", "text": "To forward props to child components.", "isCorrect": false },
+                { "id": "b", "text": "To create higher-order components.", "isCorrect": false },
+                { "id": "c", "text": "To access the DOM node of a child component.", "isCorrect": true },
+                { "id": "d", "text": "To handle form submissions in React.", "isCorrect": false }
+            ],
+            "explanation": "The forwardRef function allows you to access the DOM node of a child component from a parent component.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "8",
+            "question": "What is the output of the following code?\n\nconst MyComponent = React.memo(() => <div>Hello</div>);\nconst App = () => <MyComponent />;",
+            "options": [
+                { "id": "a", "text": "Error", "isCorrect": false },
+                { "id": "b", "text": "Hello", "isCorrect": true },
+                { "id": "c", "text": "MyComponent", "isCorrect": false },
+                { "id": "d", "text": "App", "isCorrect": false }
+            ],
+            "explanation": "The React.memo() function memoizes the MyComponent component, preventing unnecessary re-renders when its props do not change.",
+            "difficulty": "hard",
+            "points": 3
+            }
+        ],
+        "timeLimit": 15,
+        "passingScore": 70
+
+    },{
+       
+        "_id": "4",
+        "title": "Java Programming Masterclass Quiz",
+        "description": "This quiz will test your knowledge of Java programming concepts.",
+        "courseId": "4",
+        "courseName": "Java Programming Masterclass",
+        "questions": [
+            {
+            "id": "1",
+            "question": "Which of the following is NOT a valid way to declare a variable in Java?",
+            "options": [
+                { "id": "a", "text": "int x = 10;", "isCorrect": false },
+                { "id": "b", "text": "float y = 10.0f;", "isCorrect": false },
+                { "id": "c", "text": "String z = 'Hello';", "isCorrect": true },
+                { "id": "d", "text": "double w = 10.0;", "isCorrect": false }
+            ],
+            "explanation": "In Java, strings must be enclosed in double quotes (\"). Single quotes (') are used for characters.",
+            "difficulty": "easy",
+            "points": 1
+            },
+            {
+            "id": "2",
+            "question": "What will be the output of the following code?\n\nSystem.out.println(5 / 2);",
+            "options": [
+                { "id": "a", "text": "2.5", "isCorrect": false },
+                { "id": "b", "text": "2", "isCorrect": true },
+                { "id": "c", "text": "2.0", "isCorrect": false },
+                { "id": "d", "text": "Error", "isCorrect": false }
+            ],
+            "explanation": "Integer division in Java truncates the decimal part, so 5 / 2 will result in 2.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "3",
+            "question": "Which of the following is NOT a valid Java data type?",
+            "options": [
+                { "id": "a", "text": "byte", "isCorrect": false },
+                { "id": "b", "text": "char[]", "isCorrect": false },
+                { "id": "c", "text": "boolean", "isCorrect": false },
+                { "id": "d", "text": "string", "isCorrect": true }
+            ],
+            "explanation": "Java is case-sensitive, so 'string' with a lowercase 's' is not a valid data type.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "4",
+            "question": "What is the output of the following code?\n\nint x = 5;\nint y = x++;\nSystem.out.println(y);",
+            "options": [
+                { "id": "a", "text": "5", "isCorrect": true },
+                { "id": "b", "text": "6", "isCorrect": false },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "0", "isCorrect": false }
+            ],
+            "explanation": "The post-increment operator (x++) increments x after assigning its value to y, so y will be 5.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "5",
+            "question": "Which of the following statements about Java arrays is TRUE?",
+            "options": [
+                { "id": "a", "text": "Arrays in Java are fixed in size and cannot be resized.", "isCorrect": true },
+                { "id": "b", "text": "Arrays in Java can only store primitive data types.", "isCorrect": false },
+                { "id": "c", "text": "Arrays in Java can have a mix of data types.", "isCorrect": false },
+                { "id": "d", "text": "Arrays in Java are always initialized with default values.", "isCorrect": false }
+            ],
+            "explanation": "Arrays in Java have a fixed size and cannot be resized once created.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "6",
+            "question": "Which of the following statements about Java classes and objects is TRUE?",
+            "options": [
+                { "id": "a", "text": "An object is an instance of a class.", "isCorrect": true },
+                { "id": "b", "text": "A class is an instance of an object.", "isCorrect": false },
+                { "id": "c", "text": "A class can have multiple instances of objects.", "isCorrect": false },
+                { "id": "d", "text": "An object can exist without a class.", "isCorrect": false }
+            ],
+            "explanation": "An object is an instance of a class, created using the 'new' keyword.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "7",
+            "question": "What is the purpose of Java's 'static' keyword?",
+            "options": [
+                { "id": "a", "text": "To create a new instance of a class.", "isCorrect": false },
+                { "id": "b", "text": "To access class-level variables and methods without creating an object.", "isCorrect": true },
+                { "id": "c", "text": "To prevent inheritance of a class.", "isCorrect": false },
+                { "id": "d", "text": "To define a constant value.", "isCorrect": false }
+            ],
+            "explanation": "The 'static' keyword in Java allows you to access class-level variables and methods without creating an object of the class.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "8",
+            "question": "What is the output of the following code?\n\nint[] numbers = {1, 2, 3, 4, 5};\nfor (int i = 0; i < numbers.length; i++) {\n  System.out.print(numbers[i] + ' ');\n}",
+            "options": [
+                { "id": "a", "text": "1 2 3 4 5", "isCorrect": false },
+                { "id": "b", "text": "1 2 3 4 5 ", "isCorrect": true },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "1, 2, 3, 4, 5", "isCorrect": false }
+            ],
+            "explanation": "The code prints each element of the 'numbers' array followed by a space, resulting in '1 2 3 4 5 '.",
+            "difficulty": "hard",
+            "points": 3
+            }
+        ],
+        "timeLimit": 15,
+        "passingScore": 70
+
+
+    }
+    ,{
+        "_id": "5",
+        "title": "C++ Fundamentals Quiz",
+        "description": "This quiz will test your knowledge of C++ programming concepts.",
+        "courseId": "5",
+        "courseName": "C++ Fundamentals",
+        "questions": [
+            {
+            "id": "1",
+            "question": "Which of the following is NOT a valid way to declare a variable in C++?",
+            "options": [
+                { "id": "a", "text": "int x = 10;", "isCorrect": false },
+                { "id": "b", "text": "float y = 10.0f;", "isCorrect": false },
+                { "id": "c", "text": "String z = 'Hello';", "isCorrect": true },
+                { "id": "d", "text": "double w = 10.0;", "isCorrect": false }
+            ],
+            "explanation": "In C++, strings must be enclosed in double quotes (\"). Single quotes (') are used for characters.",
+            "difficulty": "easy",
+            "points": 1
+            },
+            {
+            "id": "2",
+            "question": "What will be the output of the following code?\n\nstd::cout << 5 / 2;",
+            "options": [
+                { "id": "a", "text": "2.5", "isCorrect": false },
+                { "id": "b", "text": "2", "isCorrect": true },
+                { "id": "c", "text": "2.0", "isCorrect": false },
+                { "id": "d", "text": "Error", "isCorrect": false }
+            ],
+            "explanation": "Integer division in C++ truncates the decimal part, so 5 / 2 will result in 2.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "3",
+            "question": "Which of the following is NOT a valid C++ data type?",
+            "options": [
+                { "id": "a", "text": "byte", "isCorrect": false },
+                { "id": "b", "text": "char[]", "isCorrect": false },
+                { "id": "c", "text": "boolean", "isCorrect": false },
+                { "id": "d", "text": "string", "isCorrect": true }
+            ],
+            "explanation": "C++ is case-sensitive, so 'string' with a lowercase 's' is not a valid data type.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "4",
+            "question": "What is the output of the following code?\n\nint x = 5;\nint y = x++;\nstd::cout << y;",
+            "options": [
+                { "id": "a", "text": "5", "isCorrect": true },
+                { "id": "b", "text": "6", "isCorrect": false },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "0", "isCorrect": false }
+            ],
+            "explanation": "The post-increment operator (x++) increments x after assigning its value to y, so y will be 5.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "5",
+            "question": "Which of the following statements about C++ arrays is TRUE?",
+            "options": [
+                { "id": "a", "text": "Arrays in C++ are fixed in size and cannot be resized.", "isCorrect": true },
+                { "id": "b", "text": "Arrays in C++ can only store primitive data types.", "isCorrect": false },
+                { "id": "c", "text": "Arrays in C++ can have a mix of data types.", "isCorrect": false },
+                { "id": "d", "text": "Arrays in C++ are always initialized with default values.", "isCorrect": false }
+            ],
+            "explanation": "Arrays in C++ have a fixed size and cannot be resized once created.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "6",
+            "question": "Which of the following statements about C++ classes and objects is TRUE?",
+            "options": [
+                { "id": "a", "text": "An object is an instance of a class.", "isCorrect": true },
+                { "id": "b", "text": "A class is an instance of an object.", "isCorrect": false },
+                { "id": "c", "text": "A class can have multiple instances of objects.", "isCorrect": false },
+                { "id": "d", "text": "An object can exist without a class.", "isCorrect": false }
+            ],
+            "explanation": "An object is an instance of a class, created using the 'new' keyword.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "7",
+            "question": "What is the purpose of C++'s 'static' keyword?",
+            "options": [
+                { "id": "a", "text": "To create a new instance of a class.", "isCorrect": false },
+                { "id": "b", "text": "To access class-level variables and methods without creating an object.", "isCorrect": true },
+                { "id": "c", "text": "To prevent inheritance of a class.", "isCorrect": false },
+                { "id": "d", "text": "To define a constant value.", "isCorrect": false }
+            ],
+            "explanation": "The 'static' keyword in C++ allows you to access class-level variables and methods without creating an object of the class.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "8",
+            "question": "What is the output of the following code?\n\nint numbers[] = {1, 2, 3, 4, 5};\nfor (int i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {\n  std::cout << numbers[i] << ' ';\n}",
+            "options": [
+                { "id": "a", "text": "1 2 3 4 5", "isCorrect": false },
+                { "id": "b", "text": "1 2 3 4 5 ", "isCorrect": true },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "1, 2, 3, 4, 5", "isCorrect": false }
+            ],
+            "explanation": "The code prints each element of the 'numbers' array followed by a space, resulting in '1 2 3 4 5 '.",
+            "difficulty": "hard",
+            "points": 3
+            }
+        ],
+        "timeLimit": 15,
+        "passingScore": 70
+    },
+    {
+        "_id": "6",
+        "title": "Data Structures in Python Quiz",  
+        "description": "This quiz will test your knowledge of data structures in Python.",
+        "courseId": "6",
+        "courseName": "Data Structures in Python",
+        "questions": [
+            {
+            "id": "1",
+            "question": "Which of the following is NOT a valid data structure in Python?",
+            "options": [
+                { "id": "a", "text": "List", "isCorrect": false },
+                { "id": "b", "text": "Tuple", "isCorrect": false },
+                { "id": "c", "text": "Stack", "isCorrect": false },
+                { "id": "d", "text": "Array", "isCorrect": true }
+            ],
+            "explanation": "Python does not have a built-in 'array' data structure. You can use lists or NumPy arrays instead.",
+            "difficulty": "easy",
+            "points": 1
+            },
+            {
+            "id": "2",
+            "question": "What is the time complexity of inserting an element at the end of a list in Python?",
+            "options": [
+                { "id": "a", "text": "O(1)", "isCorrect": true },
+                { "id": "b", "text": "O(log n)", "isCorrect": false },
+                { "id": "c", "text": "O(n)", "isCorrect": false },
+                { "id": "d", "text": "O(n^2)", "isCorrect": false }
+            ],
+            "explanation": "Inserting an element at the end of a list in Python has a time complexity of O(1) because lists are dynamic arrays.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "3",
+            "question": "Which of the following data structures uses the Last In, First Out (LIFO) principle?",
+            "options": [
+                { "id": "a", "text": "Queue", "isCorrect": false },
+                { "id": "b", "text": "Stack", "isCorrect": true },
+                { "id": "c", "text": "Heap", "isCorrect": false },
+                { "id": "d", "text": "Tree", "isCorrect": false }
+            ],
+            "explanation": "A stack is a data structure that follows the Last In, First Out (LIFO) principle.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "4",
+            "question": "What is the time complexity of searching for an element in a set in Python?",
+            "options": [
+                { "id": "a", "text": "O(1)", "isCorrect": true },
+                { "id": "b", "text": "O(log n)", "isCorrect": false },
+                { "id": "c", "text": "O(n)", "isCorrect": false },
+                { "id": "d", "text": "O(n^2)", "isCorrect": false }
+            ],
+            "explanation": "Searching for an element in a set in Python has a time complexity of O(1) due to the use of hash tables.",
+            "difficulty": "medium",
+            "points": 2
+            },
+            {
+            "id": "5",
+            "question": "Which of the following data structures is used to represent hierarchical relationships?",
+            "options": [
+                { "id": "a", "text": "List", "isCorrect": false },
+                { "id": "b", "text": "Tree", "isCorrect": true },
+                { "id": "c", "text": "Stack", "isCorrect": false },
+                { "id": "d", "text": "Queue", "isCorrect": false }
+            ],
+            "explanation": "A tree data structure is used to represent hierarchical relationships between elements.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "6",
+            "question": "Which of the following statements about Python dictionaries is TRUE?",
+            "options": [
+                { "id": "a", "text": "Dictionaries in Python are ordered collections of elements.", "isCorrect": false },
+                { "id": "b", "text": "Dictionaries in Python can only store primitive data types.", "isCorrect": false },
+                { "id": "c", "text": "Dictionaries in Python use key-value pairs to store data.", "isCorrect": true },
+                { "id": "d", "text": "Dictionaries in Python are implemented as arrays.", "isCorrect": false }
+            ],
+            "explanation": "Python dictionaries use key-value pairs to store data, allowing fast lookups and retrievals.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "7",
+            "question": "What is the time complexity of inserting an element at the beginning of a list in Python?",
+            "options": [
+                { "id": "a", "text": "O(1)", "isCorrect": false },
+                { "id": "b", "text": "O(log n)", "isCorrect": false },
+                { "id": "c", "text": "O(n)", "isCorrect": true },
+                { "id": "d", "text": "O(n^2)", "isCorrect": false }
+            ],
+            "explanation": "Inserting an element at the beginning of a list in Python has a time complexity of O(n) because all elements need to be shifted.",
+            "difficulty": "hard",
+            "points": 3
+            },
+            {
+            "id": "8",
+            "question": "What is the output of the following code?\n\nnumbers = {1, 2, 3, 4, 5}\nfor number in numbers:\n  print(number, end=' ')",
+            "options": [
+                { "id": "a", "text": "1 2 3 4 5", "isCorrect": false },
+                { "id": "b", "text": "1 2 3 4 5 ", "isCorrect": true },
+                { "id": "c", "text": "Error", "isCorrect": false },
+                { "id": "d", "text": "1, 2, 3, 4, 5", "isCorrect": false }
+            ],
+            "explanation": "The code prints each element of the 'numbers' set followed by a space, resulting in '1 2 3 4 5 '.",
+            "difficulty": "hard",
+            "points": 3
+            }
+
+        ],
+        "timeLimit": 15,
+        "passingScore": 70
+    }
+    
+  ]
+  

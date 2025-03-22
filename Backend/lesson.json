@@ -1,0 +1,2904 @@
+[
+  {
+    "_id": 101,
+    "title": "Introduction to JavaScript",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 1: Introduction to JavaScript\n\n### **What is JavaScript?**\nJavaScript is a programming language used to create interactive websites.\nIt can modify HTML, CSS, and handle user actions.\n\n#### Why Learn JavaScript?\n- Works in all modern browsers\n- Essential for web development\n- Used for both frontend and backend\n- Supports different programming styles\n\n#### How to Run JavaScript?\n- Browser Console (Press F12 and go to the Console tab).\n- Inside an HTML file:\n```html\n<script>\nconsole.log(\"Hello, JavaScript!\");\n</script>\n```\n- External JavaScript file (.js file):\n```html\n<script src=\"script.js\"></script>\n```\n\n#### Basic JavaScript Rules:\n- JavaScript is case-sensitive.\n- Statements end with a semicolon (;).\n- Comments help explain code:\n```js\n// This is a single-line comment\n\n/* This is a multi-line comment */\n```\n\n#### Displaying Output:\n```js\nconsole.log(\"Hello, World!\"); // Shows message in console\nalert(\"Welcome to JavaScript!\"); // Shows popup alert\n```\n\n#### Declaring Variables:\nJavaScript has three ways to declare variables:\n```js\nlet name = \"John\"; // Can change value\nconst age = 25; // Cannot change value\nvar score = 100; // Old method (not recommended)\n```\n",
+    "order": 1,
+    "duration": 15,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Variable Declaration",
+        "code": "// Different ways to declare variables\nlet name = \"John\";\nconst age = 25;\nvar score = 100;\n\n// Let allows reassignment\nname = \"Jane\";\n\n// Const prevents reassignment\n// age = 26; // This would cause an error\n\nconsole.log(name, age, score);",
+        "explanation": "Thhis example shows the different ways to declare variables in JavaScript and demonstrates the difference between let, const, and var."
+      },
+      {
+        "id": "2",
+        "title": "Data Types Example",
+        "code": "// Primitive types\nlet string = \"Hello\";\nlet number = 42;\nlet boolean = true;\nlet undefinedVar;\nlet nullVar = null;\nlet symbol = Symbol('description');\nlet bigInt = BigInt(9007199254740991);\n\n// Complex types\nlet array = [1, 2, 3];\nlet object = { name: \"John\", age: 25 };\nlet func = () => console.log(\"Hello!\");\n\n// Check types\nconsole.log(typeof string);    // \"string\"\nconsole.log(typeof number);    // \"number\"\nconsole.log(typeof boolean);   // \"boolean\"\nconsole.log(typeof array);     // \"object\"\nconsole.log(typeof object);    // \"object\"\nconsole.log(typeof func);      // \"function\";",
+        "explanation": "Thhis example demonstrates all the different data types available in JavaScript and how to check their types using the typeof operator."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: JavaScript Data Types",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures",
+        "type": "documentation"
+      },
+      {
+        "title": "Variables and Data Types in JavaScript",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "201",
+      "title": "Variables and Data Types Quiz"
+    },
+    "nextLesson": { "id": "102", "title": "Variables and Data Types" }
+  },
+  {
+    "_id": 102,
+    "title": "Variables and Data Types",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 2: Variables and Data Types\n\n### **What are Variables?**\nVariables are containers used to store data values in JavaScript.\n\n#### Declaring Variables:\nJavaScript provides three ways to declare variables:\n```js\nlet name = \"Alice\"; // Block-scoped, recommended\nconst age = 30; // Immutable, cannot be reassigned\nvar score = 50; // Function-scoped, avoid using\n```\n\n#### JavaScript Data Types:\nJavaScript has **two** main types of data:\n1. **Primitive Data Types**:\n   - `String`: \"Hello, world!\"\n   - `Number`: 42, 3.14\n   - `Boolean`: true, false\n   - `Undefined`: A variable with no assigned value\n   - `Null`: Represents an intentional absence of value\n   - `Symbol`: Unique and immutable identifier\n   - `BigInt`: Large numbers beyond the limit of Number type\n\n2. **Reference Data Types**:\n   - `Array`: `[1, 2, 3, 4]`\n   - `Object`: `{ name: \"Alice\", age: 30 }`\n   - `Function`: `function greet() { console.log(\"Hello!\"); }`\n\n#### Checking Data Types:\nUse the `typeof` operator to check variable types:\n```js\nconsole.log(typeof \"Hello\"); // \"string\"\nconsole.log(typeof 42); // \"number\"\nconsole.log(typeof true); // \"boolean\"\nconsole.log(typeof {}); // \"object\"\nconsole.log(typeof []); // \"object\" (Arrays are objects!)\nconsole.log(typeof function(){}); // \"function\"\n```\n",
+    "order": 2,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Declaring and Assigning Variables",
+        "code": "// Declaring variables\nlet username = \"JohnDoe\";\nconst birthYear = 1995;\nvar score = 100;\n\n// Changing values\nusername = \"JaneDoe\";\n// birthYear = 2000; // This will cause an error (const cannot be changed)\n\nconsole.log(username, birthYear, score);",
+        "explanation": "Thhis example shows how to declare variables using let, const, and var, and how const variables cannot be reassigned."
+      },
+      {
+        "id": "2",
+        "title": "Data Types in Action",
+        "code": "// Different types of variables\nlet str = \"Hello\"; // String\nlet num = 25; // Number\nlet bool = true; // Boolean\nlet undef; // Undefined\nlet nul = null; // Null\nlet obj = { name: \"Alice\", age: 30 }; // Object\n\nconsole.log(typeof str); // \"string\"\nconsole.log(typeof num); // \"number\"\nconsole.log(typeof bool); // \"boolean\"\nconsole.log(typeof undef); // \"undefined\"\nconsole.log(typeof nul); // \"object\" (null is an object in JS!)\nconsole.log(typeof obj); // \"object\"",
+        "explanation": "Thhis example demonstrates the different data types in JavaScript and how to check their types using `typeof`."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Variables and Data Types",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Variables Explained",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "202",
+      "title": "JavaScript Variables Quiz"
+    },
+    "previousLesson": { "id": "101", "title": "Introduction to JavaScript" },
+    "nextLesson": { "id": "103", "title": "Operators and Expressions" }
+  },
+  {
+    "_id": 103,
+    "title": "Operators and Expressions",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 3: Operators and Expressions\n\n### **What are Operators?**\nOperators are symbols that perform operations on values and variables.\n\n#### 1. **Arithmetic Operators** (Perform mathematical calculations):\n```js\nlet a = 10, b = 5;\nconsole.log(a + b); // 15 (Addition)\nconsole.log(a - b); // 5 (Subtraction)\nconsole.log(a * b); // 50 (Multiplication)\nconsole.log(a / b); // 2 (Division)\nconsole.log(a % b); // 0 (Modulus - Remainder)\nconsole.log(a ** b); // 100000 (Exponentiation)\n```\n\n#### 2. **Assignment Operators** (Assign values to variables):\n```js\nlet x = 10;\nx += 5; // x = x + 5 (x is now 15)\nx -= 3; // x = x - 3 (x is now 12)\nx *= 2; // x = x * 2 (x is now 24)\nx /= 4; // x = x / 4 (x is now 6)\n```\n\n#### 3. **Comparison Operators** (Compare values, return true/false):\n```js\nconsole.log(10 == \"10\"); // true (loose equality)\nconsole.log(10 === \"10\"); // false (strict equality - checks type too)\nconsole.log(10 != 5); // true (not equal)\nconsole.log(10 > 5); // true (greater than)\nconsole.log(10 <= 10); // true (less than or equal to)\n```\n\n#### 4. **Logical Operators** (Combine boolean values):\n```js\nconsole.log(true && false); // false (AND - both must be true)\nconsole.log(true || false); // true (OR - at least one must be true)\nconsole.log(!true); // false (NOT - negates the value)\n```\n\n#### 5. **Unary Operators** (Operate on a single value):\n```js\nlet num = 5;\nconsole.log(++num); // 6 (Pre-increment)\nconsole.log(num--); // 6 (Post-decrement, returns 6 but num becomes 5)\n```\n\n#### 6. **Ternary Operator** (Shortcut for `if-else` statements):\n```js\nlet age = 18;\nlet canVote = (age >= 18) ? \"Yes\" : \"No\";\nconsole.log(canVote); // \"Yes\"\n```\n\n### **What are Expressions?**\nAn **expression** is any valid unit of code that results in a value.\n\n#### Examples of expressions:\n```js\n5 * 10; // Arithmetic expression\ntrue && false; // Logical expression\nlet result = (10 > 5) ? \"Greater\" : \"Smaller\"; // Ternary expression\nconsole.log(\"Hello \" + \"World!\"); // String concatenation expression\n```\n",
+    "order": 3,
+    "duration": 25,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Using Different Operators",
+        "code": "// Arithmetic Operators\nlet sum = 10 + 5;\nlet diff = 10 - 5;\nlet product = 10 * 5;\nlet quotient = 10 / 5;\n\n// Comparison Operators\nconsole.log(10 == \"10\"); // true\nconsole.log(10 === \"10\"); // false\n\n// Logical Operators\nconsole.log(true && false); // false\nconsole.log(true || false); // true\n\n// Ternary Operator\nlet age = 20;\nlet message = age >= 18 ? \"Adult\" : \"Minor\";\nconsole.log(message);",
+        "explanation": "Thhis example demonstrates how different operators work in JavaScript, including arithmetic, comparison, logical, and ternary operators."
+      },
+      {
+        "id": "2",
+        "title": "Operator Precedence",
+        "code": "// Operator Precedence Example\nlet result1 = 10 + 5 * 2; // Multiplication happens first (10 + (5 * 2) = 20)\nlet result2 = (10 + 5) * 2; // Parentheses change order ((10 + 5) * 2 = 30)\n\n// Logical Operator Precedence\nlet bool1 = true || false && false; // AND executes first (true || (false && false) = true)\nlet bool2 = (true || false) && false; // Parentheses change order ((true || false) && false = false)\n\nconsole.log(result1, result2); // 20, 30\nconsole.log(bool1, bool2); // true, false",
+        "explanation": "Thhis example demonstrates how operator precedence affects the outcome of expressions in JavaScript. Multiplication happens before addition unless parentheses are used, and logical AND has a higher precedence than OR."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: JavaScript Operators",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators",
+        "type": "documentation"
+      }
+    ],
+    "quiz": {
+      "id": "203",
+      "title": "JavaScript Operators Quiz"
+    },
+    "previousLesson": { "id": "102", "title": "Variables and Data Types" },
+    "nextLesson": { "id": "104", "title": "Control Flow and Loops" }
+  },
+  {
+    "_id": 104,
+    "title": "Control Flow: Conditionals",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 4: Control Flow and Loops\n\n### **Control Flow in JavaScript**\nControl flow determines the order in which statements are executed.\n\n#### **Conditional Statements**\nConditional statements help us make decisions in code:\n\n```js\nlet age = 18;\nif (age >= 18) {\n  console.log(\"You are eligible to vote.\");\n} else {\n  console.log(\"You are not eligible to vote.\");\n}\n```\n\n#### **Switch Case Statement**\n```js\nlet day = \"Monday\";\nswitch (day) {\n  case \"Monday\":\n    console.log(\"Start of the workweek!\");\n    break;\n  case \"Friday\":\n    console.log(\"Weekend is near!\");\n    break;\n  default:\n    console.log(\"It's a regular day.\");\n}\n```\n\n### **Loops in JavaScript**\nLoops help execute a block of code multiple times.\n\n#### **For Loop**\n```js\nfor (let i = 1; i <= 5; i++) {\n  console.log(\"Iteration\", i);\n}\n```\n\n#### **While Loop**\n```js\nlet count = 1;\nwhile (count <= 3) {\n  console.log(\"Count is\", count);\n  count++;\n}\n```\n\n#### **Do-While Loop**\n```js\nlet num = 1;\ndo {\n  console.log(\"Number:\", num);\n  num++;\n} while (num <= 3);\n```",
+    "order": 4,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Looping Through an Array",
+        "code": "// Looping through an array\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nfor (let i = 0; i < fruits.length; i++) {\n  console.log(fruits[i]);\n}",
+        "explanation": "Thhis example iterates through an array using a for loop and prints each element."
+      },
+      {
+        "id": "2",
+        "title": "Break and Continue in Loops",
+        "code": "// Using break and continue in loops\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    console.log(\"Skipping 3 with continue\");\n    continue;\n  }\n  if (i === 5) {\n    console.log(\"Stopping loop with break\");\n    break;\n  }\n  console.log(\"Number:\", i);\n}",
+        "explanation": "The 'continue' statement skips iteration when i equals 3, and 'break' exits the loop when i equals 5."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Loops and Iteration",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Control Flow Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "202",
+      "title": "Control Flow and Loops Quiz"
+    },
+    "previousLesson": { "id": "102", "title": "Operators and Expressions" },
+    "nextLesson": { "id": "105", "title": "Control Flow: Loops" }
+  },
+  {
+    "_id": 105,
+    "title": "Control Flow: Loops",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 5: Control Flow and Loops\n\n### **Control Flow in JavaScript**\nControl flow determines the order in which statements are executed.\n\n#### **Conditional Statements**\nConditional statements help us make decisions in code:\n\n```js\nlet age = 18;\nif (age >= 18) {\n  console.log(\"You are eligible to vote.\");\n} else {\n  console.log(\"You are not eligible to vote.\");\n}\n```\n\n#### **Switch Case Statement**\n```js\nlet day = \"Monday\";\nswitch (day) {\n  case \"Monday\":\n    console.log(\"Start of the workweek!\");\n    break;\n  case \"Friday\":\n    console.log(\"Weekend is near!\");\n    break;\n  default:\n    console.log(\"It's a regular day.\");\n}\n```\n\n### **Loops in JavaScript**\nLoops help execute a block of code multiple times.\n\n#### **For Loop**\n```js\nfor (let i = 1; i <= 5; i++) {\n  console.log(\"Iteration\", i);\n}\n```\n\n#### **While Loop**\n```js\nlet count = 1;\nwhile (count <= 3) {\n  console.log(\"Count is\", count);\n  count++;\n}\n```\n\n#### **Do-While Loop**\n```js\nlet num = 1;\ndo {\n  console.log(\"Number:\", num);\n  num++;\n} while (num <= 3);\n```",
+    "order": 4,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Looping Through an Array",
+        "code": "// Looping through an array\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nfor (let i = 0; i < fruits.length; i++) {\n  console.log(fruits[i]);\n}",
+        "explanation": "Thhis example iterates through an array using a for loop and prints each element."
+      },
+      {
+        "id": "2",
+        "title": "Break and Continue in Loops",
+        "code": "// Using break and continue in loops\nfor (let i = 1; i <= 5; i++) {\n  if (i === 3) {\n    console.log(\"Skipping 3 with continue\");\n    continue;\n  }\n  if (i === 5) {\n    console.log(\"Stopping loop with break\");\n    break;\n  }\n  console.log(\"Number:\", i);\n}",
+        "explanation": "The 'continue' statement skips iteration when i equals 3, and 'break' exits the loop when i equals 5."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Loops and Iteration",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Control Flow Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "202",
+      "title": "Control Flow and Loops Quiz"
+    },
+    "previousLesson": { "id": "104", "title": "Control Flow: Conditionals" },
+    "nextLesson": { "id": "106", "title": "Functions in JavaScript" }
+  },
+  {
+    "_id": 106,
+    "title": "Functions",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 6: Functions in JavaScript\n\n### **What are Functions?**\nFunctions are reusable blocks of code that perform a specific task.\n\n#### **Function Declaration**\n```js\nfunction greet() {\n  console.log(\"Hello, World!\");\n}\n```\n\n#### **Function Expression**\n```js\nlet greet = function() {\n  console.log(\"Hello, World!\");\n};\n```\n\n#### **Arrow Function**\n```js\nlet greet = () => {\n  console.log(\"Hello, World!\");\n};\n```\n\n#### **Function Parameters**\n```js\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\n// Call the function\ngreet(\"Alice\"); // Output: Hello, Alice!\n```\n\n#### **Return Statement**\n```js\nfunction add(a, b) {\n  return a + b;\n}\n\nlet sum = add(5, 3);\nconsole.log(sum); // Output: 8\n```\n\n#### **Function Scope**\nVariables declared inside a function are local to that function:\n```js\nfunction sayHello() {\n  let message = \"Hello, World!\";\n  console.log(message);\n}\n\n// console.log(message); // Error: message is not defined\n```\n",
+    "order": 6,
+    "duration": 25,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Creating and Calling Functions",
+        "code": "// Function Declaration\nfunction greet() {\n  console.log(\"Hello, World!\");\n}\n\n// Function Call\ngreet();",
+        "explanation": "Thhis example demonstrates how to create a function using function declaration and call it to execute the code inside."
+      },
+      {
+        "id": "2",
+        "title": "Function with Parameters",
+        "code": "// Function with Parameters\nfunction greet(name) {\n  console.log(`Hello, ${name}!`);\n}\n\n// Call the function\ngreet(\"Alice\"); // Output: Hello, Alice!",
+        "explanation": "Thhis example shows how to define a function that accepts parameters and use those parameters to customize the output."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Functions",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Functions Explained",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "204",
+      "title": "Functions in JavaScript Quiz"
+    },
+    "previousLesson": { "id": "104", "title": "Control Flow: Conditionals" },
+    "nextLesson": { "id": "107", "title": "Arrays and Objects" }
+  },
+  {
+    "_id": 107,
+    "title": "Arrays and Objects",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 7: Arrays and Objects\n\n### **Arrays in JavaScript**\nArrays are used to store multiple values in a single variable.\n\n#### **Creating Arrays**\n```js\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nlet numbers = [1, 2, 3, 4, 5];\nlet mixed = [\"Hello\", 42, true];\n```\n\n#### **Accessing Array Elements**\n```js\nconsole.log(fruits[0]); // Apple\nconsole.log(numbers[2]); // 3\n```\n\n#### **Array Methods**\n```js\nconsole.log(fruits.length); // 3 (Number of elements)\nfruits.push(\"Orange\"); // Add to end\nfruits.pop(); // Remove from end\nfruits.shift(); // Remove from start\nfruits.unshift(\"Kiwi\"); // Add to start\n```\n\n### **Objects in JavaScript**\nObjects are used to store key-value pairs.\n\n#### **Creating Objects**\n```js\nlet person = {\n  name: \"Alice\",\n  age: 30,\n  isAdmin: false\n};\n```\n\n#### **Accessing Object Properties**\n```js\nconsole.log(person.name); // Alice\nconsole.log(person[\"age\"]); // 30\n```\n\n#### **Object Methods**\n```js\nlet person = {\n  name: \"Alice\",\n  greet: function() {\n    console.log(`Hello, ${this.name}!`);\n  }\n};\n\nperson.greet(); // Output: Hello, Alice!\n```\n",
+    "order": 7,
+    "duration": 30,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Working with Arrays",
+        "code": "// Array Example\nlet fruits = [\"Apple\", \"Banana\", \"Cherry\"];\nconsole.log(fruits[0]); // Apple\nfruits.push(\"Orange\"); // Add to end\nconsole.log(fruits);",
+        "explanation": "Thhis example demonstrates how to create an array, access its elements, and use array methods like push to add elements."
+      },
+      {
+        "id": "2",
+        "title": "Using Objects in JavaScript",
+        "code": "// Object Example\nlet person = {\n  name: \"Alice\",\n  age: 30,\n  isAdmin: false\n};\n\nconsole.log(person.name); // Alice\nperson.isAdmin = true; // Update property\nconsole.log(person);",
+        "explanation": "Thhis example shows how to create an object with key-value pairs, access object properties, and update object values."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Arrays",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+        "type": "documentation"
+      },
+      {
+        "title": "MDN: Objects",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects",
+        "type": "documentation"
+      }
+    ],
+    "quiz": {
+      "id": "205",
+      "title": "Arrays and Objects Quiz"
+    },
+    "previousLesson": { "id": "106", "title": "Functions in JavaScript" },
+    "nextLesson": { "id": "108", "title": "DOM Manipulation" }
+  },
+  {
+    "_id": 108,
+    "title": "DOM Manipulation",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 8: DOM Manipulation\n\n### **What is the DOM?**\nThe Document Object Model (DOM) is a programming interface for web documents.\n\n#### **Accessing Elements**\n```js\n// By ID\nlet element = document.getElementById(\"myId\");\n\n// By Class\nlet elements = document.getElementsByClassName(\"myClass\");\n\n// By Tag\nlet tags = document.getElementsByTagName(\"div\");\n\n// By Selector\nlet selector = document.querySelector(\".myClass\");\nlet selectors = document.querySelectorAll(\".myClass\");\n```\n\n#### **Changing Elements**\n```js\n// Change Text\nelement.textContent = \"New Text\";\n\n// Change Style\nelement.style.color = \"red\";\n\n// Change Attribute\nelement.setAttribute(\"src\", \"image.jpg\");\n```\n\n#### **Creating Elements**\n```js\nlet newElement = document.createElement(\"div\");\nnewElement.textContent = \"New Element\";\ndocument.body.appendChild(newElement);\n```\n\n### **Event Handling**\nEvents are actions that occur on web pages (click, hover, submit, etc.).\n\n#### **Adding Event Listeners**\n```js\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});\n```\n\n#### **Event Object**\n```js\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});\n```\n",
+    "order": 8,
+    "duration": 30,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Changing Text Content",
+        "code": "// Changing Text Content\nlet element = document.getElementById(\"myId\");\nelement.textContent = \"New Text\";",
+        "explanation": "Thhis example shows how to change the text content of an HTML element using JavaScript."
+      },
+      {
+        "id": "2",
+        "title": "Creating and Appending Elements",
+        "code": "// Creating and Appending Elements\nlet newElement = document.createElement(\"div\");\nnewElement.textContent = \"New Element\";\ndocument.body.appendChild(newElement);",
+        "explanation": "Thhis example demonstrates how to create a new HTML element, set its content, and append it to the document."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Document Object Model",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript DOM Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "206",
+      "title": "DOM Manipulation Quiz"
+    },
+    "previousLesson": { "id": "107", "title": "Arrays and Objects" },
+    "nextLesson": { "id": "109", "title": "Events" }
+  },
+  {
+    "_id": 109,
+    "title": "Event",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 9: Event\n\n### **What is Event?**\nEvent is an action that occurs on web pages (click, hover, submit, etc.).\n\n#### **Event Listener**\n```js\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});\n```\n\n#### **Event Object**\n```js\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});\n```\n\n### **Event Types**\nThere are many types of events in JavaScript:\n\n- `click`: Occurs when an element is clicked.\n- `mouseover`: Occurs when the mouse pointer is over an element.\n- `submit`: Occurs when a form is submitted.\n- `keydown`: Occurs when a key is pressed down.\n- `load`: Occurs when a resource and its dependent resources have finished loading.\n",
+    "order": 9,
+    "duration": 30,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Adding Event Listeners",
+        "code": "// Adding Event Listeners\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function() {\n  console.log(\"Element clicked!\");\n});",
+        "explanation": "Thhis example shows how to add an event listener to an HTML element to listen for click events."
+      },
+      {
+        "id": "2",
+        "title": "Event Object",
+        "code": "// Event Object\nlet element = document.getElementById(\"myId\");\nelement.addEventListener(\"click\", function(event) {\n  console.log(event.target); // Clicked element\n});",
+        "explanation": "Thhis example demonstrates how to access the event object in an event listener to get information about the event."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Events",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Events",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Event Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "210",
+      "title": "Event Quiz"
+    },
+    "previousLesson": { "id": "108", "title": "DOM Manipulation " },
+    "nextLesson": { "id": "110", "title": "Asynchronous JavaScript" }
+  },
+
+  {
+    "_id": 110,
+    "title": "Asynchronous JavaScript",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 10: Asynchronous JavaScript\n\n### **What is Asynchronous JavaScript?**\nAsynchronous JavaScript allows code to run without blocking other operations.\n\n#### **Callbacks**\n```js\nfunction fetchData(callback) {\n  setTimeout(() => {\n    callback(\"Data fetched!\");\n  }, 2000);\n}\n\nfetchData(function(data) {\n  console.log(data);\n});\n```\n\n#### **Promises**\n```js\nfunction fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nfetchData()\n  .then(data => console.log(data))\n  .catch(error => console.error(error));\n```\n\n#### **Async/Await**\n```js\nasync function fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nasync function getData() {\n  let data = await fetchData();\n  console.log(data);\n}\n\ngetData();\n```\n",
+    "order": 10,
+    "duration": 30,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Using Callbacks",
+        "code": "// Using Callbacks\nfunction fetchData(callback) {\n  setTimeout(() => {\n    callback(\"Data fetched!\");\n  }, 2000);\n}\n\nfetchData(function(data) {\n  console.log(data);\n});",
+        "explanation": "Thhis example demonstrates how to use callbacks to handle asynchronous operations in JavaScript."
+      },
+      {
+        "id": "2",
+        "title": "Using Promises",
+        "code": "// Using Promises\nfunction fetchData() {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      resolve(\"Data fetched!\");\n    }, 2000);\n  });\n}\n\nfetchData()\n  .then(data => console.log(data))\n  .catch(error => console.error(error));",
+        "explanation": "Thhis example shows how to use promises to handle asynchronous operations and handle success or error responses."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Asynchronous JavaScript",
+        "url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Promises Explained",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "212",
+      "title": "Asynchronous JavaScript Quiz"
+    },
+    "previousLesson": { "id": "109", "title": "Event" },
+    "nextLesson": { "id": "111", "title": "Error Handling" }
+  },
+  {
+    "_id": 111,
+    "title": "Error Handling",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 11: Error Handling\n\n### **What is Error Handling?**\nError handling is the process of catching and handling errors in code.\n\n#### **Try...Catch**\n```js\ntry {\n  let result = 1 / 0;\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}\n```\n\n#### **Throwing Errors**\n```js\nfunction divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Division by zero!\");\n  }\n  return a / b;\n}\n\ntry {\n  let result = divide(10, 0);\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}\n```\n",
+    "order": 11,
+    "duration": 30,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Using Try...Catch",
+        "code": "// Using Try...Catch\ntry {\n  let result = 1 / 0;\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}",
+        "explanation": "Thhis example demonstrates how to use try...catch to handle errors in JavaScript code."
+      },
+      {
+        "id": "2",
+        "title": "Throwing Errors",
+        "code": "// Throwing Errors\nfunction divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Division by zero!\");\n  }\n  return a / b;\n}\n\ntry {\n  let result = divide(10, 0);\n  console.log(result);\n} catch (error) {\n  console.error(\"Error occurred:\", error.message);\n}",
+        "explanation": "Thhis example shows how to throw custom errors in JavaScript and handle them using try...catch."
+      }
+    ],
+    "resources": [
+      {
+        "title": "MDN: Error Handling",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling",
+        "type": "documentation"
+      },
+      {
+        "title": "JavaScript Error Handling Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "213",
+      "title": "Error Handling Quiz"
+    },
+    "previousLesson": { "id": "112", "title": "Asynchronous JavaScript" },
+    "nextLesson": { "id": "112", "title": "Final project" }
+  },
+  {
+    "_id": 112,
+    "title": "Final project",
+    "courseId": "1",
+    "courseName": "JavaScript Fundamentals",
+    "content": "Leesson 12: Final project\n\n### **Project Description**\nFor the final project, you will create a web application using HTML, CSS, and JavaScript.\n\n#### **Requirements**\n- Use HTML to create the structure of the web page.\n- Use CSS to style the elements and layout of the page.\n- Use JavaScript to add interactivity and functionality to the page.\n\n#### **Project Ideas**\n- To-Do List App\n- Weather App\n- Quiz Game\n- Portfolio Website\n\n### **Submission**\nSubmit your project by uploading the files to a code hosting platform (GitHub, CodePen, etc.) and sharing the link with your instructor.\n",
+    "order": 12,
+    "duration": 30,
+    "codeExamples": [],
+    "resources": [
+      {
+        "title": "GitHub",
+        "url": "https://codepen.io/",
+        "type": "documentation"
+      },
+      {
+        "title": "CodePen",
+        "url": "https://codepen.io/",
+        "type": "documentation"
+      }
+    ],
+    "quiz": {
+      "id": "214",
+      "title": "Final project Quiz"
+    },
+    "previousLesson": { "id": "111", "title": "Error Handling" },
+    "nextLesson": null
+
+  },
+  {
+    "_id": "201",
+    "title": "Introduction to Python",
+    "courseId": "2",
+    "courseName": "Python Fundamentals",
+    "content": "Leesson 1: Introduction to Python\n\n### **What is Python?**\nPython is a high-level, interpreted programming language known for its simplicity and readability.\n\n#### **Features of Python**\n- Easy to learn and use\n- Open-source and community-driven\n- Versatile and widely used\n- Supports multiple programming paradigms\n\n#### **Getting Started**\nTo run Python code, you need to install the Python interpreter on your system.\n\n#### **Hello, World!**\n```python\nprint(\"Hello, World!\")\n```\n\n### **Python Syntax**\nPython uses indentation to define code blocks instead of curly braces.\n\n#### Example:\n```python\nif x > 5:\n    print(\"x is greater than 5\")\nelse:\n    print(\"x is less than or equal to 5\")\n```\n",
+    "order": 1,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Hello, World!",
+        "code": "# Hello, World!\nprint(\"Hello, World!\")",
+        "explanation": "Thhis example demonstrates the classic 'Hello, World!' program in Python."
+      },
+      {
+        "id": "2",
+        "title": "Conditional Statement",
+        "code": "# Conditional Statement\nx = 10\nif x > 5:\n    print(\"x is greater than 5\")\nelse:\n    print(\"x is less than or equal to 5\")",
+        "explanation": "Thhis example shows how to use an if-else statement in Python to check a condition."
+      }
+    ],
+    "resources": [
+      {
+        "title": "Python Documentation",
+        "url": "https://docs.python.org/3/",
+        "type": "documentation"
+      },
+      {
+        "title": "Python Tutorial for Beginners",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "201",
+      "title": "Introduction to Python Quiz"
+    },
+    "previousLesson": { "id": "101", "title": "Introduction to Programming" },
+    "nextLesson": { "id": "202", "title": "Variables and Data Types" }
+  },
+  {
+    "_id": "202",
+    "title": "Variables and Data Types",
+    "courseId": "2",
+    "courseName": "Python Fundamentals",
+    "content": "Leesson 2: Variables and Data Types\n\n### **Variables in Python**\nVariables are used to store data values in memory for later use.\n\n#### **Variable Naming Rules**\n- Must start with a letter or underscore\n- Can contain letters, numbers, and underscores\n- Case-sensitive\n\n#### **Data Types in Python**\nPython has several built-in data types:\n- int: Integer numbers\n- float: Floating-point numbers\n- str: Strings\n- bool: Boolean values (True or False)\n\n#### **Variable Assignment**\n```python\nx = 10\nname = \"Alice\"\nis_valid = True\n```\n\n#### **Type Conversion**\n```python\nx = 10\ny = float(x)\nname = \"Alice\"\nage = int(name) # Error: Cannot convert string to int\n```\n",
+    "order": 2,
+    "duration": 25,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Variable Assignment",
+        "code": "# Variable Assignment\nx = 10\nname = \"Alice\"\nis_valid = True",
+        "explanation": "Thhis example demonstrates how to assign values to variables in Python using the assignment operator."
+      },
+      {
+        "id": "2",
+        "title": "Type Conversion",
+        "code": "# Type Conversion\nx = 10\ny = float(x)\nname = \"Alice\"\nage = int(name) # Error: Cannot convert string to int",
+        "explanation": "Thhis example shows how to convert data between different types in Python using type conversion functions."
+      }
+    ],
+    "resources": [
+      {
+        "title": "Python Data Types",
+        "url": "https://realpython.com/python-data-types/",
+        "type": "article"
+      },
+      {
+        "title": "Python Variables and Data Types",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+      }
+    ],
+    "quiz": {
+      "id": "202",
+      "title": "Variables and Data Types Quiz"
+    },
+    "previousLesson": { "id": "201", "title": "Introduction to Python" },
+    "nextLesson": { "id": "203", "title": "Operators and Expressions" }
+  },
+  {
+    "_id": "203",
+    "title": "Operators and Expressions",
+    "courseId": "2",
+    "courseName": "Python Fundamentals",
+    "content": "Leesson 3: Operators and Expressions\n\n### **Operators in Python**\nOperators are used to perform operations on variables and values.\n\n#### **Arithmetic Operators**\n- Addition: x + y\n- Subtraction: x - y\n- Multiplication: x * y\n- Division: x / y\n- Modulus: x % y\n- Exponentiation: x ** y\n\n#### **Comparison Operators**\n- Equal to: x == y\n- Not equal to: x != y\n- Greater than: x > y\n- Less than: x < y\n- Greater than or equal to: x >= y\n- Less than or equal to: x <= y\n\n#### **Logical Operators**\n- and: Returns True if both statements are true\n- or: Returns True if one of the statements is true\n- not: Reverse the result, returns False if the result is true\n\n#### **Ternary Operator**\n```python\nx = 10\nresult = \"Even\" if x % 2 == 0 else \"Odd\"\nprint(result) # Output: Even\n```\n",
+    "order": 3,
+    "duration": 25,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Arithmetic Operators",
+        "code": "# Arithmetic Operators\nx = 10\ny = 3\nsum = x + y\nproduct = x * y\nremainder = x % y\n",
+        "explanation": "Thhis example demonstrates how to use arithmetic operators in Python to perform basic mathematical operations."
+      },
+      {
+        "id": "2",
+        "title": "Ternary Operator",
+        "code": "# Ternary Operator\nx = 10\nresult = \"Even\" if x % 2 == 0 else \"Odd\"\nprint(result) # Output: Even",
+        "explanation": "Thhis example shows how to use the ternary operator in Python to assign values based on a condition."
+      }
+    ],
+    "resources": [
+      {
+        "title": "Python Operators",
+        "url": "https://www.w3schools.com/python/python_operators.asp",
+        "type": "article"
+        },
+        {
+        "title": "Python Operators and Expressions",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+        }
+    ],
+    "quiz": {
+      "id": "203",
+      "title": "Operators and Expressions Quiz"
+    },
+    "previousLesson": { "id": "202", "title": "Variables and Data Types" },
+    "nextLesson": { "id": "204", "title": "Control Flow: Conditionals" }
+  } ,
+  {
+    "_id": "204",
+    "title": "Control Flow: Conditionals",
+    "courseId": "2",
+    "courseName": "Python Fundamentals",
+    "content": "Leesson 4: Control Flow: Conditionals\n\n### **Control Flow in Python**\nControl flow determines the order in which statements are executed.\n\n#### **Conditional Statements**\nConditional statements help us make decisions in code:\n\n```python\nage = 18\nif age >= 18:\n    print(\"You are eligible to vote.\")\nelse:\n    print(\"You are not eligible to vote.\")\n```\n\n#### **Elif Statement**\n```python\nscore = 85\nif score >= 90:\n    print(\"A grade\")\nelif score >= 80:\n    print(\"B grade\")\nelse:\n    print(\"C grade\")\n```\n\n### **Logical Operators**\nLogical operators are used to combine conditional statements:\n- and: Returns True if both statements are true\n- or: Returns True if one of the statements is true\n- not: Reverse the result, returns False if the result is true\n",
+    "order": 4,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Conditional Statements",
+        "code": "# Conditional Statements\nage = 18\nif age >= 18:\n    print(\"You are eligible to vote.\")\nelse:\n    print(\"You are not eligible to vote.\")",
+        "explanation": "Thhis example demonstrates how to use if-else statements in Python to make decisions based on a condition."
+      },
+      {
+        "id": "2",
+        "title": "Elif Statement",
+        "code": "# Elif Statement\nscore = 85\nif score >= 90:\n    print(\"A grade\")\nelif score >= 80:\n    print(\"B grade\")\nelse:\n    print(\"C grade\")",
+        "explanation": "Thhis example shows how to use the elif statement in Python to check multiple conditions."
+      }
+    ],
+    "resources": [
+      {
+        "title": "Python Control Flow",
+        "url": "https://realpython.com/python-conditional-statements/",
+        "type": "article"
+        },
+        {
+        "title": "Python Control Flow Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+        }
+    ],
+    "quiz": {
+      "id": "204",
+      "title": "Control Flow: Conditionals Quiz"
+    },
+    "previousLesson": { "id": "203", "title": "Operators and Expressions" },
+    "nextLesson": { "id": "205", "title": "Control Flow: Loops" }
+
+  }
+  ,
+  {
+    "_id": "205",
+    "title": "Control Flow: Loops",
+    "courseId": "2",
+    "courseName": "Python Fundamentals",
+    "content": "Leesson 5: Control Flow: Loops\n\n### **Control Flow in Python**\nControl flow determines the order in which statements are executed.\n\n#### **For Loop**\n```python\nfruits = [\"Apple\", \"Banana\", \"Cherry\"]\nfor fruit in fruits:\n    print(fruit)\n```\n\n#### **While Loop**\n```python\ncount = 1\nwhile count <= 3:\n    print(\"Count is\", count)\n    count += 1\n```\n\n#### **Break and Continue**\n```python\nfor i in range(1, 6):\n    if i == 3:\n        print(\"Skipping 3 with continue\")\n        continue\n    if i == 5:\n        print(\"Stopping loop with break\")\n        break\n    print(\"Number:\", i)\n```\n",
+    "order": 5,
+    "duration": 20,
+    "codeExamples": [
+      {
+        "id": "1",
+        "title": "Looping Through a List",
+        "code": "# Looping Through a List\nfruits = [\"Apple\", \"Banana\", \"Cherry\"]\nfor fruit in fruits:\n    print(fruit)",
+        "explanation": "Thhis example demonstrates how to iterate over a list using a for loop in Python."
+      },
+      {
+        "id": "2",
+        "title": "Break and Continue in Loops",
+        "code": "# Break and Continue in Loops\nfor i in range(1, 6):\n    if i == 3:\n        print(\"Skipping 3 with continue\")\n        continue\n    if i == 5:\n        print(\"Stopping loop with break\")\n        break\n    print(\"Number:\", i)",
+        "explanation": "Thhis example shows how to use break and continue statements in loops to control the flow of execution."
+      }
+    ],
+    "resources": [
+      {
+        "title": "Python Loops",
+        "url": "https://realpython.com/python-for-loop/",
+        "type": "article"
+        },
+        {
+        "title": "Python Loops Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+        }
+    ],
+    "quiz": {
+      "id": "205",
+      "title": "Control Flow: Loops Quiz"
+    },
+    "previousLesson": { "id": "204", "title": "Control Flow: Conditionals" },
+    "nextLesson": { "id": "206", "title": "Functions in Python" }
+
+  }
+  ,
+    {
+        "_id": "206",
+        "title": "Functions in Python",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 6: Functions in Python\n\n### **What are Functions?**\nFunctions are reusable blocks of code that perform a specific task.\n\n#### **Function Definition**\n```python\ndef greet():\n    print(\"Hello, World!\")\n```\n\n#### **Function Call**\n```python\ngreet()\n```\n\n#### **Function Parameters**\n```python\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\ngreet(\"Alice\")\n```\n\n#### **Return Statement**\n```python\ndef add(a, b):\n    return a + b\n\nsum = add(5, 3)\nprint(sum) # Output: 8\n```\n\n#### **Function Scope**\nVariables declared inside a function are local to that function:\n```python\ndef say_hello():\n    message = \"Hello, World!\"\n    print(message)\n\n# print(message) # Error: message is not defined\n```\n",
+        "order": 6,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Creating and Calling Functions",
+            "code": "# Function Definition\ndef greet():\n    print(\"Hello, World!\")\n\n# Function Call\ngreet()",
+            "explanation": "Thhis example demonstrates how to create a function in Python using function definition and call it to execute the code inside."
+        },
+        {
+            "id": "2",
+            "title": "Function with Parameters",
+            "code": "# Function with Parameters\ndef greet(name):\n    print(f\"Hello, {name}!\")\n\n# Call the function\ngreet(\"Alice\") # Output: Hello, Alice!",
+            "explanation": "Thhis example shows how to define a function that accepts parameters and use those parameters to customize the output."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Python Functions",
+            "url": "https://realpython.com/defining-your-own-python-function/",
+            "type": "article"
+        },
+        {
+            "title": "Python Functions Explained",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "206",
+        "title": "Functions in Python Quiz"
+        },
+        "previousLesson": { "id": "205", "title": "Control Flow: Loops" },
+        "nextLesson": { "id": "207", "title": "Lists and Dictionaries" }
+    } ,
+    {
+        "_id": "207",
+        "title": "Lists and Dictionaries",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 7: Lists and Dictionaries\n\n### **Lists in Python**\nLists are used to store multiple items in a single variable.\n\n#### **Creating Lists**\n```python\nfruits = [\"Apple\", \"Banana\", \"Cherry\"]\nnumbers = [1, 2, 3, 4, 5]\nmixed = [\"Hello\", 42, True]\n```\n\n#### **Accessing List Elements**\n```python\nprint(fruits[0]) # Apple\nprint(numbers[2]) # 3\n```\n\n#### **List Methods**\n```python\nprint(len(fruits)) # 3 (Number of elements)\nfruits.append(\"Orange\") # Add to end\nfruits.pop() # Remove from end\nfruits.remove(\"Apple\") # Remove specific element\n```\n\n### **Dictionaries in Python**\nDictionaries store key-value pairs.\n\n#### **Creating Dictionaries**\n```python\nperson = {\n    \"name\": \"Alice\",\n    \"age\": 30,\n    \"is_admin\": False\n}\n```\n\n#### **Accessing Dictionary Items**\n```python\nprint(person[\"name\"]) # Alice\nprint(person.get(\"age\")) # 30\n```\n\n#### **Dictionary Methods**\n```python\nperson[\"is_admin\"] = True # Update value\nperson.pop(\"age\") # Remove key-value pair\n```\n",
+        "order": 7,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Working with Lists",
+            "code": "# List Example\nfruits = [\"Apple\", \"Banana\", \"Cherry\"]\nprint(fruits[0]) # Apple\nfruits.append(\"Orange\") # Add to end\nprint(fruits)",
+            "explanation": "Thhis example demonstrates how to create a list, access its elements, and use list methods like append to add elements."
+        },
+        {
+            "id": "2",
+            "title": "Using Dictionaries in Python",
+            "code": "# Dictionary Example\nperson = {\n    \"name\": \"Alice\",\n    \"age\": 30,\n    \"is_admin\": False\n}\n\nprint(person[\"name\"]) # Alice\nperson[\"is_admin\"] = True # Update property\nprint(person)",
+            "explanation": "Thhis example shows how to create a dictionary with key-value pairs, access dictionary items, and update dictionary values."
+
+    }
+    ],
+    "resources": [
+        {
+        "title": "Python Lists",
+        "url": "https://realpython.com/python-lists-tuples/",
+        "type": "article"
+        },
+        {
+        "title": "Python Dictionaries",
+        "url": "https://realpython.com/python-dicts/",
+        "type": "article"
+        }
+    ],
+    "quiz": {
+        "id": "207",
+        "title": "Lists and Dictionaries Quiz"
+    },
+    "previousLesson": { "id": "206", "title": "Functions in Python" },
+    "nextLesson": { "id": "208", "title": "File Handling" }
+    },
+    {
+        "_id": "208",
+        "title": "File Handling",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 8: File Handling\n\n### **File Handling in Python**\nFile handling allows us to read from and write to files on the system.\n\n#### **Opening a File**\n```python\nfile = open(\"example.txt\", \"r\")\n```\n\n#### **Reading from a File**\n```python\ncontent = file.read()\nprint(content)\n```\n\n#### **Writing to a File**\n```python\nfile = open(\"output.txt\", \"w\")\nfile.write(\"Hello, World!\")\nfile.close()\n```\n\n#### **Closing a File**\nAlways remember to close the file after reading or writing.\n```python\nfile.close()\n```\n\n### **File Modes**\n- r: Read (default mode)\n- w: Write\n- a: Append\n- x: Create\n",
+        "order": 8,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Reading from a File",
+            "code": "# Reading from a File\nfile = open(\"example.txt\", \"r\")\ncontent = file.read()\nprint(content)",
+            "explanation": "Thhis example demonstrates how to open a file in read mode, read its contents, and print the content to the console."
+        },
+        {
+            "id": "2",
+            "title": "Writing to a File",
+            "code": "# Writing to a File\nfile = open(\"output.txt\", \"w\")\nfile.write(\"Hello, World!\")\nfile.close()",
+            "explanation": "Thhis example shows how to open a file in write mode, write data to the file, and close the file after writing."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Python File Handling",
+            "url": "https://realpython.com/read-write-files-python/",
+            "type": "article"
+        },
+        {
+            "title": "Python File Handling Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "208",
+        "title": "File Handling Quiz"
+        },
+        "previousLesson": { "id": "207", "title": "Lists and Dictionaries" },
+        "nextLesson": { "id": "209", "title": "Object-Oriented Programming" }
+    },
+    
+    {
+        "_id": "209",
+        "title": "Object-Oriented Programming",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 10: Object-Oriented Programming\n\n### **What is OOP?**\nObject-Oriented Programming (OOP) is a programming paradigm based on the concept of objects.\n\n#### **Classes and Objects**\n```python\nclass Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def greet(self):\n        print(f\"Hello, my name is {self.name} and I am {self.age} years old.\")\n\n# Create an object\nperson1 = Person(\"Alice\", 30)\nperson1.greet()\n```\n\n#### **Inheritance**\n```python\nclass Student(Person):\n    def __init__(self, name, age, student_id):\n        super().__init__(name, age)\n        self.student_id = student_id\n\n    def study(self, subject):\n        print(f\"{self.name} is studying {subject}\")\n\nstudent1 = Student(\"Bob\", 25, \"S12345\")\nstudent1.greet()\nstudent1.study(\"Math\")\n```\n",
+        "order": 10,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Creating Classes and Objects",
+            "code": "# Creating Classes and Objects\nclass Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n\n    def greet(self):\n        print(f\"Hello, my name is {self.name} and I am {self.age} years old.\")\n\n# Create an object\nperson1 = Person(\"Alice\", 30)\nperson1.greet()",
+            "explanation": "Thhis example demonstrates how to create a class in Python with attributes and methods, and create objects of that class."
+        },
+        {
+            "id": "2",
+            "title": "Inheritance in Python",
+            "code": "# Inheritance in Python\nclass Student(Person):\n    def __init__(self, name, age, student_id):\n        super().__init__(name, age)\n        self.student_id = student_id\n\n    def study(self, subject):\n        print(f\"{self.name} is studying {subject}\")\n\nstudent1 = Student(\"Bob\", 25, \"S12345\")\nstudent1.greet()\nstudent1.study(\"Math\")",
+            "explanation": "Thhis example shows how to create a subclass that inherits from a parent class in Python and use inheritance to extend the functionality of the parent class."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Python OOP",
+            "url": "https://realpython.com/python3-object-oriented-programming/",
+            "type": "article"
+        },
+        {
+            "title": "Python OOP Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "210",
+        "title": "Object-Oriented Programming Quiz"
+        },
+        "previousLesson": { "id": "208", "title": "File Handling" },
+        "nextLesson": { "id": "210", "title": "Modules and Packages" }
+    },
+    {
+        "_id": "210",
+        "title": "Modules and Packages",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 11: Modules and Packages\n\n### **Modules in Python**\nModules are files containing Python code that can be imported and used in other Python programs.\n\n#### **Creating a Module**\n```python\n# math_operations.py\n\ndef add(a, b):\n    return a + b\n\ndef subtract(a, b):\n    return a - b\n```\n\n#### **Using a Module**\n```python\nimport math_operations\n\nresult = math_operations.add(5, 3)\nprint(result) # Output: 8\n```\n\n### **Packages in Python**\nPackages are directories containing multiple modules.\n\n#### **Creating a Package**\n```\nmy_package/\n    __init__.py\n    math_operations.py\n    string_operations.py\n```\n\n#### **Using a Package**\n```python\nfrom my_package import math_operations\n\nresult = math_operations.subtract(10, 5)\nprint(result) # Output: 5\n```\n",
+        "order": 11,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Creating and Using Modules",
+            "code": "# Creating a Module\n# math_operations.py\n\ndef add(a, b):\n    return a + b\n\ndef subtract(a, b):\n    return a - b\n\n# Using a Module\nimport math_operations\n\nresult = math_operations.add(5, 3)\nprint(result) # Output: 8",
+            "explanation": "Thhis example demonstrates how to create a module in Python with functions and import the module to use its functions in another Python program."
+        },
+        {
+            "id": "2",
+            "title": "Creating and Using Packages",
+            "code": "# Creating a Package\n# my_package/\n#     __init__.py\n#     math_operations.py\n#     string_operations.py\n\n# Using a Package\nfrom my_package import math_operations\n\nresult = math_operations.subtract(10, 5)\nprint(result) # Output: 5",
+            "explanation": "Thhis example shows how to create a package in Python with multiple modules and import a specific module from the package to use its functions."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Python Modules and Packages",
+            "url": "https://realpython.com/python-modules-packages/",
+            "type": "article"
+        },
+        {
+            "title": "Python Modules and Packages Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "211",
+        "title": "Modules and Packages Quiz"
+        },
+        "previousLesson": { "id": "209", "title": "Object-Oriented Programming" },
+        "nextLesson": { "id": "211", "title": "Error Handling" }
+    },
+    {
+        "_id": "211",
+        "title": "Error Handling",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 12: Error Handling\n\n### **Error Handling in Python**\nError handling allows us to handle exceptions and errors that occur during program execution.\n\n#### **Try...Except**\n```python\ntry:\n    result = 1 / 0\n    print(result)\nexcept ZeroDivisionError as error:\n    print(\"Error occurred:\", error)\n```\n\n#### **Raising Exceptions**\n```python\ndef divide(a, b):\n    if b == 0:\n        raise ValueError(\"Division by zero!\")\n    return a / b\n\ntry:\n    result = divide(10, 0)\n    print(result)\nexcept ValueError as error:\n    print(\"Error occurred:\", error)\n```\n",
+        "order": 12,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Using Try...Except",
+            "code": "# Using Try...Except\ntry:\n    result = 1 / 0\n    print(result)\nexcept ZeroDivisionError as error:\n    print(\"Error occurred:\", error)",
+            "explanation": "Thhis example demonstrates how to use try...except blocks to handle exceptions in Python code."
+        },
+        {
+            "id": "2",
+            "title": "Raising Exceptions",
+            "code": "# Raising Exceptions\ndef divide(a, b):\n    if b == 0:\n        raise ValueError(\"Division by zero!\")\n    return a / b\n\ntry:\n    result = divide(10, 0)\n    print(result)\nexcept ValueError as error:\n    print(\"Error occurred:\", error)",
+            "explanation": "Thhis example shows how to raise custom exceptions in Python and handle them using try...except blocks."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Python Error Handling",
+            "url": "https://realpython.com/python-exceptions/",
+            "type": "article"
+        },
+        {
+            "title": "Python Error Handling Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+
+    }
+    ],
+    "quiz": {
+        "id": "212",
+        "title": "Error Handling Quiz"
+    },
+    "previousLesson": { "id": "210", "title": "Modules and Packages" },
+    "nextLesson": { "id": "212", "title": "Final Project" }
+    },
+    {
+        "_id": "212",
+        "title": "Final Project",
+        "courseId": "2",
+        "courseName": "Python Fundamentals",
+        "content": "Leesson 13: Final Project\n\n### **Congratulations!**\nYou've reached the final project of the Python Fundamentals course.\n\n#### **Project Description**\nFor the final project, you will create a simple Python program that demonstrates your understanding of the concepts covered in this course.\n\n#### **Project Requirements**\n- Use variables, data types, and operators\n- Implement control flow with conditionals and loops\n- Define and use functions\n- Work with lists and dictionaries\n- Handle exceptions and errors\n- (Optional) Create classes and objects\n\n#### **Project Submission**\nOnce you've completed the project, submit your Python code for review and feedback.\n\n### **Good luck!**\nPut your skills to the test and create something amazing with Python.",
+        "order": 13,
+        "duration": 30,
+        "codeExamples": [],
+        "resources": [
+        {
+            "title": "GitHub",
+            "url": "https://codepen.io/",
+            "type": "project"
+        },
+        {
+            "title": "Python Project Ideas",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "213",
+        "title": "Final Project Quiz"
+        },
+        "previousLesson": { "id": "211", "title": "Error Handling" },
+        "nextLesson": null
+    }
+    ,{
+        "_id": "301", 
+        "title": "Introduction to Advanced React",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 1: Introduction to Advanced React\n\n### **What is Advanced React?**\nAdvanced React covers more complex topics and patterns in React development.\n\n#### **Course Overview**\nIn this course, you will learn about advanced React concepts such as render props, higher-order components, and context API.\n\n#### **Prerequisites**\n- Basic knowledge of React\n- Understanding of JavaScript ES6 features\n\n#### **Tools**\n- Node.js\n- npm or Yarn\n- Code editor (VS Code, Sublime Text, etc.)\n\n### **Let's get started!**\nGet ready to dive into the world of advanced React development.",
+        "order": 1,
+        "duration": 20,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Render Props Example",
+            "code": "// Render Props Example\nimport React from 'react';\n\nclass MouseTracker extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { x: 0, y: 0 };\n  }\n\n  handleMouseMove = (event) => {\n    this.setState({ x: event.clientX, y: event.clientY });\n  };\n\n  render() {\n    return (\n      <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>\n        {this.props.render(this.state)}\n      </div>\n    );\n  }\n}\n\nexport default MouseTracker;",
+            "explanation": "Thhis example demonstrates how to use render props in React to share code between components using a prop whose value is a function."
+        },
+        {
+            "id": "2",
+            "title": "Higher-Order Component Example",
+            "code": "// Higher-Order Component Example\nimport React from 'react';\n\nconst withData = (Component) => {\n  return class extends React.Component {\n    state = { data: null };\n\n    componentDidMount() {\n      fetch(this.props.url)\n        .then((response) => response.json())\n        .then((data) => this.setState({ data }));\n    }\n\n    render() {\n      return <Component {...this.props} data={this.state.data} />;\n    }\n  };\n};\n\nexport default withData;",
+            "explanation": "Thhis example shows how to create a higher-order component in React that adds data fetching functionality to a component by wrapping it in another component."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Documentation",
+            "url": "https://reactjs.org/docs/getting-started.html",
+            "type": "documentation"
+        },
+        {
+            "title": "React Advanced Concepts",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "301",
+        "title": "Introduction to Advanced React Quiz"
+        },
+        "previousLesson": null,
+        "nextLesson": { "id": "302", "title": "Higher-Order Components (HOCs)" }
+    },
+    {
+        "_id": "302",
+        "title": "Higher-Order Components (HOCs)",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 2: Higher-Order Components (HOCs)\n\n### **What are Higher-Order Components?**\nHigher-Order Components (HOCs) are functions that take a component and return a new component with additional functionality.\n\n#### **Creating a Higher-Order Component**\n```javascript\nconst withData = (Component) => {\n  return class extends React.Component {\n    state = { data: null };\n\n    componentDidMount() {\n      fetch(this.props.url)\n        .then((response) => response.json())\n        .then((data) => this.setState({ data }));\n    }\n\n    render() {\n      return <Component {...this.props} data={this.state.data} />;\n    }\n  };\n};\n\nexport default withData;\n```\n",
+        "order": 2,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Higher-Order Component Example",
+            "code": "// Higher-Order Component Example\nimport React from 'react';\n\nconst withData = (Component) => {\n  return class extends React.Component {\n    state = { data: null };\n\n    componentDidMount() {\n      fetch(this.props.url)\n        .then((response) => response.json())\n        .then((data) => this.setState({ data }));\n    }\n\n    render() {\n      return <Component {...this.props} data={this.state.data} />;\n    }\n  };\n};\n\nexport default withData;",
+            "explanation": "Thhis example shows how to create a higher-order component in React that adds data fetching functionality to a component by wrapping it in another component."
+        },
+        {
+            "id": "2",
+            "title": "Using Higher-Order Components",
+            "code": "// Using Higher-Order Components\nimport React from 'react';\nimport withData from './withData';\n\nconst User = ({ data }) => (\n  <div>\n    <h1>User Profile</h1>\n    <p>Name: {data.name}</p>\n    <p>Email: {data.email}</p>\n  </div>\n);\n\nconst UserWithData = withData(User);\n\nexport default UserWithData;",
+            "explanation": "Thhis example demonstrates how to use a higher-order component in React to enhance a component with data fetching functionality."
+
+    }
+    ],
+    "resources": [
+        {
+        "title": "React Higher-Order Components",
+        "url": "https://reactjs.org/docs/higher-order-components.html",
+        "type": "documentation"
+        },
+        {
+        "title": "React HOC Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+        }
+    ],
+    "quiz": {
+        "id": "302",
+        "title": "Higher-Order Components Quiz"
+    },
+    "previousLesson": { "id": "301", "title": "Introduction to Advanced React" },
+    "nextLesson": { "id": "303", "title": "Render Props" }
+    },
+    {
+        "_id": "303",
+        "title": "Render Props",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 3: Render Props\n\n### **What are Render Props?**\nRender props is a technique for sharing code between React components using a prop whose value is a function.\n\n#### **Creating a Component with Render Props**\n```javascript\nimport React from 'react';\n\nclass MouseTracker extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { x: 0, y: 0 };\n  }\n\n  handleMouseMove = (event) => {\n    this.setState({ x: event.clientX, y: event.clientY });\n  };\n\n  render() {\n    return (\n      <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>\n        {this.props.render(this.state)}\n      </div>\n    );\n  }\n}\n\nexport default MouseTracker;\n```\n",
+        "order": 3,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Render Props Example",
+            "code": "// Render Props Example\nimport React from 'react';\n\nclass MouseTracker extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = { x: 0, y: 0 };\n  }\n\n  handleMouseMove = (event) => {\n    this.setState({ x: event.clientX, y: event.clientY });\n  };\n\n  render() {\n    return (\n      <div style={{ height: '100vh' }} onMouseMove={this.handleMouseMove}>\n        {this.props.render(this.state)}\n      </div>\n    );\n  }\n}\n\nexport default MouseTracker;",
+            "explanation": "Thhis example demonstrates how to use render props in React to share code between components using a prop whose value is a function."
+        },
+        {
+            "id": "2",
+            "title": "Using Render Props",
+            "code": "// Using Render Props\nimport React from 'react';\n\nconst Mouse = ({ x, y }) => (\n  <div>\n    <h1>Mouse Position</h1>\n    <p>X: {x}</p>\n    <p>Y: {y}</p>\n  </div>\n);\n\nconst App = () => (\n  <MouseTracker render={(mouse) => (\n    <Mouse x={mouse.x} y={mouse.y} />\n  )} />\n);\n\nexport default App;",
+            "explanation": "Thhis example shows how to use a component with render props in React to share mouse position data between components using a render prop."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Render Props",
+            "url": "https://reactjs.org/docs/render-props.html",
+            "type": "documentation"
+        },
+        {
+            "title": "React Render Props Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "303",
+        "title": "Render Props Quiz"
+        },
+        "previousLesson": { "id": "302", "title": "Higher-Order Components (HOCs)" },
+        "nextLesson": { "id": "304", "title": "Compound Components" }
+    },
+    {
+        "_id": "304",
+        "title": "Compound Components",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 4: Compound Components\n\n### **What are Compound Components?**\nCompound components are components that work together to achieve a common goal.\n\n#### **Creating Compound Components**\n```javascript\nimport React from 'react';\n\nconst Tabs = ({ children }) => {\n  const [activeIndex, setActiveIndex] = React.useState(0);\n\n  return (\n    <div>\n      {React.Children.map(children, (child, index) => (\n        React.cloneElement(child, {\n          isActive: index === activeIndex,\n          onClick: () => setActiveIndex(index)\n        })\n      ))}\n    </div>\n  );\n};\n\nexport default Tabs;\n```\n",
+        "order": 4,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Compound Components Example",
+            "code": "// Compound Components Example\nimport React from 'react';\n\nconst Tabs = ({ children }) => {\n  const [activeIndex, setActiveIndex] = React.useState(0);\n\n  return (\n    <div>\n      {React.Children.map(children, (child, index) => (\n        React.cloneElement(child, {\n          isActive: index === activeIndex,\n          onClick: () => setActiveIndex(index)\n        })\n      ))}\n    </div>\n  );\n};\n\nexport default Tabs;",
+            "explanation": "Thhis example demonstrates how to create compound components in React that work together to manage the state of a tab component."
+        },
+        {
+            "id": "2",
+            "title": "Using Compound Components",
+            "code": "// Using Compound Components\nimport React from 'react';\nimport Tabs from './Tabs';\n\nconst App = () => (\n  <Tabs>\n    <Tabs.Tab>Tab 1</Tabs.Tab>\n    <Tabs.Tab>Tab 2</Tabs.Tab>\n    <Tabs.Tab>Tab 3</Tabs.Tab>\n  </Tabs>\n);\n\nexport default App;",
+            "explanation": "Thhis example shows how to use compound components in React to create a tab component with multiple tabs that share state and functionality."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Compound Components",
+            "url": "https://reactpatterns.com/#compound-components",
+            "type": "article"
+        },
+        {
+            "title": "React Compound Components Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "304",
+        "title": "Compound Components Quiz"
+        },
+        "previousLesson": { "id": "303", "title": "Render Props" },
+        "nextLesson": { "id": "305", "title": "Custom Hooks" }
+    },
+    {
+        "_id": "305",
+        "title": "Custom Hooks",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 5: Custom Hooks\n\n### **What are Custom Hooks?**\nCustom hooks are functions that allow you to reuse stateful logic across multiple components.\n\n#### **Creating a Custom Hook**\n```javascript\nimport { useState } from 'react';\n\nconst useCounter = (initialValue) => {\n  const [count, setCount] = useState(initialValue);\n\n  const increment = () => {\n    setCount(count + 1);\n  };\n\n  const decrement = () => {\n    setCount(count - 1);\n  };\n\n  return { count, increment, decrement };\n};\n\nexport default useCounter;\n```\n",
+        "order": 5,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Custom Hook Example",
+            "code": "// Custom Hook Example\nimport { useState } from 'react';\n\nconst useCounter = (initialValue) => {\n  const [count, setCount] = useState(initialValue);\n\n  const increment = () => {\n    setCount(count + 1);\n  };\n\n  const decrement = () => {\n    setCount(count - 1);\n  };\n\n  return { count, increment, decrement };\n};\n\nexport default useCounter;",
+            "explanation": "Thhis example demonstrates how to create a custom hook in React that manages a counter state and provides functions to increment and decrement the count."
+        },
+        {
+            "id": "2",
+            "title": "Using Custom Hooks",
+            "code": "// Using Custom Hooks\nimport React from 'react';\nimport useCounter from './useCounter';\n\nconst Counter = () => {\n  const { count, increment, decrement } = useCounter(0);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={increment}>Increment</button>\n      <button onClick={decrement}>Decrement</button>\n    </div>\n  );\n};\n\nexport default Counter;",
+            "explanation": "Thhis example shows how to use a custom hook in React to manage stateful logic for a counter component and reuse the hook in multiple components."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Custom Hooks",
+            "url": "https://reactjs.org/docs/hooks-custom.html",
+            "type": "documentation"
+        },
+        {
+            "title": "React Custom Hooks Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "305",
+        "title": "Custom Hooks Quiz"
+        },
+        "previousLesson": { "id": "304", "title": "Compound Components" },
+        "nextLesson": { "id": "306", "title": "Context API & State Management" }
+    },
+    {
+        "_id": "306",
+        "title": "Context API & State Management",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 6: Context API & State Management\n\n### **What is the Context API?**\nThe Context API is a way to manage global state in React applications without prop drilling.\n\n#### **Creating a Context Provider**\n```javascript\nimport React, { createContext, useState } from 'react';\n\nexport const ThemeContext = createContext();\n\nconst ThemeProvider = ({ children }) => {\n  const [theme, setTheme] = useState('light');\n\n  return (\n    <ThemeContext.Provider value={{ theme, setTheme }}>\n      {children}\n    </ThemeContext.Provider>\n  );\n};\n\nexport default ThemeProvider;\n```\n",
+        "order": 6,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Context API Example",
+            "code": "// Context API Example\nimport React, { createContext, useState } from 'react';\n\nexport const ThemeContext = createContext();\n\nconst ThemeProvider = ({ children }) => {\n  const [theme, setTheme] = useState('light');\n\n  return (\n    <ThemeContext.Provider value={{ theme, setTheme }}>\n      {children}\n    </ThemeContext.Provider>\n  );\n};\n\nexport default ThemeProvider;",
+            "explanation": "Thhis example demonstrates how to create a context provider in React to manage global state for a theme in a React application."
+        },
+        {
+            "id": "2",
+            "title": "Using Context API",
+            "code": "// Using Context API\nimport React, { useContext } from 'react';\nimport { ThemeContext } from './ThemeProvider';\n\nconst ThemeToggler = () => {\n  const { theme, setTheme } = useContext(ThemeContext);\n\n  const toggleTheme = () => {\n    setTheme(theme === 'light' ? 'dark' : 'light');\n  };\n\n  return (\n    <button onClick={toggleTheme}>Toggle Theme</button>\n  );\n};\n\nexport default ThemeToggler;",
+            "explanation": "Thhis example shows how to use the context API in React to access and update global state for a theme in a React application."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Context API",
+            "url": "https://reactjs.org/docs/context.html",
+            "type": "documentation"
+        },
+        {
+            "title": "React State Management",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "306",
+        "title": "Context API & State Management Quiz"
+        },
+        "previousLesson": { "id": "305", "title": "Custom Hooks" },
+        "nextLesson": { "id": "307", "title": "React Performance Optimization" }
+    },
+    {
+        "_id": "307",
+        "title": "React Performance Optimization",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 7: React Performance Optimization\n\n### **Why Optimize React Performance?**\nOptimizing React performance ensures that your application runs smoothly and efficiently.\n\n#### **Performance Optimization Techniques**\n- Memoization\n- Code Splitting\n- Virtualization\n- Server-Side Rendering\n\n#### **Tools for Performance Monitoring**\n- React DevTools\n- Lighthouse\n- WebPageTest\n\n### **Let's Optimize!**\nLearn how to improve the performance of your React applications with advanced optimization techniques.",
+        "order": 7,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Memoization Example",
+            "code": "// Memoization Example\nimport React, { useMemo } from 'react';\n\nconst ExpensiveComponent = ({ data }) => {\n  const result = useMemo(() => {\n    // Expensive computation\n    return data * 2;\n  }, [data]);\n\n  return <div>{result}</div>;\n};\n\nexport default ExpensiveComponent;",
+            "explanation": "Thhis example demonstrates how to use memoization in React to optimize the performance of a component by caching the result of an expensive computation."
+        },
+        {
+            "id": "2",
+            "title": "Code Splitting Example",
+            "code": "// Code Splitting Example\nimport React, { lazy, Suspense } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nconst App = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default App;",
+            "explanation": "Thhis example shows how to use code splitting in React to improve the performance of a web application by loading components asynchronously."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Performance Optimization",
+            "url": "https://reactjs.org/docs/optimizing-performance.html",
+            "type": "article"
+        },
+        {
+            "title": "React Performance Tips",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "307",
+        "title": "React Performance Optimization Quiz"
+        },
+        "previousLesson": { "id": "306", "title": "Context API & State Management" },
+        "nextLesson": { "id": "308", "title": "Code Splitting & Lazy Loading" }
+    },
+    {
+        "_id": "308",
+        "title": "Code Splitting & Lazy Loading",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 8: Code Splitting & Lazy Loading\n\n### **What is Code Splitting?**\nCode splitting is a technique used to split your code into smaller bundles that can be loaded on demand.\n\n#### **Lazy Loading Components**\n```javascript\nimport React, { lazy, Suspense } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nconst App = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default App;\n```\n",
+        "order": 8,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Code Splitting Example",
+            "code": "// Code Splitting Example\nimport React, { lazy, Suspense } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nconst App = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default App;",
+            "explanation": "Thhis example shows how to use code splitting in React to improve the performance of a web application by loading components asynchronously."
+        },
+        {
+            "id": "2",
+            "title": "Lazy Loading Example",
+            "code": "// Lazy Loading Example\nimport React, { lazy, Suspense } from 'react';\n\nconst LazyComponent = lazy(() => import('./LazyComponent'));\n\nconst App = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default App;",
+            "explanation": "Thhis example demonstrates how to use lazy loading in React to load components only when they are needed, improving the initial loading time of the application."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Code Splitting",
+            "url": "https://reactjs.org/docs/code-splitting.html",
+            "type": "article"
+        },
+        {
+            "title": "React Lazy Loading",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "308",
+        "title": "Code Splitting & Lazy Loading Quiz"
+        },
+        "previousLesson": { "id": "307", "title": "React Performance Optimization" },
+        "nextLesson": { "id": "309", "title": "Testing React Components" }
+    },
+    {
+        "_id": "309",
+        "title": "Testing React Components",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 9: Testing React Components\n\n### **Why Test React Components?**\nTesting React components ensures that your application works as expected and helps catch bugs early in the development process.\n\n#### **Testing Tools**\n- Jest\n- React Testing Library\n- Enzyme\n\n#### **Writing Tests**\n```javascript\nimport { render, screen } from '@testing-library/react';\nimport App from './App';\n\ntest('renders app component', () => {\n  render(<App />);\n  const linkElement = screen.getByText(/learn react/i);\n  expect(linkElement).toBeInTheDocument();\n});\n```\n",
+        "order": 9,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Testing React Components Example",
+            "code": "// Testing React Components Example\nimport { render, screen } from '@testing-library/react';\nimport App from './App';\n\ntest('renders app component', () => {\n  render(<App />);\n  const linkElement = screen.getByText(/learn react/i);\n  expect(linkElement).toBeInTheDocument();\n});",
+            "explanation": "Thhis example demonstrates how to write a test for a React component using the React Testing Library to render the component and assert on its output."
+        },
+        {
+            "id": "2",
+            "title": "Testing with Jest",
+            "code": "// Testing with Jest\nimport { sum } from './sum';\n\ntest('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3);\n});",
+            "explanation": "Thhis example shows how to write a simple test using Jest to check the output of a function that adds two numbers."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Testing Library",
+            "url": "https://testing-library.com/docs/react-testing-library/intro/",
+            "type": "documentation"
+        },
+        {
+            "title": "React Testing Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "309",
+        "title": "Testing React Components Quiz"
+        },
+        "previousLesson": { "id": "308", "title": "Code Splitting & Lazy Loading" },
+        "nextLesson": { "id": "310", "title": "Server-Side Rendering (SSR) & Static Site Generation (SSG)" }
+    },
+    {
+        "_id": "310",
+        "title": "Server-Side Rendering (SSR) & Static Site Generation (SSG)",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 10: Server-Side Rendering (SSR) & Static Site Generation (SSG)\n\n### **What is SSR & SSG?**\nServer-Side Rendering (SSR) and Static Site Generation (SSG) are techniques used to improve the performance and SEO of web applications.\n\n#### **SSR with Next.js**\n```javascript\nimport React from 'react';\nimport { renderToString } from 'react-dom/server';\nimport App from './App';\n\nconst html = renderToString(<App />);\n```\n",
+        "order": 10,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "SSR Example",
+            "code": "// SSR Example\nimport React from 'react';\nimport { renderToString } from 'react-dom/server';\nimport App from './App';\n\nconst html = renderToString(<App />);",
+            "explanation": "Thhis example demonstrates how to perform server-side rendering (SSR) in a React application using the renderToString method from react-dom/server."
+        },
+        {
+            "id": "2",
+            "title": "SSG Example",
+            "code": "// SSG Example\nimport React from 'react';\nimport { renderToStaticMarkup } from 'react-dom/server';\nimport App from './App';\n\nconst html = renderToStaticMarkup(<App />);",
+            "explanation": "Thhis example shows how to generate static site content using renderToStaticMarkup in a React application for static site generation (SSG)."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Next.js Documentation",
+            "url": "https://nextjs.org/docs",
+            "type": "documentation"
+        },
+        {
+            "title": "Next.js Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "310",
+        "title": "SSR & SSG Quiz"
+        },
+        "previousLesson": { "id": "309", "title": "Testing React Components" },
+        "nextLesson": { "id": "311", "title": "Error Boundaries & Suspense" }
+    },
+    {
+        "_id": "311",
+        "title": "Error Boundaries & Suspense",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 11: Error Boundaries & Suspense\n\n### **What are Error Boundaries?**\nError boundaries are React components that catch JavaScript errors anywhere in their child component tree.\n\n#### **Creating an Error Boundary**\n```javascript\nimport React from 'react';\n\nclass ErrorBoundary extends React.Component {\n  state = { hasError: false };\n\n  static getDerivedStateFromError(error) {\n    return { hasError: true };\n  }\n\n  render() {\n    if (this.state.hasError) {\n      return <h1>Something went wrong.</h1>;\n    }\n\n    return this.props.children;\n  }\n}\n\nexport default ErrorBoundary;\n```\n",
+        "order": 11,
+        "duration": 25,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Error Boundary Example",
+            "code": "// Error Boundary Example\nimport React from 'react';\n\nclass ErrorBoundary extends React.Component {\n  state = { hasError: false };\n\n  static getDerivedStateFromError(error) {\n    return { hasError: true };\n  }\n\n  render() {\n    if (this.state.hasError) {\n      return <h1>Something went wrong.</h1>;\n    }\n\n    return this.props.children;\n  }\n}\n\nexport default ErrorBoundary;",
+            "explanation": "Thhis example demonstrates how to create an error boundary in React to catch JavaScript errors in a component tree and display a fallback UI."
+        },
+        {
+            "id": "2",
+            "title": "Suspense Example",
+            "code": "// Suspense Example\nimport React, { Suspense } from 'react';\n\nconst App = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default App;",
+            "explanation": "Thhis example shows how to use the Suspense component in React to handle loading states and fallback UI while waiting for data to load."
+        }
+        ],
+        "resources": [
+        {
+            "title": "React Error Boundaries",
+            "url": "https://reactjs.org/docs/error-boundaries.html",
+            "type": "documentation"
+        },
+        {
+            "title": "React Suspense",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "311",
+        "title": "Error Boundaries & Suspense Quiz"
+        },
+        "previousLesson": { "id": "310", "title": "Server-Side Rendering (SSR) & Static Site Generation (SSG)" },
+        "nextLesson": { "id": "312", "title": "Final Project" }
+    },
+    {
+        "_id": "312",
+        "title": "Final Project",
+        "courseId": "3",
+        "courseName": "Advanced React Patterns",
+        "content": "Leesson 12: Final Project\n\n### **Congratulations!**\nYou've reached the final project of the Advanced React Patterns course.\n\n#### **Project Description**\nFor the final project, you will create a React application that demonstrates your understanding of the advanced concepts covered in this course.\n\n#### **Project Requirements**\n- Implement advanced React patterns (e.g., render props, higher-order components, context API)\n- Optimize performance using code splitting, lazy loading, and memoization\n- Test React components with Jest and React Testing Library\n- Handle errors with error boundaries and suspense\n- (Optional) Add server-side rendering (SSR) or static site generation (SSG)\n\n#### **Project Submission**\nOnce you've completed the project, deploy your React application and submit the link for review and feedback.\n\n### **Good luck!**\nPut your skills to the test and create something amazing with React.",
+        "order": 12,
+        "duration": 30,
+        "codeExamples": [],
+        "resources": [
+        {
+            "title": "React Project Ideas",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        },
+        {
+            "title": "React Final Project",
+            "url": "https://codepen.io/",
+            "type": "project"
+        }
+        ],
+        "quiz": {
+        "id": "312",
+        "title": "Final Project Quiz"
+        },
+        "previousLesson": { "id": "311", "title": "Error Boundaries & Suspense" },
+        "nextLesson": null
+    },
+    {
+        "_id": "401", 
+        "title": "Introduction to Java",
+        "courseId": "4",
+        "courseName": "Java Programming",
+        "content": "Leesson 1: Introduction to Java\n\n### **What is Java?**\nJava is a high-level, object-oriented programming language developed by Sun Microsystems in 1995.\n\n#### **Key Features of Java**\n- Platform-independent\n- Object-oriented\n- Robust and secure\n- Multithreaded\n\n#### **Getting Started with Java**\n```java\npublic class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}\n```\n",
+        "order": 1,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Hello World Example",
+            "code": "// Hello World Example\npublic class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}",
+            "explanation": "Thhis example demonstrates how to write a simple 'Hello, World!' program in Java using the main method and System.out.println statement."
+        },
+        {
+            "id": "2",
+            "title": "Java Syntax",
+            "code": "// Java Syntax\npublic class Main {\n  public static void main(String[] args) {\n    int x = 5;\n    int y = 10;\n    int sum = x + y;\n    System.out.println(\"Sum: \" + sum);\n  }\n}",
+            "explanation": "Thhis example shows the basic syntax of Java, including variable declaration, arithmetic operations, and output using System.out.println."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Java Documentation",
+            "url": "https://docs.oracle.com/en/java/",
+            "type": "documentation"
+        },
+        {
+            "title": "Java Programming Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "401",
+        "title": "Introduction to Java Quiz"
+        },
+        "previousLesson": null,
+        "nextLesson": { "id": "402", "title": "Java Syntax and Basics" }
+    },
+    {
+        "_id": "402",
+        "title": "Java Syntax and Basics",
+        "courseId": "4",
+        "courseName": "Java Programming",
+        "content": "Leesson 2: Java Syntax and Basics\n\n### **Java Syntax Overview**\nJava syntax is similar to C++ and C#, making it easy for developers to learn and write code.\n\n#### **Basic Syntax Elements**\n- Variables and data types\n- Operators\n- Control flow statements\n- Methods and classes\n\n#### **Example Program**\n```java\npublic class Calculator {\n  public static void main(String[] args) {\n    int x = 5;\n    int y = 10;\n    int sum = add(x, y);\n    System.out.println(\"Sum: \" + sum);\n  }\n\n  public static int add(int a, int b) {\n    return a + b;\n  }\n}\n```\n",
+        "order": 2,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Calculator Example",
+            "code": "// Calculator Example\npublic class Calculator {\n  public static void main(String[] args) {\n    int x = 5;\n    int y = 10;\n    int sum = add(x, y);\n    System.out.println(\"Sum: \" + sum);\n  }\n\n  public static int add(int a, int b) {\n    return a + b;\n  }\n}",
+            "explanation": "Thhis example demonstrates how to create a simple calculator program in Java using methods to perform arithmetic operations."
+        },
+        {
+            "id": "2",
+            "title": "Java Control Flow",
+            "code": "// Java Control Flow\npublic class Main {\n  public static void main(String[] args) {\n    int x = 5;\n    if (x > 0) {\n      System.out.println(\"Positive\");\n    } else {\n      System.out.println(\"Negative\");\n    }\n  }\n}",
+            "explanation": "Thhis example shows how to use control flow statements in Java, such as if-else, to make decisions based on conditions."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Java Syntax Guide",
+            "url": "https://www.w3schools.com/java/java_syntax.asp",
+            "type": "article"
+        },
+        {
+            "title": "Java Basics Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+        }
+        ],
+        "quiz": {
+        "id": "402",
+        "title": "Java Syntax and Basics Quiz"
+        },
+        "previousLesson": { "id": "401", "title": "Introduction to Java" },
+        "nextLesson": { "id": "403", "title": "Control Flow Statements" }
+    },
+    {
+        "_id": "403",
+        "title": "Control Flow Statements",
+        "courseId": "4",
+        "courseName": "Java Programming",
+        "content": "Leesson 3: Control Flow Statements\n\n### **What are Control Flow Statements?**\nControl flow statements in Java allow you to control the flow of execution in a program based on conditions.\n\n#### **Types of Control Flow Statements**\n- if-else\n- switch-case\n- loops (for, while, do-while)\n\n#### **Example Program**\n```java\npublic class Main {\n  public static void main(String[] args) {\n    int x = 5;\n    if (x > 0) {\n      System.out.println(\"Positive\");\n    } else {\n      System.out.println(\"Negative\");\n    }\n  }\n}\n```\n",
+        "order": 3,
+        "duration": 30,
+        "codeExamples": [
+        {
+            "id": "1",
+            "title": "Control Flow Example",
+            "code": "// Control Flow Example\npublic class Main {\n  public static void main(String[] args) {\n    int x = 5;\n    if (x > 0) {\n      System.out.println(\"Positive\");\n    } else {\n      System.out.println(\"Negative\");\n    }\n  }\n}",
+            "explanation": "Thhis example demonstrates how to use control flow statements in Java, such as if-else, to make decisions based on conditions."
+        },
+        {
+            "id": "2",
+            "title": "Loop Example",
+            "code": "// Loop Example\npublic class Main {\n  public static void main(String[] args) {\n    for (int i = 0; i < 5; i++) {\n      System.out.println(i);\n    }\n  }\n}",
+            "explanation": "Thhis example shows how to use a loop statement in Java to iterate over a sequence of numbers and print each value."
+        }
+        ],
+        "resources": [
+        {
+            "title": "Java Control Flow",
+            "url": "https://www.geeksforgeeks.org/control-statements-in-java/",
+            "type": "article"
+        },
+        {
+            "title": "Java Loops Tutorial",
+            "url": "https://www.youtube.com/watch?v=example",
+            "type": "video"
+
+
+
+    }
+    ],
+    "quiz": {
+        "id": "403",
+        "title": "Control Flow Statements Quiz"
+    },
+    "previousLesson": { "id": "402", "title": "Java Syntax and Basics" },
+    "nextLesson": { "id": "404", "title": "Object-Oriented Programming (OOP)" }
+},
+{
+    "_id": "404",
+    "title": "Object-Oriented Programming (OOP)",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 4: Object-Oriented Programming (OOP)\n\n### **What is OOP?**\nObject-Oriented Programming (OOP) is a programming paradigm that uses objects and classes to model real-world entities.\n\n#### **Key Concepts of OOP**\n- Classes and objects\n- Inheritance\n- Encapsulation\n- Polymorphism\n\n#### **Example Program**\n```java\npublic class Person {\n  private String name;\n\n  public Person(String name) {\n    this.name = name;\n  }\n\n  public String getName() {\n    return name;\n  }\n}\n```\n",
+    "order": 4,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Person Class Example",
+        "code": "// Person Class Example\npublic class Person {\n  private String name;\n\n  public Person(String name) {\n    this.name = name;\n  }\n\n  public String getName() {\n    return name;\n  }\n}",
+        "explanation": "Thhis example demonstrates how to create a simple Person class in Java with a constructor and getter method for the name property."
+    },
+    {
+        "id": "2",
+        "title": "Inheritance Example",
+        "code": "// Inheritance Example\npublic class Student extends Person {\n  private int studentId;\n\n  public Student(String name, int studentId) {\n    super(name);\n    this.studentId = studentId;\n  }\n}",
+        "explanation": "Thhis example shows how to create a Student class that inherits from the Person class in Java using the 'extends' keyword."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java OOP Concepts",
+        "url": "https://www.tutorialspoint.com/java/java_object_oriented.htm",
+        "type": "article"
+    },
+    {
+        "title": "Java OOP Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "404",
+    "title": "Object-Oriented Programming Quiz"
+    },
+    "previousLesson": { "id": "403", "title": "Control Flow Statements" },
+    "nextLesson": { "id": "405", "title": "Java Collections Framework" }
+},
+{
+    "_id": "405",
+    "title": "Java Collections Framework",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 5: Java Collections Framework\n\n### **What is the Collections Framework?**\nThe Java Collections Framework provides a set of classes and interfaces to store and manipulate groups of objects.\n\n#### **Key Interfaces in the Collections Framework**\n- List\n- Set\n- Map\n- Queue\n\n#### **Example Program**\n```java\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class Main {\n  public static void main(String[] args) {\n    List<String> names = new ArrayList<>();\n    names.add(\"Alice\");\n    names.add(\"Bob\");\n    names.add(\"Charlie\");\n    System.out.println(names);\n  }\n}\n```\n",
+    "order": 5,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "List Example",
+        "code": "// List Example\nimport java.util.ArrayList;\nimport java.util.List;\n\npublic class Main {\n  public static void main(String[] args) {\n    List<String> names = new ArrayList<>();\n    names.add(\"Alice\");\n    names.add(\"Bob\");\n    names.add(\"Charlie\");\n    System.out.println(names);\n  }\n}",
+        "explanation": "Thhis example demonstrates how to use the List interface in the Java Collections Framework to store and manipulate a list of names."
+    },
+    {
+        "id": "2",
+        "title": "Map Example",
+        "code": "// Map Example\nimport java.util.HashMap;\nimport java.util.Map;\n\npublic class Main {\n  public static void main(String[] args) {\n    Map<String, Integer> scores = new HashMap<>();\n    scores.put(\"Alice\", 95);\n    scores.put(\"Bob\", 85);\n    scores.put(\"Charlie\", 90);\n    System.out.println(scores);\n  }\n}",
+    "explanation": "Thhis example shows how to use the Map interface in the Java Collections Framework to store key-value pairs of names and scores."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java Collections Framework",
+        "url": "https://docs.oracle.com/javase/8/docs/technotes/guides/collections/overview.html",
+        "type": "documentation"
+    },
+    {
+        "title": "Java Collections Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "405",
+    "title": "Collections Framework Quiz"
+    },
+    "previousLesson": { "id": "404", "title": "Object-Oriented Programming (OOP)" },
+    "nextLesson": { "id": "406", "title": "Exception Handling" }
+},
+{
+    "_id": "406",
+    "title": "Exception Handling",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 6: Exception Handling\n\n### **What is Exception Handling?**\nException handling in Java allows you to handle runtime errors and exceptions gracefully in your programs.\n\n#### **Types of Exceptions**\n- Checked exceptions\n- Unchecked exceptions\n- Errors\n\n#### **Example Program**\n```java\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      int result = divide(10, 0);\n      System.out.println(\"Result: \" + result);\n    } catch (ArithmeticException e) {\n      System.out.println(\"Error: Division by zero\");\n    }\n  }\n\n  public static int divide(int a, int b) {\n    return a / b;\n  }\n}\n```\n",
+    "order": 6,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Exception Handling Example",
+        "code": "// Exception Handling Example\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      int result = divide(10, 0);\n      System.out.println(\"Result: \" + result);\n    } catch (ArithmeticException e) {\n      System.out.println(\"Error: Division by zero\");\n    }\n  }\n\n  public static int divide(int a, int b) {\n    return a / b;\n  }\n}",
+        "explanation": "Thhis example demonstrates how to handle an ArithmeticException in Java using a try-catch block to catch and handle the exception."
+    },
+    {
+        "id": "2",
+        "title": "Checked Exception Example",
+        "code": "// Checked Exception Example\nimport java.io.File;\nimport java.io.FileNotFoundException;\nimport java.io.FileReader;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      File file = new File(\"example.txt\");\n      FileReader reader = new FileReader(file);\n    } catch (FileNotFoundException e) {\n      System.out.println(\"File not found\");\n}\n  }\n}",
+        "explanation": "Thhis example shows how to handle a checked exception in Java using a try-catch block to catch and handle the FileNotFoundException."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java Exception Handling",
+        "url": "https://www.geeksforgeeks.org/exceptions-in-java/",
+        "type": "article"
+    },
+    {
+        "title": "Java Exception Tutorial",
+        "url": "https://www.youtube.com/watch/example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "406",
+    "title": "Exception Handling Quiz"
+    },
+    "previousLesson": { "id": "405", "title": "Java Collections Framework" },
+    "nextLesson": { "id": "407", "title": "File Handling in Java" }
+},
+{
+    "_id": "407",
+    "title": "File Handling in Java",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 7: File Handling in Java\n\n### **What is File Handling?**\nFile handling in Java allows you to read from and write to files on the local filesystem.\n\n#### **Key Classes for File Handling**\n- File\n- FileReader and FileWriter\n- BufferedReader and BufferedWriter\n\n#### **Example Program**\n```java\nimport java.io.File;\nimport java.io.FileWriter;\nimport java.io.IOException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      File file = new File(\"example.txt\");\n      FileWriter writer = new FileWriter(file);\n      writer.write(\"Hello, World!\");\n      writer.close();\n    } catch (IOException e) {\n      System.out.println(\"Error writing to file\");\n    }\n  }\n}\n```\n",
+    "order": 7,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "File Handling Example",
+        "code": "// File Handling Example\nimport java.io.File;\nimport java.io.FileWriter;\nimport java.io.IOException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      File file = new File(\"example.txt\");\n      FileWriter writer = new FileWriter(file);\n      writer.write(\"Hello, World!\");\n      writer.close();\n    } catch (IOException e) {\n      System.out.println(\"Error writing to file\");\n    }\n  }\n}",
+        "explanation": "Thhis example demonstrates how to write to a file in Java using FileWriter and handle IOExceptions that may occur during file writing."
+    },
+    {
+        "id": "2",
+        "title": "File Reading Example",
+        "code": "// File Reading Example\nimport java.io.File;\nimport java.io.FileReader;\nimport java.io.IOException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      File file = new File(\"example.txt\");\n      FileReader reader = new FileReader(file);\n      int data;\n      while ((data = reader.read()) != -1) {\n        System.out.print((char) data);\n      }\n      reader.close();\n    } catch (IOException e) {\n      System.out.println(\"Error reading from file\");\n    }\n  }\n}",
+        "explanation": "Thhis example shows how to read from a file in Java using FileReader and handle IOExceptions that may occur during file reading."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java File Handling",
+        "url": "https://www.javatpoint.com/file-handling-in-java",
+        "type": "article"
+    },
+    {
+        "title": "Java File Handling Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "407",
+    "title": "File Handling Quiz"
+    },
+    "previousLesson": { "id": "406", "title": "Exception Handling" },
+    "nextLesson": { "id": "408", "title": "Multi-threading & Concurrency"}
+},
+{
+    "_id": "408",
+    "title": "Multi-threading & Concurrency",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 8: Multi-threading & Concurrency\n\n### **What is Multi-threading?**\nMulti-threading in Java allows you to execute multiple threads concurrently to improve performance and responsiveness.\n\n#### **Key Concepts of Multi-threading**\n- Thread class\n- Runnable interface\n- Synchronization\n- Deadlock\n#### **Example Program**\n```java\npublic class Main {\n  public static void main(String[] args) {\n    Thread thread1 = new Thread(new MyRunnable());\n    Thread thread2 = new Thread(new MyRunnable());\n    thread1.start();\n    thread2.start();\n  }\n}\n\nclass MyRunnable implements Runnable {\n  public void run() {\n    for (int i = 0; i < 5; i++) {\n      System.out.println(Thread.currentThread().getName() + \": \" + i);\n    }\n  }\n}\n```\n",
+    "order": 8,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Multi-threading Example",
+        "code": "// Multi-threading Example\npublic class Main {\n  public static void main(String[] args) {\n    Thread thread1 = new Thread(new MyRunnable());\n    Thread thread2 = new Thread(new MyRunnable());\n    thread1.start();\n    thread2.start();\n  }\n}\n\nclass MyRunnable implements Runnable {\n  public void run() {\n    for (int i = 0; i < 5; i++) {\n      System.out.println(Thread.currentThread().getName() + \": \" + i);\n    }\n  }\n}",
+        "explanation": "Thhis example demonstrates how to create and start multiple threads in Java using the Thread class and Runnable interface to run concurrent tasks."
+    },
+    {
+        "id": "2",
+        "title": "Synchronization Example",
+        "code": "// Synchronization Example\npublic class Counter {\n  private int count = 0;\n\n  public synchronized void increment() {\n    count++;\n  }\n}\n",
+        "explanation": "Thhis example shows how to use synchronization in Java"
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java Multi-threading",
+        "url": "https://www.geeksforgeeks.org/multithreading-in-java/",
+        "type": "article"
+    },
+    {
+        "title": "Java Concurrency Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "408",
+    "title": "Multi-threading & Concurrency Quiz"
+    },
+    "previousLesson": { "id": "407", "title": "File Handling in Java" },
+    "nextLesson": { "id": "409", "title": "JDBC & Database Connectivity" }
+},
+{
+    "_id": "409",
+    "title": "JDBC & Database Connectivity",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 9: JDBC & Database Connectivity\n\n### **What is JDBC?**\nJava Database Connectivity (JDBC) is an API that allows Java applications to interact with databases using SQL.\n\n#### **Key Concepts of JDBC**\n- Connection and DriverManager\n- Statement and PreparedStatement\n- ResultSet\n- Transactions\n\n#### **Example Program**\n```java\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.PreparedStatement;\nimport java.sql.ResultSet;\nimport java.sql.SQLException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      Connection conn = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/mydb\", \"user\", \"password\");\n      PreparedStatement stmt = conn.prepareStatement(\"SELECT * FROM users\");\n      ResultSet rs = stmt.executeQuery();\n      while (rs.next()) {\n        System.out.println(rs.getString(\"name\"));\n      }\n      conn.close();\n    } catch (SQLException e) {\n      System.out.println(\"Error connecting to database\");\n    }\n  }\n}\n```\n",
+    "order": 9,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "JDBC Example",
+        "code": "// JDBC Example\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.PreparedStatement;\nimport java.sql.ResultSet;\nimport java.sql.SQLException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      Connection conn = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/mydb\", \"user\", \"password\");\n      PreparedStatement stmt = conn.prepareStatement(\"SELECT * FROM users\");\n      ResultSet rs = stmt.executeQuery();\n      while (rs.next()) {\n        System.out.println(rs.getString(\"name\"));\n      }\n      conn.close();\n    } catch (SQLException e) {\n      System.out.println(\"Error connecting to database\");\n    }\n  }\n}",
+        "explanation": "Thhis example demonstrates how to connect to a database using JDBC in Java, execute a query, and process the results using a ResultSet."
+    },
+    {
+        "id": "2",
+        "title": "PreparedStatement Example",
+        "code": "// PreparedStatement Example\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.PreparedStatement;\nimport java.sql.SQLException;\n\npublic class Main {\n  public static void main(String[] args) {\n    try {\n      Connection conn = DriverManager.getConnection(\"jdbc:mysql://localhost:3306/mydb\", \"user\", \"password\");\n      PreparedStatement stmt = conn.prepareStatement(\"INSERT INTO users (name) VALUES (?)\");\n      stmt.setString(1, \"Alice\");\n      stmt.executeUpdate();\n      conn.close();\n    } catch (SQLException e) {\n      System.out.println(\"Error executing query\");\n    }\n  }\n}",
+        "explanation": "Thhis example shows how to use a PreparedStatement in Java to execute parameterized SQL queries and insert data into a database."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Java JDBC Tutorial",
+        "url": "https://www.tutorialspoint.com/jdbc/index.htm",
+        "type": "article"
+    },
+    {
+        "title": "Java Database Connectivity",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "409",
+    "title": "JDBC & Database Connectivity Quiz"
+    },
+    "previousLesson": { "id": "408", "title": "Multi-threading & Concurrency" },
+    "nextLesson": { "id": "410", "title": "JavaFX and GUI Development"}
+},
+{
+    "_id": "410",
+    "title": "JavaFX and GUI Development",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 10: JavaFX and GUI Development\n\n### **What is JavaFX?**\nJavaFX is a set of graphics and media packages that enables developers to design, create, test, debug, and deploy rich client applications that operate consistently across diverse platforms.\n\n#### **Key Features of JavaFX**\n- Scene Builder\n- FXML\n- CSS Styling\n- Event Handling\n\n#### **Example Program**\n```java\nimport javafx.application.Application;\nimport javafx.scene.Scene;\nimport javafx.scene.control.Button;\nimport javafx.scene.layout.StackPane;\nimport javafx.stage.Stage;\n\npublic class Main extends Application {\n  public static void main(String[] args) {\n    launch(args);\n  }\n\n  @Override\n  public void start(Stage primaryStage) {\n    Button btn = new Button(\"Click me\");\n    StackPane root = new StackPane();\n    root.getChildren().add(btn);\n    Scene scene = new Scene(root, 300, 250);\n    primaryStage.setTitle(\"JavaFX Example\");\n    primaryStage.setScene(scene);\n    primaryStage.show();\n  }\n}\n```\n",
+    "order": 10,
+    "duration": 30,
+    "codeExamples": [
+        {
+            "id": "1",
+            "title": "JavaFX Example",
+            "code": "// JavaFX Example\nimport javafx.application.Application;\nimport javafx.scene.Scene;\nimport javafx.scene.control.Button;\nimport javafx.scene.layout.StackPane;\nimport javafx.stage.Stage;\n\npublic class Main extends Application {\n  public static void main(String[] args) {\n    launch(args);\n  }\n\n  @Override\n  public void start(Stage primaryStage) {\n    Button btn = new Button(\"Click me\");\n    StackPane root = new StackPane();\n    root.getChildren().add(btn);\n    Scene scene = new Scene(root, 300, 250);\n    primaryStage.setTitle(\"JavaFX Example\");\n    primaryStage.setScene(scene);\n    primaryStage.show();\n  }\n}",
+        "explanation": "Thhis example demonstrates how to create a simple JavaFX application with a button that displays a message when clicked."
+        },
+        {
+            "id": "2",
+            "title": "FXML Example",
+            "code": "<!-- FXML Example -->\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n<?import javafx.scene.control.*?>\n<?import javafx.scene.layout.*?>\n\n<StackPane xmlns:fx=\"http://javafx.com/fxml\" fx:controller=\"MainController\">\n  <Button text=\"Click me\" onAction=\"handleButtonClick\"/>\n</StackPane>\n",
+        "explanation": "Thhis example shows how to create a simple FXML file for a JavaFX application with a button that triggers an event when clicked."
+        }
+    ],
+    "resources": [
+    {
+        "title": "JavaFX Documentation",
+        "url": "https://openjfx.io/",
+        "type": "documentation"
+    },
+    {
+        "title": "JavaFX Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "410",
+    "title": "JavaFX and GUI Development Quiz"
+    },
+    "previousLesson": { "id": "409", "title": "JDBC & Database Connectivity" },
+    "nextLesson": { "id": "411", "title": "Spring Framework Basics"}
+},
+{
+    "_id": "411",
+    "title": "Spring Framework Basics",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 11: Spring Framework Basics\n\n### **What is the Spring Framework?**\nThe Spring Framework is a comprehensive programming and configuration model for modern Java-based enterprise applications.\n\n#### **Key Features of Spring**\n- Inversion of Control (IoC)\n- Dependency Injection (DI)\n- Aspect-Oriented Programming (AOP)\n- Spring MVC\n\n#### **Example Program**\n```java\nimport org.springframework.context.ApplicationContext;\nimport org.springframework.context.support.ClassPathXmlApplicationContext;\n\npublic class Main {\n  public static void main(String[] args) {\n    ApplicationContext context = new ClassPathXmlApplicationContext(\"beans.xml\");\n    HelloWorld obj = (HelloWorld) context.getBean(\"helloWorld\");\n    obj.getMessage();\n  }\n}\n```\n",
+    "order": 11,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Spring Example",
+        "code": "// Spring Example\nimport org.springframework.context.ApplicationContext;\nimport org.springframework.context.support.ClassPathXmlApplicationContext;\n\npublic class Main {\n  public static void main(String[] args) {\n    ApplicationContext context = new ClassPathXmlApplicationContext(\"beans.xml\");\n    HelloWorld obj = (HelloWorld) context.getBean(\"helloWorld\");\n    obj.getMessage();\n  }\n}",
+    "explanation": "Thhis example demonstrates how to create a simple Spring application using the ApplicationContext and XML configuration file to manage beans and dependencies."
+    },
+    {
+        "id": "2",
+        "title": "Dependency Injection Example",
+        "code": "// Dependency Injection Example\npublic class TextEditor {\n  private SpellChecker spellChecker;\n\n  public TextEditor(SpellChecker spellChecker) {\n    this.spellChecker = spellChecker;\n  }\n}\n",
+    "explanation": "Thhis example shows how to use dependency injection in Spring to inject dependencies into a class, such as a SpellChecker into a TextEditor."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Spring Framework Guide",
+        "url": "https://spring.io/guides",
+        "type": "article"
+    },
+    {
+        "title": "Spring Framework Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "411",
+    "title": "Spring Framework Basics Quiz"
+    },
+    "previousLesson": { "id": "410", "title": "JavaFX and GUI Development" },
+    "nextLesson": { "id": "412", "title": "Final Project"}
+},
+{
+    "_id": "412",
+    "title": "Final Project",
+    "courseId": "4",
+    "courseName": "Java Programming",
+    "content": "Leesson 12: Final Project\n\n### **Congratulations!**\nYou have completed the Java Programming course. Now it's time to work on your final project to showcase your skills and knowledge.\n\n#### **Project Ideas**\n- Create a simple web application using Spring Boot\n- Build a RESTful API with Java and Spring\n- Develop a desktop application with JavaFX\n\n#### **Resources**\n- [Spring Boot Documentation](https://spring.io/projects/spring-boot)\n- [JavaFX Tutorial](https://www.youtube.com/watch?v=example)\n",
+    "order": 12,
+    "duration": 30,
+    "codeExamples": [],
+    "resources": [
+    {
+        "title": "Spring Project Ideas",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    },
+    {
+        "title": "JavaFX Final Project",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "412",
+    "title": "Final Project Quiz"
+    },
+    "previousLesson": { "id": "411", "title": "Spring Framework Basics" },
+    "nextLesson": null
+},
+{
+    "_id": "501", 
+    "title": "Introduction to C++",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 1: Introduction to C++\n\n### **What is C++?**\nC++ is a general-purpose programming language created as an extension of the C programming language.\n\n#### **Key Features of C++**\n- Object-oriented programming\n- Low-level memory manipulation\n- High performance\n- Standard Template Library (STL)\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  std::cout << \"Hello, World!\";\n  return 0;\n}\n```\n",
+    "order": 1,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Hello World Example",
+        "code": "// Hello World Example\n#include <iostream>\n\nint main() {\n  std::cout << \"Hello, World!\";\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to write a simple 'Hello, World!' program in C++ using the standard input/output stream."
+    },
+    {
+        "id": "2",
+        "title": "C++ Syntax",
+        "code": "// C++ Syntax\n#include <iostream>\n\nint main() {\n  int x = 5;\n  int y = 10;\n  int sum = x + y;\n  std::cout << \"Sum: \" << sum;\n  return 0;\n}\n",
+        "explanation": "Thhis example shows the basic syntax of C++, including variable declaration, arithmetic operations, and output using the standard input/output stream."
+    }
+    ],  
+    "resources": [
+    {
+        "title": "C++ Tutorial",
+        "url": "https://www.tutorialspoint.com/cplusplus/index.htm",
+        "type": "article"
+    },
+    {
+        "title": "C++ Programming Guide",
+        "url": "https://www.geeksforgeeks.org/c-plus-plus/",
+        "type": "article"
+    }
+    ],
+    "quiz": {
+    "id": "501",
+    "title": "Introduction to C++ Quiz"
+    },
+    "previousLesson": null,
+    "nextLesson": { "id": "502", "title": "Variables and Data Types" }
+},
+{
+    "_id": "502",
+    "title": "Variables and Data Types",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 2: Variables and Data Types\n\n### **C++ Data Types**\nC++ provides a variety of data types to store different types of values, such as integers, floating-point numbers, characters, and booleans.\n\n#### **Common Data Types**\n- int: integer\n- double: floating-point number\n- char: character\n- bool: boolean\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int age = 25;\n  double height = 5.9;\n  char grade = 'A';\n  bool isPass = true;\n\n  std::cout << \"Age: \" << age << std::endl;\n  std::cout << \"Height: \" << height << std::endl;\n  std::cout << \"Grade: \" << grade << std::endl;\n  std::cout << \"Pass: \" << isPass << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 2,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Data Types Example",
+        "code": "// Data Types Example\n#include <iostream>\n\nint main() {\n  int age = 25;\n  double height = 5.9;\n  char grade = 'A';\n  bool isPass = true;\n\n  std::cout << \"Age: \" << age << std::endl;\n  std::cout << \"Height: \" << height << std::endl;\n  std::cout << \"Grade: \" << grade << std::endl;\n  std::cout << \"Pass: \" << isPass << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to declare and initialize variables of different data types in C++ and output their values using the standard input/output stream."
+    },
+    {
+        "id": "2",
+        "title": "Type Casting Example",
+        "code": "// Type Casting Example\n#include <iostream>\n\nint main() {\n  int x = 10;\n  double y = 5.5;\n  int sum = x + (int)y;\n\n  std::cout << \"Sum: \" << sum << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to perform type casting in C++ to convert a double value to an integer for arithmetic operations."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Data Types",
+        "url": "https://www.geeksforgeeks.org/c-data-types/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Variables Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "502",
+    "title": "Variables and Data Types Quiz"
+    },
+    "previousLesson": { "id": "501", "title": "Introduction to C++" },
+    "nextLesson": { "id": "503", "title": "Operators and Expressions" }
+},
+{
+    "_id": "503",
+    "title": "Operators and Expressions",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 3: Operators and Expressions\n\n### **Operators in C++**\nOperators are symbols that perform operations on operands, such as arithmetic, logical, and relational operations.\n\n#### **Common Operators**\n- Arithmetic operators: +, -, *, /\n- Logical operators: &&, ||, !\n- Relational operators: ==, !=, <, >\n- Assignment operators: =, +=, -=\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int x = 5;\n  int y = 3;\n  int sum = x + y;\n  bool isTrue = (x > y);\n\n  std::cout << \"Sum: \" << sum << std::endl;\n  std::cout << \"Is x greater than y? \" << isTrue << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 3,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Arithmetic Operators Example",
+        "code": "// Arithmetic Operators Example\n#include <iostream>\n\nint main() {\n  int x = 5;\n  int y = 3;\n  int sum = x + y;\n  int product = x * y;\n\n  std::cout << \"Sum: \" << sum << std::endl;\n  std::cout << \"Product: \" << product << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use arithmetic operators in C++ to perform addition and multiplication operations on integer values."
+    },
+    {
+        "id": "2",
+        "title": "Logical Operators Example",
+        "code": "// Logical Operators Example\n#include <iostream>\n\nint main() {\n  bool a = true;\n  bool b = false;\n  bool result = a && b;\n\n  std::cout << \"Result: \" << result << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use logical operators in C++ to perform logical AND operation on boolean values."
+    }
+    ],  
+    "resources": [
+    {
+        "title": "C++ Operators",
+        "url": "https://www.tutorialspoint.com/cplusplus/cpp_operators.htm",
+        "type": "article"
+    },
+    {
+        "title": "C++ Expressions Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "503",
+    "title": "Operators and Expressions Quiz"
+    },
+    "previousLesson": { "id": "502", "title": "Variables and Data Types" },
+    "nextLesson": { "id": "504", "title": "Control Flow: Conditionals and Loops" }
+},
+{
+    "_id": "504",
+    "title": "Control Flow: Conditionals and Loops",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 4: Control Flow: Conditionals and Loops\n\n### **Control Flow in C++**\nControl flow statements allow you to control the flow of execution in a program based on conditions and loops.\n\n#### **Key Control Flow Statements**\n- if-else: conditional statement\n- switch: multi-way branching\n- while: loop with condition\n- for: loop with initialization, condition, and increment\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int x = 5;\n\n  if (x > 0) {\n    std::cout << \"Positive\";\n  } else {\n    std::cout << \"Negative\";\n  }\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << i << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 4,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "if-else Example",
+        "code": "// if-else Example\n#include <iostream>\n\nint main() {\n  int x = 5;\n\n  if (x > 0) {\n    std::cout << \"Positive\";\n  } else {\n    std::cout << \"Negative\";\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use the if-else statement in C++ to check if a number is positive or negative based on a condition."
+    },
+    {
+        "id": "2",
+        "title": "for Loop Example",
+        "code": "// for Loop Example\n#include <iostream>\n\nint main() {\n  for (int i = 0; i < 5; i++) {\n    std::cout << i << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use a for loop in C++ to iterate over a range of values and print them to the console."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Control Flow",
+        "url": "https://www.geeksforgeeks.org/control-statements-in-c-cpp/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Loops Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "504",
+    "title": "Control Flow: Conditionals and Loops Quiz"
+    },
+    "previousLesson": { "id": "503", "title": "Operators and Expressions" },
+    "nextLesson": { "id": "505", "title": "Functions in C++" }
+},
+{
+    "_id": "505",
+    "title": "Functions in C++",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 5: Functions in C++\n\n### **Functions in C++**\nFunctions are blocks of code that perform a specific task and can be called from other parts of the program.\n\n#### **Key Concepts**\n- Function declaration and definition\n- Parameters and return types\n- Function overloading\n- Recursion\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint add(int a, int b) {\n  return a + b;\n}\n\nint main() {\n  int x = 5;\n  int y = 3;\n  int sum = add(x, y);\n\n  std::cout << \"Sum: \" << sum << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 5,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Function Example",
+        "code": "// Function Example\n#include <iostream>\n\nint add(int a, int b) {\n  return a + b;\n}\n\nint main() {\n  int x = 5;\n  int y = 3;\n  int sum = add(x, y);\n\n  std::cout << \"Sum: \" << sum << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to define and call a simple function in C++ to add two integer values and return the result."
+    },
+    {
+        "id": "2",
+        "title": "Function Overloading Example",
+        "code": "// Function Overloading Example\n#include <iostream>\n\nint add(int a, int b) {\n  return a + b;\n}\n\ndouble add(double a, double b) {\n  return a + b;\n}\n\nint main() {\n  int x = 5;\n  int y = 3;\n  double a = 2.5;\n  double b = 3.5;\n\n  int sum1 = add(x, y);\n  double sum2 = add(a, b);\n\n  std::cout << \"Sum1: \" << sum1 << std::endl;\n  std::cout << \"Sum2: \" << sum2 << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to overload a function in C++ to accept different parameter types and return values."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Functions",
+        "url": "https://www.tutorialspoint.com/cplusplus/cpp_functions.htm",
+        "type": "article"
+    },
+    {
+        "title": "C++ Functions Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "505",
+    "title": "Functions in C++ Quiz"
+    },
+    "previousLesson": { "id": "504", "title": "Control Flow: Conditionals and Loops" },
+    "nextLesson": { "id": "506", "title": "Arrays and Pointers" }
+},
+{
+    "_id": "506",
+    "title": "Arrays and Pointers",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 6: Arrays and Pointers\n\n### **Arrays in C++**\nArrays are collections of elements of the same data type stored in contiguous memory locations.\n\n#### **Key Concepts**\n- Array declaration and initialization\n- Accessing array elements\n- Multi-dimensional arrays\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int numbers[5] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << numbers[i] << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 6,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Array Example",
+        "code": "// Array Example\n#include <iostream>\n\nint main() {\n  int numbers[5] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << numbers[i] << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to declare and initialize an array in C++ and access its elements using a loop."
+    },
+    {
+        "id": "2",
+        "title": "Pointer Example",
+        "code": "// Pointer Example\n#include <iostream>\n\nint main() {\n  int x = 5;\n  int* ptr = &x;\n\n  std::cout << \"Value of x: \" << x << std::endl;\n  std::cout << \"Address of x: \" << ptr << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use pointers in C++ to store the memory address of a variable and access its value indirectly."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Arrays",
+        "url": "https://www.geeksforgeeks.org/arrays-in-c-cpp/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Pointers Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "506",
+    "title": "Arrays and Pointers Quiz"
+    },
+    "previousLesson": { "id": "505", "title": "Functions in C++" },
+    "nextLesson": { "id": "507", "title": "Object-Oriented Programming (OOP)" }
+},
+{
+    "_id": "507",
+    "title": "Object-Oriented Programming (OOP)",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 7: Object-Oriented Programming (OOP)\n\n### **OOP Concepts in C++**\nObject-Oriented Programming is a programming paradigm that uses objects and classes to model real-world entities.\n\n#### **Key Concepts**\n- Classes and objects\n- Encapsulation\n- Inheritance\n- Polymorphism\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nclass Rectangle {\nprivate:\n  int width;\n  int height;\n\npublic:\n  Rectangle(int w, int h) : width(w), height(h) {}\n\n  int area() {\n    return width * height;\n  }\n};\n\nint main() {\n  Rectangle rect(5, 3);\n  std::cout << \"Area: \" << rect.area() << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 7,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Class Example",
+        "code": "// Class Example\n#include <iostream>\n\nclass Rectangle {\nprivate:\n  int width;\n  int height;\n\npublic:\n  Rectangle(int w, int h) : width(w), height(h) {}\n\n  int area() {\n    return width * height;\n  }\n};\n\nint main() {\n  Rectangle rect(5, 3);\n  std::cout << \"Area: \" << rect.area() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to define a class in C++ with private data members, a constructor, and a member function to calculate the area of a rectangle."
+    },
+    {
+        "id": "2",
+        "title": "Inheritance Example",
+        "code": "// Inheritance Example\n#include <iostream>\n\nclass Shape {\npublic:\n  virtual int area() = 0;\n};\n\nclass Rectangle : public Shape {\nprivate:\n  int width;\n  int height;\n\npublic:\n  Rectangle(int w, int h) : width(w), height(h) {}\n\n  int area() override {\n    return width * height;\n  }\n};\n\nint main() {\n  Rectangle rect(5, 3);\n  std::cout << \"Area: \" << rect.area() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use inheritance in C++ to create a base class Shape with a pure virtual function area and a derived class Rectangle that implements the area function."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ OOP Concepts",
+        "url": "https://www.geeksforgeeks.org/object-oriented-programming-oops-concept-in-c/",
+        "type": "article"
+    },
+    {
+        "title": "C++ OOP Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "507",
+    "title": "Object-Oriented Programming (OOP) Quiz"
+    },
+    "previousLesson": { "id": "506", "title": "Arrays and Pointers" },
+    "nextLesson": { "id": "508", "title": "Memory Management and Dynamic Allocation" }
+},
+{
+    "_id": "508",
+    "title": "Memory Management and Dynamic Allocation",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 8: Memory Management and Dynamic Allocation\n\n### **Memory Management in C++**\nC++ provides mechanisms for managing memory allocation and deallocation, including static, stack, and heap memory.\n\n#### **Key Concepts**\n- Static memory allocation\n- Stack memory allocation\n- Heap memory allocation\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int x = 5; // static memory allocation\n  int* ptr = new int(10); // heap memory allocation\n\n  std::cout << \"Value of x: \" << x << std::endl;\n  std::cout << \"Value at address: \" << *ptr << std::endl;\n\n  delete ptr; // free memory\n\n  return 0;\n}\n```\n",
+    "order": 8,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Memory Allocation Example",
+        "code": "// Memory Allocation Example\n#include <iostream>\n\nint main() {\n  int x = 5; // static memory allocation\n  int* ptr = new int(10); // heap memory allocation\n\n  std::cout << \"Value of x: \" << x << std::endl;\n  std::cout << \"Value at address: \" << *ptr << std::endl;\n\n  delete ptr; // free memory\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to allocate memory in C++ using static memory allocation for variables and heap memory allocation for dynamic memory."
+    },
+    {
+        "id": "2",
+        "title": "Dynamic Array Example",
+        "code": "// Dynamic Array Example\n#include <iostream>\n\nint main() {\n  int size = 5;\n  int* arr = new int[size];\n\n  for (int i = 0; i < size; i++) {\n    arr[i] = i;\n  }\n\n  for (int i = 0; i < size; i++) {\n    std::cout << arr[i] << std::endl;\n  }\n\n  delete[] arr; // free memory\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to dynamically allocate an array in C++ on the heap and access its elements using pointer arithmetic."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Memory Management",
+        "url": "https://www.geeksforgeeks.org/memory-management-in-cpp/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Dynamic Allocation Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "508",
+    "title": "Memory Management and Dynamic Allocation Quiz"
+    },
+    "previousLesson": { "id": "507", "title": "Object-Oriented Programming (OOP)" },
+    "nextLesson": { "id": "509", "title": "File Handling in C++" }
+},
+{
+    "_id": "509",
+    "title": "File Handling in C++",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 9: File Handling in C++\n\n### **File Handling in C++**\nFile handling allows you to read from and write to files using input/output streams in C++.\n\n#### **Key Concepts**\n- File streams: ifstream, ofstream, fstream\n- Opening and closing files\n- Reading and writing data\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <fstream>\n\nint main() {\n  std::ofstream file(\"data.txt\");\n\n  if (file.is_open()) {\n    file << \"Hello, World!\";\n    file.close();\n  }\n\n  return 0;\n}\n```\n",
+    "order": 9,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "File Write Example",
+        "code": "// File Write Example\n#include <iostream>\n#include <fstream>\n\nint main() {\n  std::ofstream file(\"data.txt\");\n\n  if (file.is_open()) {\n    file << \"Hello, World!\";\n    file.close();\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to write data to a file in C++ using an output file stream and check if the file is successfully opened."
+    },
+    {
+        "id": "2",
+        "title": "File Read Example",
+        "code": "// File Read Example\n#include <iostream>\n#include <fstream>\n\nint main() {\n  std::ifstream file(\"data.txt\");\n  std::string line;\n\n  if (file.is_open()) {\n    while (std::getline(file, line)) {\n      std::cout << line << std::endl;\n    }\n    file.close();\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to read data from a file in C++ using an input file stream and display the contents line by line."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ File Handling",
+        "url": "https://www.tutorialspoint.com/cplusplus/cpp_files_streams.htm",
+        "type": "article"
+    },
+    {
+        "title": "C++ File Handling Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "509",
+    "title": "File Handling in C++ Quiz"
+    },
+    "previousLesson": { "id": "508", "title": "Memory Management and Dynamic Allocation" },
+    "nextLesson": { "id": "510", "title": "STL and Standard Library" }
+},
+{
+    "_id": "510",
+    "title": "STL and Standard Library",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 10: STL and Standard Library\n\n### **STL and Standard Library in C++**\nThe Standard Template Library (STL) provides a set of template classes and functions to work with data structures and algorithms in C++.\n\n#### **Key Components**\n- Containers: vector, list, map\n- Algorithms: sorting, searching\n- Iterators: input, output, forward, bidirectional\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n  std::vector<int> numbers = {3, 1, 4, 1, 5, 9};\n\n  std::sort(numbers.begin(), numbers.end());\n\n  for (int num : numbers) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 10,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Vector Example",
+        "code": "// Vector Example\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n  std::vector<int> numbers = {3, 1, 4, 1, 5, 9};\n\n  std::sort(numbers.begin(), numbers.end());\n\n  for (int num : numbers) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use a vector container in C++ from the Standard Template Library (STL) to store and sort a collection of integers."
+    },
+    {
+        "id": "2",
+        "title": "Map Example",
+        "code": "// Map Example\n#include <iostream>\n#include <map>\n\nint main() {\n  std::map<std::string, int> ages = {\n    {\"Alice\", 25},\n    {\"Bob\", 30},\n    {\"Charlie\", 35}\n  };\n\n  for (auto& pair : ages) {\n    std::cout << pair.first << \": \" << pair.second << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use a map container in C++ from the Standard Template Library (STL) to store key-value pairs and iterate over the elements."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ STL Tutorial",
+        "url": "https://www.geeksforgeeks.org/the-c-standard-template-library-stl/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Standard Library Guide",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "510",
+    "title": "STL and Standard Library Quiz"
+    },
+    "previousLesson": { "id": "509", "title": "File Handling in C++" },
+    "nextLesson": { "id": "511", "title": "Exception Handling" }
+},
+{
+    "_id": "511",
+    "title": "Exception Handling",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Leesson 11: Exception Handling\n\n### **Exception Handling in C++**\nException handling allows you to handle runtime errors and exceptional conditions in a program gracefully.\n\n#### **Key Concepts**\n- try, catch, throw blocks\n- Standard exception classes\n- Custom exception classes\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint divide(int a, int b) {\n  if (b == 0) {\n    throw std::runtime_error(\"Divide by zero error\");\n  }\n  return a / b;\n}\n\nint main() {\n  try {\n    int result = divide(10, 0);\n    std::cout << \"Result: \" << result << std::endl;\n  } catch (const std::exception& e) {\n    std::cerr << e.what() << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 11,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Exception Example",
+        "code": "// Exception Example\n#include <iostream>\n\nint divide(int a, int b) {\n  if (b == 0) {\n    throw std::runtime_error(\"Divide by zero error\");\n  }\n  return a / b;\n}\n\nint main() {\n  try {\n    int result = divide(10, 0);\n    std::cout << \"Result: \" << result << std::endl;\n  } catch (const std::exception& e) {\n    std::cerr << e.what() << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use exception handling in C++ to catch and handle a runtime error when dividing by zero."
+    },
+    {
+        "id": "2",
+        "title": "Custom Exception Example",
+        "code": "// Custom Exception Example\n#include <iostream>\n\nclass MyException : public std::exception {\npublic:\n  const char* what() const noexcept override {\n    return \"Custom exception occurred\";\n  }\n};\n\nint main() {\n  try {\n    throw MyException();\n  } catch (const std::exception& e) {\n    std::cerr << e.what() << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to define a custom exception class in C++ that inherits from std::exception and override the what method to provide a custom error message."
+    }
+    ],
+    "resources": [
+    {
+        "title": "C++ Exception Handling",
+        "url": "https://www.tutorialspoint.com/cplusplus/cpp_exceptions_handling.htm",
+        "type": "article"
+    },
+    {
+        "title": "C++ Exception Handling Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "511",
+    "title": "Exception Handling Quiz"
+    },
+    "previousLesson": { "id": "510", "title": "STL and Standard Library" },
+    "nextLesson": { "id": "512", "title": "Final project" }
+},
+{
+    "_id": "512",
+    "title": "Final project",
+    "courseId": "5",
+    "courseName": "C++ Programming",
+    "content": "Final Project: C++ Programming\n\n### **Project Description**\nFor the final project, you will create a C++ program that demonstrates your understanding of the key concepts covered in this course.\n\n#### **Project Requirements**\n- Implement a program that uses functions, control flow, arrays, and file handling\n- Use object-oriented programming concepts such as classes and inheritance\n- Handle exceptions and demonstrate error handling\n\n#### **Project Submission**\nSubmit your project code and a brief description of its functionality and features.\n",
+    "order": 12,
+    "duration": 60,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Final Project Example",
+        "code": "// Final Project Example\n#include <iostream>\n#include <fstream>\n\nclass Student {\nprivate:\n  std::string name;\n  int age;\n\npublic:\n  Student(const std::string& n, int a) : name(n), age(a) {}\n\n  void display() {\n    std::cout << \"Name: \" << name << std::endl;\n    std::cout << \"Age: \" << age << std::endl;\n  }\n};\n\nint main() {\n  Student s(\"Alice\", 25);\n  s.display();\n\n  std::ofstream file(\"output.txt\");\n\n  if (file.is_open()) {\n    file << \"Student Information:\\n\";\n    file << \"Name: \" << s.name << \"\\n\";\n    file << \"Age: \" << s.age << \"\\n\";\n    file.close();\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates a final project in C++ that defines a Student class, creates an instance of the class, displays student information, and writes it to a file."
+    }
+
+    ],
+    "resources": [
+    {
+        "title": "C++ Final Project Ideas",
+        "url": "https://www.geeksforgeeks.org/final-year-project-ideas-for-cse-in-c-c/",
+        "type": "article"
+    },
+    {
+        "title": "C++ Project Showcase",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+
+   "quiz": null,
+    "previousLesson": { "id": "511", "title": "Exception Handling" },
+    "nextLesson": null
+
+},
+{
+    "_id": "601", 
+    "title": "Introduction to Data Structures",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 1: Introduction to Data Structures\n\n### **Data Structures Overview**\nData structures are a way of organizing and storing data to enable efficient access and modification.\n\n#### **Key Concepts**\n- Arrays, linked lists, stacks, queues\n- Trees, graphs, hash tables\n- Abstract data types (ADTs)\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int arr[] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << arr[i] << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 1,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Array Example",
+        "code": "// Array Example\n#include <iostream>\n\nint main() {\n  int arr[] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << arr[i] << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use an array data structure in C++ to store and access a collection of integer values."
+    },
+    {
+        "id": "2",
+        "title": "Linked List Example",
+        "code": "// Linked List Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* next;\n};\n\nint main() {\n  Node* head = new Node{1, nullptr};\n  head->next = new Node{2, nullptr};\n\n  Node* current = head;\n  while (current != nullptr) {\n    std::cout << current->data << std::endl;\n    current = current->next;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement a linked list data structure in C++ using a struct to represent nodes and pointers to link them together."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Data Structures Overview",
+        "url": "https://www.geeksforgeeks.org/data-structures/",
+        "type": "article"
+    },
+    {
+        "title": "Data Structures Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "601",
+    "title": "Introduction to Data Structures Quiz"
+    },
+    "previousLesson": null,
+    "nextLesson": { "id": "602", "title": "Arrays and Linked Lists" }
+},
+{
+    "_id": "602",
+    "title": "Arrays and Linked Lists",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 2: Arrays and Linked Lists\n\n### **Arrays and Linked Lists**\nArrays and linked lists are fundamental data structures used to store and manage collections of elements.\n\n#### **Key Concepts**\n- Array implementation and operations\n- Linked list implementation and operations\n- Comparison of arrays and linked lists\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nint main() {\n  int arr[] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << arr[i] << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 2,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Array Example",
+        "code": "// Array Example\n#include <iostream>\n\nint main() {\n  int arr[] = {1, 2, 3, 4, 5};\n\n  for (int i = 0; i < 5; i++) {\n    std::cout << arr[i] << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use an array data structure in C++ to store and access a collection of integer values."
+    },
+    {
+        "id": "2",
+        "title": "Linked List Example",
+        "code": "// Linked List Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* next;\n};\n\nint main() {\n  Node* head = new Node{1, nullptr};\n  head->next = new Node{2, nullptr};\n\n  Node* current = head;\n  while (current != nullptr) {\n    std::cout << current->data << std::endl;\n    current = current->next;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement a linked list data structure in C++ using a struct to represent nodes and pointers to link them together."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Arrays and Linked Lists",
+        "url": "https://www.geeksforgeeks.org/array-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Linked Lists Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "602",
+    "title": "Arrays and Linked Lists Quiz"
+    },
+    "previousLesson": { "id": "601", "title": "Introduction to Data Structures" },
+    "nextLesson": { "id": "603", "title": "Stacks and Queues" }
+},
+{
+    "_id": "603",
+    "title": "Stacks and Queues",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 3: Stacks and Queues\n\n### **Stacks and Queues**\nStacks and queues are abstract data types that follow the Last In First Out (LIFO) and First In First Out (FIFO) principles.\n\n#### **Key Concepts**\n- Stack implementation and operations\n- Queue implementation and operations\n- Applications of stacks and queues\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <stack>\n#include <queue>\n\nint main() {\n  std::stack<int> s;\n  std::queue<int> q;\n\n  s.push(1);\n  s.push(2);\n  q.push(1);\n  q.push(2);\n\n  std::cout << s.top() << std::endl;\n  std::cout << q.front() << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 3,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Stack Example",
+        "code": "// Stack Example\n#include <iostream>\n#include <stack>\n\nint main() {\n  std::stack<int> s;\n\n  s.push(1);\n  s.push(2);\n\n  std::cout << s.top() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use a stack data structure in C++ from the Standard Template Library (STL) to push and pop elements and access the top element."
+    },
+    {
+        "id": "2",
+        "title": "Queue Example",
+        "code": "// Queue Example\n#include <iostream>\n#include <queue>\n\nint main() {\n  std::queue<int> q;\n\n  q.push(1);\n  q.push(2);\n\n  std::cout << q.front() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use a queue data structure in C++ from the Standard Template Library (STL) to enqueue and dequeue elements and access the front element."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Stacks and Queues",
+        "url": "https://www.geeksforgeeks.org/stack-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Queues Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "603",
+    "title": "Stacks and Queues Quiz"
+    },
+    "previousLesson": { "id": "602", "title": "Arrays and Linked Lists" },
+    "nextLesson": { "id": "604", "title": "Linked Lists" }
+},
+{
+    "_id": "604",
+    "title": "Linked Lists",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 4: Linked Lists\n\n### **Linked Lists**\nLinked lists are linear data structures where elements are stored in nodes with pointers to link them together.\n\n#### **Key Concepts**\n- Singly linked lists\n- Doubly linked lists\n- Circular linked lists\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* next;\n};\n\nint main() {\n  Node* head = new Node{1, nullptr};\n  head->next = new Node{2, nullptr};\n\n  Node* current = head;\n  while (current != nullptr) {\n    std::cout << current->data << std::endl;\n    current = current->next;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 4,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Singly Linked List Example",
+        "code": "// Singly Linked List Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* next;\n};\n\nint main() {\n  Node* head = new Node{1, nullptr};\n  head->next = new Node{2, nullptr};\n\n  Node* current = head;\n  while (current != nullptr) {\n    std::cout << current->data << std::endl;\n    current = current->next;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement a singly linked list data structure in C++ using a struct to represent nodes and pointers to link them together."
+    },
+    {
+        "id": "2",
+        "title": "Doubly Linked List Example",
+        "code": "// Doubly Linked List Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* prev;\n  Node* next;\n};\n\nint main() {\n  Node* head = new Node{1, nullptr, nullptr};\n  head->next = new Node{2, head, nullptr};\n\n  Node* current = head;\n  while (current != nullptr) {\n    std::cout << current->data << std::endl;\n    current = current->next;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement a doubly linked list data structure in C++ using a struct to represent nodes with both previous and next pointers."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Linked Lists",
+        "url": "https://www.geeksforgeeks.org/linked-list-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Linked Lists Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "604",
+    "title": "Linked Lists Quiz"
+    },
+    "previousLesson": { "id": "603", "title": "Stacks and Queues" },
+    "nextLesson": { "id": "605", "title": "Hash Tables and Dictionaries" }
+},
+{
+    "_id": "605",
+    "title": "Hash Tables and Dictionaries",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 5: Hash Tables and Dictionaries\n\n### **Hash Tables and Dictionaries**\nHash tables and dictionaries are data structures that use key-value pairs to store and retrieve elements efficiently.\n\n#### **Key Concepts**\n- Hash function and collision resolution\n- Dictionary implementation and operations\n- Applications of hash tables\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <unordered_map>\n\nint main() {\n  std::unordered_map<std::string, int> ages = {\n    {\"Alice\", 25},\n    {\"Bob\", 30},\n    {\"Charlie\", 35}\n  };\n\n  for (const auto& pair : ages) {\n    std::cout << pair.first << \": \" << pair.second << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 5,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Hash Table Example",
+        "code": "// Hash Table Example\n#include <iostream>\n#include <unordered_map>\n\nint main() {\n  std::unordered_map<std::string, int> ages = {\n    {\"Alice\", 25},\n    {\"Bob\", 30},\n    {\"Charlie\", 35}\n  };\n\n  for (const auto& pair : ages) {\n    std::cout << pair.first << \": \" << pair.second << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use a hash table data structure in C++ from the Standard Template Library (STL) to store and retrieve key-value pairs efficiently."
+    },
+    {
+        "id": "2",
+        "title": "Dictionary Example",
+        "code": "// Dictionary Example\n#include <iostream>\n#include <unordered_map>\n\nint main() {\n  std::unordered_map<std::string, int> ages = {\n    {\"Alice\", 25},\n    {\"Bob\", 30},\n    {\"Charlie\", 35}\n  };\n\n  for (const auto& pair : ages) {\n    std::cout << pair.first << \": \" << pair.second << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to use a dictionary data structure in C++ from the Standard Template Library (STL) to store and retrieve key-value pairs efficiently."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Hash Tables and Dictionaries",
+        "url": "https://www.geeksforgeeks.org/hashing-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Dictionaries Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "605",
+    "title": "Hash Tables and Dictionaries Quiz"
+    },
+    "previousLesson": { "id": "604", "title": "Linked Lists" },
+    "nextLesson": { "id": "606", "title": "Trees and Binary Search Trees" }
+},
+{
+    "_id": "606",
+    "title": "Trees and Binary Search Trees",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 6: Trees and Binary Search Trees\n\n### **Trees and Binary Search Trees**\nTrees and binary search trees are hierarchical data structures used for efficient searching and sorting.\n\n#### **Key Concepts**\n- Tree traversal: inorder, preorder, postorder\n- Binary search tree properties\n- Balanced binary search trees\n\n#### **Example Program**\n```cpp\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* left;\n  Node* right;\n};\n\nint main() {\n  Node* root = new Node{1, nullptr, nullptr};\n  root->left = new Node{2, nullptr, nullptr};\n  root->right = new Node{3, nullptr, nullptr};\n\n  return 0;\n}\n```\n",
+    "order": 6,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Binary Search Tree Example",
+        "code": "// Binary Search Tree Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* left;\n  Node* right;\n};\n\nint main() {\n  Node* root = new Node{1, nullptr, nullptr};\n  root->left = new Node{2, nullptr, nullptr};\n  root->right = new Node{3, nullptr, nullptr};\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement a binary search tree data structure in C++ using a struct to represent nodes with left and right child pointers."
+    },
+    {
+        "id": "2",
+        "title": "Tree Traversal Example",
+        "code": "// Tree Traversal Example\n#include <iostream>\n\nstruct Node {\n  int data;\n  Node* left;\n  Node* right;\n};\n\nvoid inorder(Node* root) {\n  if (root == nullptr) return;\n  inorder(root->left);\n  std::cout << root->data << std::endl;\n  inorder(root->right);\n}\n\nint main() {\n  Node* root = new Node{1, nullptr, nullptr};\n  root->left = new Node{2, nullptr, nullptr};\n  root->right = new Node{3, nullptr, nullptr};\n\n  inorder(root);\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to perform an inorder tree traversal in C++ to visit nodes in sorted order using recursion."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Trees and Binary Search Trees",
+        "url": "https://www.geeksforgeeks.org/binary-search-tree-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Binary Search Trees Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "606",
+    "title": "Trees and Binary Search Trees Quiz"
+    },
+    "previousLesson": { "id": "605", "title": "Hash Tables and Dictionaries" },
+    "nextLesson": { "id": "607", "title": "Heaps and Priority Queues"}
+},
+{
+    "_id": "607",
+    "title": "Heaps and Priority Queues",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 7: Heaps and Priority Queues\n\n### **Heaps and Priority Queues**\nHeaps and priority queues are data structures that maintain a partially ordered collection of elements.\n\n#### **Key Concepts**\n- Heap properties: min heap, max heap\n- Priority queue implementation\n- Heap operations: insert, delete, extract\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <queue>\n\nint main() {\n  std::priority_queue<int> pq;\n\n  pq.push(3);\n  pq.push(1);\n  pq.push(4);\n\n  while (!pq.empty()) {\n    std::cout << pq.top() << std::endl;\n    pq.pop();\n  }\n\n  return 0;\n}\n```\n",
+    "order": 7,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Priority Queue Example",
+        "code": "// Priority Queue Example\n#include <iostream>\n#include <queue>\n\nint main() {\n  std::priority_queue<int> pq;\n\n  pq.push(3);\n  pq.push(1);\n  pq.push(4);\n\n  while (!pq.empty()) {\n    std::cout << pq.top() << std::endl;\n    pq.pop();\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to use a priority queue data structure in C++ from the Standard Template Library (STL) to maintain a collection of elements with priority ordering."
+    },
+    {
+        "id": "2",
+        "title": "Heap Example",
+        "code": "// Heap Example\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  std::make_heap(v.begin(), v.end());\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to create a heap data structure in C++ using the make_heap algorithm from the Standard Template Library (STL) to maintain a partially ordered collection."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Heaps and Priority Queues",
+        "url": "https://www.geeksforgeeks.org/heap-data-structure/",
+        "type": "article"
+    },
+    {
+        "title": "Priority Queues Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "607",
+    "title": "Heaps and Priority Queues Quiz"
+    },
+    "previousLesson": { "id": "606", "title": "Trees and Binary Search Trees" },
+    "nextLesson": { "id": "608", "title": "Graphs and Graph Algorithms" }
+},
+{
+    "_id": "608",
+    "title": "Graphs and Graph Algorithms",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 8: Graphs and Graph Algorithms\n\n### **Graphs and Graph Algorithms**\nGraphs are non-linear data structures that represent relationships between nodes, and graph algorithms solve various problems on graphs.\n\n#### **Key Concepts**\n- Graph representation: adjacency matrix, adjacency list\n- Graph traversal: depth-first search, breadth-first search\n- Shortest path algorithms: Dijkstra, Bellman-Ford\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <vector>\n#include <queue>\n\nvoid bfs(const std::vector<std::vector<int>>& graph, int start) {\n  std::vector<bool> visited(graph.size(), false);\n  std::queue<int> q;\n\n  q.push(start);\n  visited[start] = true;\n\n  while (!q.empty()) {\n    int node = q.front();\n    q.pop();\n    std::cout << node << std::endl;\n\n    for (int neighbor : graph[node]) {\n      if (!visited[neighbor]) {\n        q.push(neighbor);\n        visited[neighbor] = true;\n      }\n    }\n  }\n}\n\nint main() {\n  std::vector<std::vector<int>> graph = {\n    {1, 2},\n    {0, 2, 3},\n    {0, 1, 3},\n    {1, 2}\n  };\n\n  bfs(graph, 0);\n\n  return 0;\n}\n```\n",
+    "order": 8,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Breadth-First Search Example",
+        "code": "// Breadth-First Search Example\n#include <iostream>\n#include <vector>\n#include <queue>\n\nvoid bfs(const std::vector<std::vector<int>>& graph, int start) {\n  std::vector<bool> visited(graph.size(), false);\n  std::queue<int> q;\n\n  q.push(start);\n  visited[start] = true;\n\n  while (!q.empty()) {\n    int node = q.front();\n    q.pop();\n    std::cout << node << std::endl;\n\n    for (int neighbor : graph[node]) {\n      if (!visited[neighbor]) {\n        q.push(neighbor);\n        visited[neighbor] = true;\n      }\n    }\n  }\n}\n\nint main() {\n  std::vector<std::vector<int>> graph = {\n    {1, 2},\n    {0, 2, 3},\n    {0, 1, 3},\n    {1, 2}\n  };\n\n  bfs(graph, 0);\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to perform a breadth-first search (BFS) traversal on a graph represented as an adjacency list in C++ to visit nodes level by level."
+    },
+    {
+        "id": "2",
+        "title": "Dijkstra's Algorithm Example",
+        "code": "// Dijkstra's Algorithm Example\n#include <iostream>\n#include <vector>\n#include <queue>\n#include <climits>\n\nvoid dijkstra(const std::vector<std::vector<std::pair<int, int>>>& graph, int start) {\n  std::vector<int> dist(graph.size(), INT_MAX);\n  std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;\n\n  dist[start] = 0;\n  pq.push({0, start});\n\n  while (!pq.empty()) {\n    int u = pq.top().second;\n    pq.pop();\n\n    for (const auto& edge : graph[u]) {\n      int v = edge.first;\n      int weight = edge.second;\n\n      if (dist[u] + weight < dist[v]) {\n        dist[v] = dist[u] + weight;\n        pq.push({dist[v], v});\n      }\n    }\n  }\n}\n\nint main() {\n  std::vector<std::vector<std::pair<int, int>>> graph = {\n    {{1, 5}, {2, 3}},\n    {{0, 5}, {2, 2}, {3, 6}},\n    {{0, 3}, {1, 2}, {3, 7}},\n    {{1, 6}, {2, 7}}\n  };\n\n  dijkstra(graph, 0);\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement Dijkstra's shortest path algorithm in C++ to find the shortest path from a source node to all other nodes in a weighted graph."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Graphs and Graph Algorithms",
+        "url": "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/",
+        "type": "article"
+    },
+    {
+        "title": "Graph Algorithms Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "608",
+    "title": "Graphs and Graph Algorithms Quiz"
+    },
+    "previousLesson": { "id": "607", "title": "Heaps and Priority Queues" },
+    "nextLesson": { "id": "609", "title": "Sorting Algorithms" }
+},
+{
+    "_id": "609",
+    "title": "Sorting Algorithms",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 9: Sorting Algorithms\n\n### **Sorting Algorithms**\nSorting algorithms are used to arrange elements in a specific order, such as ascending or descending.\n\n#### **Key Concepts**\n- Bubble sort, selection sort, insertion sort\n- Merge sort, quick sort, heap sort\n- Comparison of sorting algorithms\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  std::sort(v.begin(), v.end());\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n```\n",
+    "order": 9,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Merge Sort Example",
+        "code": "// Merge Sort Example\n#include <iostream>\n#include <vector>\n\nvoid merge(std::vector<int>& arr, int l, int m, int r) {\n  // Merge two sorted subarrays\n}\n\nvoid mergeSort(std::vector<int>& arr, int l, int r) {\n  if (l < r) {\n    int m = l + (r - l) / 2;\n    mergeSort(arr, l, m);\n    mergeSort(arr, m + 1, r);\n    merge(arr, l, m, r);\n  }\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  mergeSort(v, 0, v.size() - 1);\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement the merge sort algorithm in C++ to sort a collection of elements in ascending order using a divide-and-conquer approach."
+    },
+    {
+        "id": "2",
+        "title": "Quick Sort Example",
+        "code": "// Quick Sort Example\n#include <iostream>\n#include <vector>\n\nint partition(std::vector<int>& arr, int low, int high) {\n  // Partition the array\n}\n\nvoid quickSort(std::vector<int>& arr, int low, int high) {\n  if (low < high) {\n    int pi = partition(arr, low, high);\n    quickSort(arr, low, pi - 1);\n    quickSort(arr, pi + 1, high);\n  }\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  quickSort(v, 0, v.size() - 1);\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement the quick sort algorithm in C++ to sort a collection of elements in ascending order using a divide-and-conquer approach with a pivot element."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Sorting Algorithms",
+        "url": "https://www.geeksforgeeks.org/sorting-algorithms/",
+        "type": "article"
+    },
+    {
+        "title": "Sorting Algorithms Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "609",
+    "title": "Sorting Algorithms Quiz"
+    },
+    "previousLesson": { "id": "608", "title": "Graphs and Graph Algorithms" },
+    "nextLesson": { "id": "610", "title": "Searching Algorithms" }
+},
+{
+    "_id": "610",
+    "title": "Searching Algorithms",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 10: Searching Algorithms\n\n### **Searching Algorithms**\nSearching algorithms are used to find the location of a target value within a collection of elements.\n\n#### **Key Concepts**\n- Linear search, binary search\n- Depth-first search, breadth-first search\n- Comparison of searching algorithms\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <vector>\n\nint linearSearch(const std::vector<int>& arr, int target) {\n  for (int i = 0; i < arr.size(); i++) {\n    if (arr[i] == target) {\n      return i;\n    }\n  }\n\n  return -1;\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n  int target = 4;\n\n  int index = linearSearch(v, target);\n\n  std::cout << \"Target found at index: \" << index << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 10,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Binary Search Example",
+        "code": "// Binary Search Example\n#include <iostream>\n#include <vector>\n\nint binarySearch(const std::vector<int>& arr, int target) {\n  int low = 0;\n  int high = arr.size() - 1;\n\n  while (low <= high) {\n    int mid = low + (high - low) / 2;\n\n    if (arr[mid] == target) {\n      return mid;\n    } else if (arr[mid] < target) {\n      low = mid + 1;\n    } else {\n      high = mid - 1;\n    }\n  }\n\n  return -1;\n}\n\nint main() {\n  std::vector<int> v = {1, 3, 4, 5, 7};\n  int target = 4;\n\n  int index = binarySearch(v, target);\n\n  std::cout << \"Target found at index: \" << index << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement the binary search algorithm in C++ to find the index of a target value in a sorted collection of elements."
+    },
+    {
+        "id": "2",
+        "title": "Depth-First Search Example",
+        "code": "// Depth-First Search Example\n#include <iostream>\n#include <vector>\n\nvoid dfs(const std::vector<std::vector<int>>& graph, std::vector<bool>& visited, int node) {\n  visited[node] = true;\n  std::cout << node << std::endl;\n\n  for (int neighbor : graph[node]) {\n    if (!visited[neighbor]) {\n      dfs(graph, visited, neighbor);\n    }\n  }\n}\n\nint main() {\n  std::vector<std::vector<int>> graph = {\n    {1, 2},\n    {0, 2, 3},\n    {0, 1, 3},\n    {1, 2}\n  };\n  std::vector<bool> visited(graph.size(), false);\n\n  dfs(graph, visited, 0);\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to perform a depth-first search (DFS) traversal on a graph represented as an adjacency list in C++ to visit nodes in a recursive manner."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Searching Algorithms",
+        "url": "https://www.geeksforgeeks.org/searching-algorithms/",
+        "type": "article"
+    },
+    {
+        "title": "Searching Algorithms Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "610",
+    "title": "Searching Algorithms Quiz"
+    },
+    "previousLesson": { "id": "609", "title": "Sorting Algorithms" },
+    "nextLesson": { "id": "611", "title": "Time Complexity and Big-O Notation" }
+},
+{
+    "_id": "611",
+    "title": "Time Complexity and Big-O Notation",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Leesson 11: Time Complexity and Big-O Notation\n\n### **Time Complexity and Big-O Notation**\nTime complexity analysis is used to evaluate the efficiency of algorithms in terms of their running time as the input size grows.\n\n#### **Key Concepts**\n- Big-O notation and its properties\n- Best case, worst case, and average case complexity\n- Space complexity and auxiliary space\n\n#### **Example Program**\n```cpp\n#include <iostream>\n#include <vector>\n\nint linearSearch(const std::vector<int>& arr, int target) {\n  for (int i = 0; i < arr.size(); i++) {\n    if (arr[i] == target) {\n      return i;\n    }\n  }\n\n  return -1;\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n  int target = 4;\n\n  int index = linearSearch(v, target);\n\n  std::cout << \"Target found at index: \" << index << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 11,
+    "duration": 30,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Bubble Sort Example",
+        "code": "// Bubble Sort Example\n#include <iostream>\n#include <vector>\n\nvoid bubbleSort(std::vector<int>& arr) {\n  int n = arr.size();\n\n  for (int i = 0; i < n - 1; i++) {\n    for (int j = 0; j < n - i - 1; j++) {\n      if (arr[j] > arr[j + 1]) {\n        std::swap(arr[j], arr[j + 1]);\n      }\n    }\n  }\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  bubbleSort(v);\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement the bubble sort algorithm in C++ to sort a collection of elements in ascending order by repeatedly swapping adjacent elements."
+    },
+    {
+        "id": "2",
+        "title": "Quick Sort Example",
+        "code": "// Quick Sort Example\n#include <iostream>\n#include <vector>\n\nint partition(std::vector<int>& arr, int low, int high) {\n  // Partition the array\n}\n\nvoid quickSort(std::vector<int>& arr, int low, int high) {\n  if (low < high) {\n    int pi = partition(arr, low, high);\n    quickSort(arr, low, pi - 1);\n    quickSort(arr, pi + 1, high);\n  }\n}\n\nint main() {\n  std::vector<int> v = {3, 1, 4, 1, 5};\n\n  quickSort(v, 0, v.size() - 1);\n\n  for (int num : v) {\n    std::cout << num << std::endl;\n  }\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement the quick sort algorithm in C++ to sort a collection of elements in ascending order using a divide-and-conquer approach with a pivot element."
+    }
+    ],
+    "resources": [
+    {
+        "title": "Time Complexity and Big-O Notation",
+        "url": "https://www.geeksforgeeks.org/analysis-of-algorithms-set-1-asymptotic-analysis/",
+        "type": "article"
+    },
+    {
+        "title": "Big-O Notation Tutorial",
+        "url": "https://www.youtube.com/watch?v=example",
+        "type": "video"
+    }
+    ],
+    "quiz": {
+    "id": "611",
+    "title": "Time Complexity and Big-O Notation Quiz"
+    },
+    "previousLesson": { "id": "610", "title": "Searching Algorithms" },
+    "nextLesson": { "id": "612", "title": "Final Project: Implementing Data Structure" }
+},
+
+{
+    "_id": "612",
+    "title": "Final Project: Implementing Data Structure",
+    "courseId": "6",
+    "courseName": "Data Structures & Algorithms",
+    "content": "Final Project: Implementing Data Structure\n\n### **Final Project: Implementing Data Structure**\nFor the final project, you will implement a data structure of your choice using the concepts and algorithms covered in this course.\n\n#### **Project Requirements**\n- Choose a data structure to implement (e.g., stack, queue, linked list, binary search tree)\n- Write the necessary classes and methods to create and manipulate the data structure\n- Include appropriate algorithms for insertion, deletion, search, and traversal\n- Test your implementation with sample data and verify its correctness\n\n#### **Example Project**\n```cpp\n#include <iostream>\n#include <stack>\n\nint main() {\n  std::stack<int> s;\n\n  s.push(1);\n  s.push(2);\n\n  std::cout << s.top() << std::endl;\n\n  return 0;\n}\n```\n",
+    "order": 12,
+    "duration": 60,
+    "codeExamples": [
+    {
+        "id": "1",
+        "title": "Stack Implementation",
+        "code": "// Stack Implementation\n#include <iostream>\n#include <stack>\n\nint main() {\n  std::stack<int> s;\n\n  s.push(1);\n  s.push(2);\n\n  std::cout << s.top() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example demonstrates how to implement a stack data structure in C++ using the Standard Template Library (STL) to push and pop elements and access the top element."
+    },
+    {
+        "id": "2",
+        "title": "Queue Implementation",
+        "code": "// Queue Implementation\n#include <iostream>\n#include <queue>\n\nint main() {\n  std::queue<int> q;\n\n  q.push(1);\n  q.push(2);\n\n  std::cout << q.front() << std::endl;\n\n  return 0;\n}\n",
+        "explanation": "Thhis example shows how to implement a queue data structure in C++ using the Standard Template Library (STL) to enqueue and dequeue elements and access the front element."
+}
+],
+"resources": [
+{
+    "title": "Data Structures & Algorithms Project",
+    "url": "https://www.geeksforgeeks.org/data-structures/",
+    "type": "article"
+},
+{
+    "title": "Data Structures Project Tutorial",
+    "url": "https://www.youtube.com/watch?v=example",
+    "type": "video"
+}
+],
+"quiz": {
+"id": "612",
+"title": "Final Project Quiz"
+},
+"previousLesson": { "id": "611", "title": "Time Complexity and Big-O Notation" },
+"nextLesson": null
+}
+]
