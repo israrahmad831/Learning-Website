@@ -561,10 +561,12 @@ app.post("/api/certificates", verifyToken, async (req, res) => {
   }
 });
 
-// Get certificates for a student
 app.get("/api/certificates/:studentId", verifyToken, async (req, res) => {
   try {
-    console.log("🔍 Checking access:", { tokenUserId: req.user.userId, requestedUserId: req.params.studentId });
+    console.log("🔍 Checking access:", {
+      tokenUserId: req.user.userId,
+      requestedUserId: req.params.studentId,
+    });
 
     if (req.user.userId !== req.params.studentId && req.user.role !== "admin") {
       return res.status(403).json({ message: "Access denied - Unauthorized user" });
@@ -577,6 +579,7 @@ app.get("/api/certificates/:studentId", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 
