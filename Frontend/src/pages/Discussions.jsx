@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { MessageSquare, Trash2, User, PlusCircle, Search } from "lucide-react";
 import axios from "axios";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const Discussions = () => {
   const { user } = useAuth();
   const [discussions, setDiscussions] = useState([]);
@@ -16,7 +16,7 @@ const Discussions = () => {
 
   const fetchDiscussions = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/discussions");
+      const res = await axios.get(`${BACKEND_URL}/api/discussions`);
       setDiscussions(res.data);
     } catch (error) {
       console.error("Error fetching discussions:", error);
@@ -26,7 +26,7 @@ const Discussions = () => {
   const handleAddDiscussion = async () => {
     if (!newQuestion.trim()) return;
     try {
-      await axios.post("http://localhost:5001/api/discussions", {
+      await axios.post(`${BACKEND_URL}/api/discussions`, {
         user: user.name,
         question: newQuestion,
       });
@@ -40,7 +40,7 @@ const Discussions = () => {
   const handleDeleteDiscussion = async (id, discussionUser) => {
     if (user.role !== "admin" && user.name !== discussionUser) return;
     try {
-      await axios.delete(`http://localhost:5001/api/discussions/${id}`, {
+      await axios.delete(`${BACKEND_URL}/api/discussions/${id}`, {
         data: { user: user.name, role: user.role },
       });
       fetchDiscussions();
@@ -52,7 +52,7 @@ const Discussions = () => {
   const handleAddReply = async (id) => {
     if (!replyTexts[id]?.trim()) return;
     try {
-      await axios.post(`http://localhost:5001/api/discussions/${id}/reply`, {
+      await axios.post(`${BACKEND_URL}/api/discussions/${id}/reply`, {
         responder: user.name,
         role: user.role,
         response: replyTexts[id],
@@ -68,7 +68,7 @@ const Discussions = () => {
     if (user.role !== "admin" && user.name !== replyUser) return;
     try {
       await axios.delete(
-        `http://localhost:5001/api/discussions/${discussionId}/reply/${replyId}`,
+        `${BACKEND_URL}/api/discussions/${discussionId}/reply/${replyId}`,
         {
           data: { user: user.name, role: user.role },
         }

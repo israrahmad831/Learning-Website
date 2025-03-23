@@ -10,21 +10,96 @@ import {
   Star,
   Trash2,
 } from "lucide-react";
-// import {env} from "dotenv";
 
 import axios from "axios";
 const AdminDashboard = () => {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("teachers");
   const [discussions, setDiscussions] = useState([]);
   const [replyText, setReplyText] = useState({});
+
+  const [feedbacks, setFeedbacks] = useState([]);
   const [users, setUsers] = useState({
     admins: [],
     teachers: [],
     students: [],
   });
 
-  const [feedbacks, setFeedbacks] = useState([]);
+  const fetchStudentProgress = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${BACKEND_URL}/api/admin/student-progress`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching student progress:", error);
+      return [];
+    }
+  };
+
+  const fetchUsers = async (role) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${BACKEND_URL}/api/admin/users?role=${role}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      let usersData = response.data;
+
+      if (role === "student") {
+        const studentProgressData = await fetchStudentProgress();
+
+        if (!studentProgressData || studentProgressData.length === 0) {
+          console.warn("No student progress data found!");
+        }
+
+        usersData = usersData.map((student) => {
+          // Match progress data using `_id` from student and `id` from progress data
+          const studentProgress = studentProgressData.find(
+            (s) => String(s.id) === String(student._id)
+          );
+
+          return {
+            ...student,
+            averageProgress: studentProgress
+              ? studentProgress.averageProgress
+              : 0,
+          };
+        });
+      }
+
+      return usersData;
+    } catch (error) {
+      console.error(`Error fetching ${role}s:`, error);
+      return [];
+    }
+  };
+
+  // Fetch users on component mount
+  useEffect(() => {
+    const loadUsers = async () => {
+      const [admins, teachers, students] = await Promise.all([
+        fetchUsers("admin"),
+        fetchUsers("teacher"),
+        fetchUsers("student"),
+      ]);
+      setUsers({ admins, teachers, students });
+    };
+
+    loadUsers();
+  }, []);
+
+  useEffect(() => {}, [users]);
+
   //delete feedback
   const handleDeleteFeedback = async (id) => {
     const token = localStorage.getItem("token");
@@ -35,7 +110,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5001/api/feedback/${id}`, {
+      const response = await fetch(`${BACKEND_URL}/api/feedback/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -62,43 +137,16 @@ const AdminDashboard = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await fetch("http://localhost:5001/api/feedback");
+      const response = await fetch(`${BACKEND_URL}/api/feedback`);
       const data = await response.json();
       setFeedbacks(data);
     } catch (error) {
       console.error("Error fetching feedback:", error);
     }
   };
-  const fetchUsers = async (role) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:5001/api/admin/users?role=${role}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching ${role}s:`, error);
-      return [];
-    }
-  };
-  //write code to get current user
 
   useEffect(() => {
-    const loadUsers = async () => {
-      const [admins, teachers, students] = await Promise.all([
-        fetchUsers("admin"),
-        fetchUsers("teacher"),
-        fetchUsers("student"),
-      ]);
-      setUsers({ admins, teachers, students });
-    };
-
-    loadUsers();
-  }, []);
-
-  useEffect(() => {
-    axios.get("http://localhost:5001/api/discussions").then((res) => {
+    axios.get(`${BACKEND_URL}/api/discussions`).then((res) => {
       setDiscussions(res.data);
     });
   }, []);
@@ -108,7 +156,7 @@ const AdminDashboard = () => {
     if (!replyText[discussionId] || !user) return;
 
     axios
-      .post(`http://localhost:5001/api/discussions/${discussionId}/reply`, {
+      .post(`${BACKEND_URL}/api/discussions/${discussionId}/reply`, {
         responder: user.name,
         role: "admin",
         response: replyText[discussionId],
@@ -136,7 +184,7 @@ const AdminDashboard = () => {
           ? `/api/admin/discussions/${discussionId}`
           : `/api/discussions/${discussionId}`;
 
-      await axios.delete(`http://localhost:5001${endpoint}`, {
+      await axios.delete(`${BACKEND_URL}${endpoint}`, {
         data: { user: user.name, role: user.role },
       });
 
@@ -167,7 +215,7 @@ const AdminDashboard = () => {
         ? `/api/admin/discussions/${discussionId}/replies/${replyId}`
         : `/api/discussions/${discussionId}/reply/${replyId}`;
 
-      await axios.delete(`http://localhost:5001${endpoint}`, {
+      await axios.delete(`${BACKEND_URL}${endpoint}`, {
         data: { user: user.name, role: user.role },
       });
 
@@ -222,13 +270,17 @@ const AdminDashboard = () => {
             {data.length > 0 ? (
               data.map((user, index) => (
                 <tr
-                  key={user.id || index}
+                  key={user._id || index}
                   className="border-b border-gray-200 hover:bg-gray-100 transition"
                 >
                   <td className="px-6 py-4">{user.name}</td>
                   <td className="px-6 py-4">{user.email}</td>
                   {activeTab === "students" && (
-                    <td className="px-6 py-4">{user.progress}</td>
+                    <td className="px-6 py-4">
+                      {user.averageProgress !== undefined
+                        ? `${user.averageProgress}%`
+                        : "Loading..."}
+                    </td>
                   )}
                   <td className="px-6 py-4">
                     {(activeTab === "students" || activeTab === "teachers") && (

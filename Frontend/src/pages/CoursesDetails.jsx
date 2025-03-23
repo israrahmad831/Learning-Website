@@ -9,6 +9,7 @@ import {
   MessageSquare,
   Download,
 } from "lucide-react";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -26,10 +27,10 @@ const CourseDetails = () => {
 
         const [courseResponse, studentsResponse, progressResponse] =
           await Promise.all([
-            fetch(`http://localhost:5001/api/courses/${id}`),
-            fetch(`http://localhost:5001/api/courses/${id}/enrolled-students`),
+            fetch(`${BACKEND_URL}/api/courses/${id}`),
+            fetch(`${BACKEND_URL}/api/courses/${id}/enrolled-students`),
             user
-              ? fetch(`http://localhost:5001/api/courses/${id}/progress`, {
+              ? fetch(`${BACKEND_URL}/api/courses/${id}/progress`, {
                   headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                   },
@@ -73,16 +74,13 @@ const CourseDetails = () => {
     try {
       setEnrolling(true);
 
-      const response = await fetch(
-        `http://localhost:5001/api/courses/${id}/enroll`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`${BACKEND_URL}/api/courses/${id}/enroll`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to enroll in course");
@@ -186,89 +184,96 @@ const CourseDetails = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2 space-y-8">
-  {/* About This Course */}
-  <div className="bg-white rounded-lg shadow-md p-6">
-    <h2 className="text-xl font-semibold mb-4">About This Course</h2>
-    <p className="text-gray-700 mb-6">{course?.description}</p>
+        <div className="lg:col-span-2 space-y-8">
+          {/* About This Course */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">About This Course</h2>
+            <p className="text-gray-700 mb-6">{course?.description}</p>
 
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-      {[
-        { label: "Instructor", value: course?.createdBy.name },
-        { label: "Language", value: course?.language },
-        { label: "Level", value: course?.level },
-        {
-          label: "Students Enrolled",
-          value: course?.enrolledStudents?.toLocaleString(),
-        },
-      ].map((info, index) => (
-        <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-          <p className="text-sm text-gray-500">{info.label}</p>
-          <p className="font-medium">{info.value}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  {/* Course Content */}
-  <div className="bg-white rounded-lg shadow-md p-6">
-    <h2 className="text-xl font-semibold mb-4">Course Content</h2>
-    <p className="text-gray-700 mb-4">
-      {course?.lessons.length} lessons • {Math.floor(getTotalDuration() / 60)}h{" "}
-      {getTotalDuration() % 60}m total length
-    </p>
-
-    <div className="space-y-4"> {/* Increased spacing between lessons */}
-      {course?.lessons.map((lesson) => (
-        <div
-          key={lesson._id}
-          className={`flex justify-between items-center p-5 rounded-lg transition-all duration-200 shadow-sm border ${
-            completedLessons.includes(lesson._id)
-              ? "border-green-500 bg-green-50 text-green-700"
-              : "border-gray-300 bg-white hover:bg-gray-50"
-          }`}
-        >
-          {/* Lesson Info */}
-          <div className="flex items-center space-x-4">
-            <span
-              className={`flex items-center justify-center w-10 h-10 text-sm font-semibold rounded-full ${
-                completedLessons.includes(lesson._id)
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-200 text-gray-700"
-              }`}
-            >
-              {lesson.order}
-            </span>
-            <div>
-              <h3 className="font-medium text-lg">{lesson.title}</h3> {/* Bigger text */}
-              <p className="text-sm text-gray-500">{lesson.duration} min</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              {[
+                { label: "Instructor", value: course?.createdBy.name },
+                { label: "Language", value: course?.language },
+                { label: "Level", value: course?.level },
+                {
+                  label: "Students Enrolled",
+                  value: course?.enrolledStudents?.toLocaleString(),
+                },
+              ].map((info, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 p-4 rounded-lg shadow-sm"
+                >
+                  <p className="text-sm text-gray-500">{info.label}</p>
+                  <p className="font-medium">{info.value}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Lesson Action */}
-          {course?.isEnrolled ? (
-            <Link
-              to={`/dashboard/lesson/${lesson._id}`}
-              className="flex items-center space-x-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all"
-            >
-              <span>View Lesson</span>
-              {completedLessons.includes(lesson._id) && (
-                <CheckCircle className="h-5 w-5 text-green-500" />
-              )}
-            </Link>
-          ) : (
-            <div className="flex items-center space-x-2 text-gray-400 cursor-not-allowed">
-              <Lock className="h-5 w-5" />
-              <span className="text-sm">Locked</span>
+          {/* Course Content */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Course Content</h2>
+            <p className="text-gray-700 mb-4">
+              {course?.lessons.length} lessons •{" "}
+              {Math.floor(getTotalDuration() / 60)}h {getTotalDuration() % 60}m
+              total length
+            </p>
+
+            <div className="space-y-4">
+              {" "}
+              {/* Increased spacing between lessons */}
+              {course?.lessons.map((lesson) => (
+                <div
+                  key={lesson._id}
+                  className={`flex justify-between items-center p-5 rounded-lg transition-all duration-200 shadow-sm border ${
+                    completedLessons.includes(lesson._id)
+                      ? "border-green-500 bg-green-50 text-green-700"
+                      : "border-gray-300 bg-white hover:bg-gray-50"
+                  }`}
+                >
+                  {/* Lesson Info */}
+                  <div className="flex items-center space-x-4">
+                    <span
+                      className={`flex items-center justify-center w-10 h-10 text-sm font-semibold rounded-full ${
+                        completedLessons.includes(lesson._id)
+                          ? "bg-green-500 text-white"
+                          : "bg-gray-200 text-gray-700"
+                      }`}
+                    >
+                      {lesson.order}
+                    </span>
+                    <div>
+                      <h3 className="font-medium text-lg">{lesson.title}</h3>{" "}
+                      {/* Bigger text */}
+                      <p className="text-sm text-gray-500">
+                        {lesson.duration} min
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Lesson Action */}
+                  {course?.isEnrolled ? (
+                    <Link
+                      to={`/dashboard/lesson/${lesson._id}`}
+                      className="flex items-center space-x-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all"
+                    >
+                      <span>View Lesson</span>
+                      {completedLessons.includes(lesson._id) && (
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                      )}
+                    </Link>
+                  ) : (
+                    <div className="flex items-center space-x-2 text-gray-400 cursor-not-allowed">
+                      <Lock className="h-5 w-5" />
+                      <span className="text-sm">Locked</span>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-          )}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
-
 
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
@@ -290,8 +295,8 @@ const CourseDetails = () => {
                   to={`/dashboard/lesson/${course?.lessons[0]._id}`}
                   className="block w-full bg-indigo-600 text-white text-center py-3 rounded-md hover:bg-indigo-700 transition-colors mb-4"
                 >
-{progress > 0 ? "Continue Learning" : "Start Learning"}
-</Link>
+                  {progress > 0 ? "Continue Learning" : "Start Learning"}
+                </Link>
 
                 <Link
                   to="/dashboard/discussions"

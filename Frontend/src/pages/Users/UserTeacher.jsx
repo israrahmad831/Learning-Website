@@ -9,13 +9,14 @@ const UserTeacher = () => {
   const [error, setError] = useState(null);
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchTeacherByName = async () => {
       try {
         const encodedName = encodeURIComponent(name);
         const response = await fetch(
-          `http://localhost:5001/api/admin/users/${encodedName}`
+          `${BACKEND_URL}/api/admin/users/${encodedName}`
         );
 
         if (!response.ok) {
@@ -42,7 +43,7 @@ const UserTeacher = () => {
     try {
       const encodedName = encodeURIComponent(teacher.name);
       const response = await fetch(
-        `http://localhost:5001/api/admin/users/approve/${encodedName}`,
+        `${BACKEND_URL}/api/admin/users/approve/${encodedName}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -65,7 +66,7 @@ const UserTeacher = () => {
     try {
       const encodedName = encodeURIComponent(teacher.name);
       const response = await fetch(
-        `http://localhost:5001/api/admin/users/delete/${encodedName}`,
+        `${BACKEND_URL}/api/admin/users/delete/${encodedName}`,
         {
           method: "DELETE",
         }

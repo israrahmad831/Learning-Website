@@ -8,6 +8,7 @@ const TeacherDashboard = () => {
   const [lessons, setLessons] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const [replyText, setReplyText] = useState({});
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -26,7 +27,7 @@ const TeacherDashboard = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:5001/api/discussions").then((res) => {
+    axios.get(`${BACKEND_URL}/api/discussions`).then((res) => {
       setDiscussions(res.data);
     });
   }, []);
@@ -36,7 +37,7 @@ const TeacherDashboard = () => {
     if (!replyText[discussionId] || !user) return;
 
     axios
-      .post(`http://localhost:5001/api/discussions/${discussionId}/reply`, {
+      .post(`${BACKEND_URL}/api/discussions/${discussionId}/reply`, {
         responder: user.name,
         role: "teacher",
         response: replyText[discussionId],
@@ -61,7 +62,7 @@ const TeacherDashboard = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5001/api/discussions/${discussionId}/replies/${replyId}`,
+        `${BACKEND_URL}/api/discussions/${discussionId}/replies/${replyId}`,
         { data: { user: user.name, role: user.role } }
       );
 
@@ -84,7 +85,7 @@ const TeacherDashboard = () => {
 
   return (
     <div className="space-y-8">
-        <h1 className="text-2xl font-bold mb-4">Welcome back {user.name}</h1>
+      <h1 className="text-2xl font-bold mb-4">Welcome back {user.name}</h1>
       {/* Lesson Management */}
       <div className="bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold mb-4">Manage Your Lessons</h1>
