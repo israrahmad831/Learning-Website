@@ -128,7 +128,7 @@ const Profile = () => {
     // Add instructor signature line
     doc.setFontSize(12);
     doc.text("_______________________", 40, 150);
-    doc.text("Instructor", 40, 160);
+    doc.text("Instructor Sign", 40, 160);
   
     // Save as PDF
     doc.save("certificate.pdf");
