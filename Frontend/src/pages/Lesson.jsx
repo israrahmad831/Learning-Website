@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const TypingEffect = ({ text = "", speed = 10 }) => {
   const [displayedText, setDisplayedText] = useState("");
 
@@ -41,7 +41,7 @@ const TypingEffect = ({ text = "", speed = 10 }) => {
 
 const Lesson = () => {
   const { id } = useParams();
-  const { user, loading, fetchUser, isAuthenticated  } = useAuth();
+  const { user, loading, fetchUser, isAuthenticated } = useAuth();
   const [lesson, setLesson] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("content");
@@ -52,7 +52,6 @@ const Lesson = () => {
   const [hasCertificate, setHasCertificate] = useState(false);
   const [error, setError] = useState("");
 
- 
   useEffect(() => {
     console.log("🔄 Checking auth state...", { user });
 
@@ -93,7 +92,7 @@ const Lesson = () => {
 
         console.log("📡 Fetching lesson details...");
 
-        const response = await fetch(`http://localhost:5001/api/lessons/${id}`, {
+        const response = await fetch(`${BACKEND_URL}/api/lessons/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -105,7 +104,7 @@ const Lesson = () => {
 
         // ✅ Fetch progress
         const progressResponse = await fetch(
-          `http://localhost:5001/api/courses/${data.courseId}/progress`,
+          `${BACKEND_URL}/api/courses/${data.courseId}/progress`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -118,7 +117,7 @@ const Lesson = () => {
 
         // ✅ Fetch certificates
         const certificateResponse = await fetch(
-          `http://localhost:5001/api/certificates/${user._id || user.id}`,
+          `${BACKEND_URL}/api/certificates/${user._id || user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -151,7 +150,7 @@ const Lesson = () => {
     try {
       console.log("✅ Marking lesson as completed...");
       const response = await fetch(
-        `http://localhost:5001/api/courses/${lesson.courseId}/complete-lesson`,
+        `${BACKEND_URL}/api/courses/${lesson.courseId}/complete-lesson`,
         {
           method: "PUT",
           headers: {
@@ -164,7 +163,9 @@ const Lesson = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update lesson completion");
+        throw new Error(
+          errorData.error || "Failed to update lesson completion"
+        );
       }
 
       const data = await response.json();
@@ -450,34 +451,40 @@ const Lesson = () => {
                     certificate.
                   </p>
                   {hasCertificate ? (
-  <div className="text-center p-4 border border-green-500 rounded-md bg-green-50">
-    <h3 className="text-lg font-semibold text-green-800">🎉 Certificate Earned!</h3>
-    <p className="text-sm text-gray-600">You've successfully completed the course and earned a certificate.</p>
-    <a
-     href={`/dashboard/profile`}
-     // Link to certificate
-      className="mt-3 block w-full text-center py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors"
-    >
-      View Certificate
-    </a>
-  </div>
-) : (
-  <Link
-    to={progress > 80 ? `/dashboard/quiz/${lesson?.courseId}` : "#"}
-    className={`mt-3 block w-full text-center py-2 rounded-md transition-colors ${
-      progress > 80
-        ? "bg-indigo-600 text-white hover:bg-indigo-700"
-        : "bg-gray-400 text-gray-200 cursor-not-allowed"
-    }`}
-  >
-    {progress > 80 ? "Take Final Quiz" : "Complete More Lessons to Unlock"}
-  </Link>
-)}
-
-
-
-
-
+                    <div className="text-center p-4 border border-green-500 rounded-md bg-green-50">
+                      <h3 className="text-lg font-semibold text-green-800">
+                        🎉 Certificate Earned!
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        You've successfully completed the course and earned a
+                        certificate.
+                      </p>
+                      <a
+                        href={`/dashboard/profile`}
+                        // Link to certificate
+                        className="mt-3 block w-full text-center py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors"
+                      >
+                        View Certificate
+                      </a>
+                    </div>
+                  ) : (
+                    <Link
+                      to={
+                        progress > 80
+                          ? `/dashboard/quiz/${lesson?.courseId}`
+                          : "#"
+                      }
+                      className={`mt-3 block w-full text-center py-2 rounded-md transition-colors ${
+                        progress > 80
+                          ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                          : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                      }`}
+                    >
+                      {progress > 80
+                        ? "Take Final Quiz"
+                        : "Complete More Lessons to Unlock"}
+                    </Link>
+                  )}
                 </div>
               )}
 

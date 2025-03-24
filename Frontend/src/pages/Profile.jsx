@@ -15,7 +15,7 @@ import {
   Lock,
 } from "lucide-react";
 import jsPDF from "jspdf";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("profile");
   const [name, setName] = useState(" ");
@@ -49,40 +49,45 @@ const Profile = () => {
           console.error("🚨 No authentication token found!");
           return;
         }
-    
+
         console.log("📡 Fetching user data...");
-        const userResponse = await fetch("http://localhost:5001/api/auth/me", {
+        const userResponse = await fetch(`${BACKEND_URL}/api/auth/me`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
-    
+
         if (!userResponse.ok) throw new Error("Failed to fetch user data.");
-    
+
         const userData = await userResponse.json();
         const userId = userData._id;
         console.log("✅ Fetched user ID:", userId);
-    
+
         console.log("📡 Fetching certificates for user:", userId);
-        const response = await fetch(`http://localhost:5001/api/certificates/${userId}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-    
+        const response = await fetch(
+          `${BACKEND_URL}/api/certificates/${userId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
         if (response.status === 403) {
           console.error("❌ Access denied - Possible token issue");
           throw new Error("❌ Access denied - You may not have permission.");
         }
-    
+
         if (!response.ok) {
-          throw new Error(`Failed to fetch certificates - ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Failed to fetch certificates - ${response.status} ${response.statusText}`
+          );
         }
-    
+
         const data = await response.json();
         console.log("✅ Certificates fetched successfully:", data);
         setCertificates(data);
@@ -90,54 +95,55 @@ const Profile = () => {
         console.error("❌ Error fetching certificates:", error);
       }
     };
-    
-  
+
     fetchCertificates();
   }, []);
-  
-  
 
   const handleDownload = () => {
     const certificateElement = document.getElementById("certificate");
-  
+
     if (!certificateElement) {
       console.error("Certificate element not found!");
       return;
     }
-  
+
     const doc = new jsPDF("p", "mm", "a4"); // A4 portrait PDF
     doc.setFont("helvetica", "bold");
-    
+
     // Add certificate title
     doc.setFontSize(24);
     doc.text("Certificate of Completion", 105, 40, { align: "center" });
-  
+
     // Add student name
     doc.setFontSize(18);
     doc.text(selectedCertificate.studentName, 105, 60, { align: "center" });
-  
+
     // Add course name
     doc.setFontSize(16);
-    doc.text(`has successfully completed the course`, 105, 75, { align: "center" });
+    doc.text(`has successfully completed the course`, 105, 75, {
+      align: "center",
+    });
     doc.text(selectedCertificate.courseName, 105, 90, { align: "center" });
-  
+
     // Add completion date
     doc.setFontSize(14);
-    doc.text(`Completion Date: ${new Date(selectedCertificate.date).toLocaleDateString()}`, 105, 110, { align: "center" });
-  
+    doc.text(
+      `Completion Date: ${new Date(
+        selectedCertificate.date
+      ).toLocaleDateString()}`,
+      105,
+      110,
+      { align: "center" }
+    );
+
     // Add instructor signature line
     doc.setFontSize(12);
     doc.text("_______________________", 40, 150);
-    doc.text("Instructor Sign", 40, 160);
+    doc.text("Instructor", 40, 160);
   
     // Save as PDF
     doc.save("certificate.pdf");
   };
-  
-  
-  
-  
-  
 
   const handleShare = () => {
     if (navigator.share) {
@@ -165,11 +171,11 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5001/api/auth/update", {
+      const response = await fetch(`${BACKEND_URL}/api/auth/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ name, email, password }),
       });
@@ -191,8 +197,6 @@ const Profile = () => {
       setIsUpdating(false);
     }
   };
-  
-  
 
   const handleDeleteAccount = () => {
     localStorage.clear();
@@ -240,9 +244,11 @@ const Profile = () => {
 
         {/* Content */}
         <div className="p-6">
-        {activeTab === "profile" && (
+          {activeTab === "profile" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">Profile Information</h2>
+              <h2 className="text-xl font-semibold mb-6">
+                Profile Information
+              </h2>
               <form onSubmit={handleUpdateProfile} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium">Full Name</label>
@@ -259,7 +265,9 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Email Address</label>
+                  <label className="block text-sm font-medium">
+                    Email Address
+                  </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input
@@ -273,7 +281,9 @@ const Profile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium">Enter Password to Confirm</label>
+                  <label className="block text-sm font-medium">
+                    Enter Password to Confirm
+                  </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input

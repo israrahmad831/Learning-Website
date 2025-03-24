@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
-
 import {
   Outlet,
   Link,
@@ -12,6 +11,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { BookOpen, User, LogOut, Menu, X } from "lucide-react";
 
 function MainLayout() {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const { user, logout } = useAuth();
   const token = localStorage.getItem("token");
   const isAuthenticated = !!user; // Convert user object to boolean
@@ -38,7 +38,7 @@ function MainLayout() {
 
   const fetchFeedbacks = async () => {
     try {
-      const response = await fetch("http://localhost:5001/api/feedback");
+      const response = await fetch(`${BACKEND_URL}/api/feedback`);
       const data = await response.json();
       setFeedbacks(data);
     } catch (error) {
@@ -53,7 +53,7 @@ function MainLayout() {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/api/feedback", {
+      const response = await fetch(`${BACKEND_URL}/api/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -239,28 +239,28 @@ app.delete("/api/admin/users/delete/:name", async (req, res) => {
 app.get("/api/lessons/:id", (req, res) => {
   const lessonId = req.params.id;
   const filePath = path.join(__dirname, "lesson.json");
-  
+
   fs.readFile(filePath, "utf8", (err, data) => {
-      if (err) {
-          return res.status(500).json({ error: "Failed to load data" });
-      }
+    if (err) {
+      return res.status(500).json({ error: "Failed to load data" });
+    }
 
-      try {
-          const lessons = JSON.parse(data);
-          const foundLesson = lessons.find(lesson => String(lesson._id) === lessonId);
+    try {
+      const lessons = JSON.parse(data);
+      const foundLesson = lessons.find(
+        (lesson) => String(lesson._id) === lessonId
+      );
 
-          if (foundLesson) {
-              res.json(foundLesson);
-          } else {
-              res.status(404).json({ error: "Lesson not found" });
-          }
-      } catch (parseError) {
-          res.status(500).json({ error: "Error parsing JSON data" });
+      if (foundLesson) {
+        res.json(foundLesson);
+      } else {
+        res.status(404).json({ error: "Lesson not found" });
       }
+    } catch (parseError) {
+      res.status(500).json({ error: "Error parsing JSON data" });
+    }
   });
 });
-
-
 
 // Load courses from JSON file
 const courseFilePath = path.join(__dirname, "courseData.json");
@@ -301,15 +301,13 @@ app.get("/api/courses/:id", (req, res) => {
   }
 });
 
-
-
 // 📌 **Course Progress Schema (MongoDB)**
-  const progressSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    courseId: { type: String, required: true },
-    progress: { type: Number, default: 0 },
-    completedLessons: { type: [String], default: [] }, // Store completed lesson IDs
-  });
+const progressSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  courseId: { type: String, required: true },
+  progress: { type: Number, default: 0 },
+  completedLessons: { type: [String], default: [] }, // Store completed lesson IDs
+});
 
 const Progress = mongoose.model("Progress", progressSchema);
 
@@ -321,7 +319,10 @@ app.post("/api/courses/:id", verifyToken, async (req, res) => {
     if (!course) return res.status(404).json({ error: "Course not found" });
 
     // Fetch user progress from MongoDB
-    const progress = await Progress.findOne({ userId: req.user.userId, courseId: course._id }) || { progress: 0 };
+    const progress = (await Progress.findOne({
+      userId: req.user.userId,
+      courseId: course._id,
+    })) || { progress: 0 };
     course.progress = progress.progress;
     course.isEnrolled = progress.progress > 0;
 
@@ -353,17 +354,23 @@ app.post("/api/courses/:id/enroll", verifyToken, async (req, res) => {
   }
 });
 
-
 // 📌 **Update Course Progress (MongoDB)**
 app.put("/api/courses/:id/progress", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
     const { progress } = req.body;
 
-    let progressEntry = await Progress.findOne({ userId: req.user.userId, courseId: id });
+    let progressEntry = await Progress.findOne({
+      userId: req.user.userId,
+      courseId: id,
+    });
 
     if (!progressEntry) {
-      progressEntry = new Progress({ userId: req.user.userId, courseId: id, progress });
+      progressEntry = new Progress({
+        userId: req.user.userId,
+        courseId: id,
+        progress,
+      });
     } else {
       progressEntry.progress = progress;
     }
@@ -379,18 +386,49 @@ app.put("/api/courses/:id/progress", verifyToken, async (req, res) => {
 // Get the total number of enrolled students for a course
 app.get("/api/courses/:id/enrolled-students", async (req, res) => {
   try {
-    const enrolledCount = await Progress.countDocuments({ courseId: req.params.id });
+    const enrolledCount = await Progress.countDocuments({
+      courseId: req.params.id,
+    });
     res.json({ enrolledStudents: enrolledCount });
   } catch (error) {
     console.error("Error fetching enrolled students count:", error);
     res.status(500).json({ error: "Failed to fetch enrolled students count" });
   }
 });
+
+// app.get("/api/student/:name/courses-with-enrollment", async (req, res) => {
+//   try {
+//     const studentName = req.params.name;
+//     const student = await User.findOne({ name: studentName });
+
+//     if (!student) {
+//       return res.status(404).json({ error: "Student not found" });
+//     }
+
+//     const enrolledCourses = await Progress.find({
+//       studentId: student._id,
+//     }).populate("courseId");
+
+//     const formattedCourses = enrolledCourses.map((enrollment) => ({
+//       courseName: enrollment.courseId.name,
+//       enrolledStudents: enrollment.courseId.enrolledCount || 0,
+//     }));
+
+//     res.json({ enrolledCourses: formattedCourses });
+//   } catch (error) {
+//     console.error("Error fetching enrolled courses:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
 // Fetch course progress for a user
 app.get("/api/courses/:id/progress", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const progress = await Progress.findOne({ userId: req.user.userId, courseId: id });
+    const progress = await Progress.findOne({
+      userId: req.user.userId,
+      courseId: id,
+    });
 
     res.json({
       progress: progress ? progress.progress : 0,
@@ -402,65 +440,79 @@ app.get("/api/courses/:id/progress", verifyToken, async (req, res) => {
   }
 });
 
+app.put(
+  "/api/courses/:courseId/complete-lesson",
+  verifyToken,
+  async (req, res) => {
+    try {
+      const { lessonId } = req.body;
+      const { courseId } = req.params;
+      const userId = req.user?.userId;
 
-app.put("/api/courses/:courseId/complete-lesson", verifyToken, async (req, res) => {
-  try {
-    const { lessonId } = req.body;
-    const { courseId } = req.params;
-    const userId = req.user?.userId;
+      if (!userId) {
+        return res.status(401).json({ error: "Unauthorized user" });
+      }
 
-    if (!userId) {
-      return res.status(401).json({ error: "Unauthorized user" });
+      if (!lessonId || !courseId) {
+        return res.status(400).json({ error: "Missing lessonId or courseId" });
+      }
+
+      console.log(
+        `User ${userId} completing lesson ${lessonId} for course ${courseId}`
+      );
+
+      let progress = await Progress.findOne({ userId, courseId });
+
+      if (!progress) {
+        progress = new Progress({
+          userId,
+          courseId,
+          completedLessons: [],
+          progress: 0,
+        });
+      }
+
+      // Prevent duplicate marking
+      if (progress.completedLessons.includes(lessonId)) {
+        return res.json({ success: true, progress: progress.progress });
+      }
+
+      progress.completedLessons.push(lessonId);
+
+      // Load lessons from JSON instead of using a MongoDB collection
+      const lessonFilePath = path.join(__dirname, "lesson.json");
+      let totalLessons = 1; // Default to prevent division by zero
+
+      if (fs.existsSync(lessonFilePath)) {
+        const lessonsData = JSON.parse(
+          fs.readFileSync(lessonFilePath, "utf-8")
+        );
+        totalLessons =
+          lessonsData.filter((lesson) => String(lesson.courseId) === courseId)
+            .length || 1;
+      }
+
+      progress.progress = Math.min(
+        ((progress.completedLessons.length / totalLessons) * 100).toFixed(2),
+        100
+      );
+
+      await progress.save();
+
+      res.json({ success: true, progress: progress.progress });
+    } catch (error) {
+      console.error("Server error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-
-    if (!lessonId || !courseId) {
-      return res.status(400).json({ error: "Missing lessonId or courseId" });
-    }
-
-    console.log(`User ${userId} completing lesson ${lessonId} for course ${courseId}`);
-
-    let progress = await Progress.findOne({ userId, courseId });
-
-    if (!progress) {
-      progress = new Progress({ userId, courseId, completedLessons: [], progress: 0 });
-    }
-
-    // Prevent duplicate marking
-    if (progress.completedLessons.includes(lessonId)) {
-      return res.json({ success: true, progress: progress.progress });
-    }
-
-    progress.completedLessons.push(lessonId);
-
-    // Load lessons from JSON instead of using a MongoDB collection
-    const lessonFilePath = path.join(__dirname, "lesson.json");
-    let totalLessons = 1; // Default to prevent division by zero
-
-    if (fs.existsSync(lessonFilePath)) {
-      const lessonsData = JSON.parse(fs.readFileSync(lessonFilePath, "utf-8"));
-      totalLessons = lessonsData.filter((lesson) => String(lesson.courseId) === courseId).length || 1;
-    }
-
-    progress.progress = Math.min(
-      ((progress.completedLessons.length / totalLessons) * 100).toFixed(2),
-      100
-    );
-
-    await progress.save();
-
-    res.json({ success: true, progress: progress.progress });
-  } catch (error) {
-    console.error("Server error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
   }
-});
-
-
+);
 
 app.get("/api/dashboard", verifyToken, async (req, res) => {
   try {
     if (!req.user || !req.user.userId) {
-      return res.status(401).json({ error: "🚨 Unauthorized: No user ID found" });
+      return res
+        .status(401)
+        .json({ error: "🚨 Unauthorized: No user ID found" });
     }
 
     const userId = req.user.userId;
@@ -483,11 +535,18 @@ app.get("/api/dashboard", verifyToken, async (req, res) => {
     );
 
     // Calculate completed courses based on quiz completion
-    const completedCourses = progressRecords.filter((record) => record.progress === 100).length;
+    const completedCourses = progressRecords.filter(
+      (record) => record.progress === 100
+    ).length;
 
     // Calculate average progress
-    const totalProgress = progressRecords.reduce((sum, record) => sum + (record.progress || 0), 0);
-    const averageProgress = progressRecords.length ? totalProgress / progressRecords.length : 0;
+    const totalProgress = progressRecords.reduce(
+      (sum, record) => sum + (record.progress || 0),
+      0
+    );
+    const averageProgress = progressRecords.length
+      ? totalProgress / progressRecords.length
+      : 0;
 
     // Fetch recent lessons from progress records
     const recentLessons = [];
@@ -495,14 +554,18 @@ app.get("/api/dashboard", verifyToken, async (req, res) => {
       for (let lessonId of record.completedLessons.slice(-3)) {
         const lessonFilePath = path.join(__dirname, "lesson.json");
         if (fs.existsSync(lessonFilePath)) {
-          const lessonsData = JSON.parse(fs.readFileSync(lessonFilePath, "utf-8"));
+          const lessonsData = JSON.parse(
+            fs.readFileSync(lessonFilePath, "utf-8")
+          );
           const lesson = lessonsData.find((l) => String(l._id) === lessonId);
           if (lesson) {
             recentLessons.push({
               _id: lesson._id,
               title: lesson.title,
               courseId: record.courseId,
-              courseName: enrolledCourses.find((c) => c._id === record.courseId)?.title || "Unknown Course",
+              courseName:
+                enrolledCourses.find((c) => c._id === record.courseId)?.title ||
+                "Unknown Course",
               lastAccessed: new Date().toISOString(),
             });
           }
@@ -521,15 +584,97 @@ app.get("/api/dashboard", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+app.get("/api/admin/student-progress", verifyToken, async (req, res) => {
+  try {
+    const students = await User.find({ role: "student" });
+
+    const studentProgressData = await Promise.all(
+      students.map(async (student) => {
+        const progressRecords = await Progress.find({ userId: student._id });
+
+        const totalProgress = progressRecords.reduce(
+          (sum, record) => sum + (record.progress || 0),
+          0
+        );
+
+        const averageProgress = progressRecords.length
+          ? (totalProgress / progressRecords.length).toFixed(2)
+          : 0;
+
+        return {
+          id: student._id,
+          name: student.name,
+          email: student.email,
+          averageProgress: averageProgress, // Store average progress
+        };
+      })
+    );
+
+    res.json(studentProgressData);
+  } catch (error) {
+    console.error("Error fetching student progress:", error);
+    res.status(500).json({ error: "Failed to fetch student progress" });
+  }
+});
+app.get(
+  "/api/admin/student-progress/student/:name",
+  verifyToken, // Ensure authentication
+  async (req, res) => {
+    try {
+      const { name } = req.params;
+
+      // Ensure user is an admin or the student requesting their own data
+      if (req.user.role !== "admin" && req.user.name !== name) {
+        return res.status(403).json({ error: "Unauthorized access" });
+      }
+
+      // Find the student by name
+      const student = await User.findOne({ name, role: "student" });
+      if (!student) {
+        return res.status(404).json({ error: "Student not found" });
+      }
+
+      // Fetch progress records for this student
+      const progressRecords = await Progress.find({ userId: student._id });
+
+      console.log(`Student ${student.name} progress records:`, progressRecords);
+
+      const totalProgress = progressRecords.reduce(
+        (sum, record) => sum + (record.progress || 0),
+        0
+      );
+
+      const averageProgress = progressRecords.length
+        ? (totalProgress / progressRecords.length).toFixed(2)
+        : "0";
+
+      console.log(`Average progress for ${student.name}:`, averageProgress);
+
+      res.json({
+        id: student._id,
+        name: student.name,
+        email: student.email,
+        averageProgress,
+      });
+    } catch (error) {
+      console.error("Error fetching student progress:", error);
+      res.status(500).json({ error: "Failed to fetch student progress" });
+    }
+  }
+);
 
 // Certificate Schema
 const certificateSchema = new mongoose.Schema({
-  studentId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   studentName: { type: String, required: true },
   courseId: { type: String, required: true },
   courseName: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  percentage: { type: Number, required: true }
+  percentage: { type: Number, required: true },
 });
 
 const Certificate = mongoose.model("Certificate", certificateSchema);
@@ -539,19 +684,31 @@ app.post("/api/certificates", verifyToken, async (req, res) => {
   try {
     console.log("Received certificate data:", req.body);
 
-    const { studentId, studentName, courseId, courseName, percentage } = req.body;
+    const { studentId, studentName, courseId, courseName, percentage } =
+      req.body;
 
     if (!studentId || !courseId || !courseName || percentage === undefined) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
     // Check if a certificate already exists
-    const existingCertificate = await Certificate.findOne({ studentId, courseId });
+    const existingCertificate = await Certificate.findOne({
+      studentId,
+      courseId,
+    });
     if (existingCertificate) {
-      return res.status(409).json({ message: "Certificate already exists for this course" });
+      return res
+        .status(409)
+        .json({ message: "Certificate already exists for this course" });
     }
 
-    const certificate = new Certificate({ studentId, studentName, courseId, courseName, percentage });
+    const certificate = new Certificate({
+      studentId,
+      studentName,
+      courseId,
+      courseName,
+      percentage,
+    });
     await certificate.save();
 
     res.status(201).json({ message: "Certificate saved successfully" });
@@ -569,20 +726,20 @@ app.get("/api/certificates/:studentId", verifyToken, async (req, res) => {
     });
 
     if (req.user.userId !== req.params.studentId && req.user.role !== "admin") {
-      return res.status(403).json({ message: "Access denied - Unauthorized user" });
+      return res
+        .status(403)
+        .json({ message: "Access denied - Unauthorized user" });
     }
 
-    const certificates = await Certificate.find({ studentId: req.params.studentId });
+    const certificates = await Certificate.find({
+      studentId: req.params.studentId,
+    });
     res.json(certificates);
   } catch (error) {
     console.error("❌ Error fetching certificates:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
-
-
-
-
 
 // Update user profile with password verification
 app.put("/api/auth/update", verifyToken, async (req, res) => {
@@ -616,6 +773,123 @@ app.put("/api/auth/update", verifyToken, async (req, res) => {
 });
 
 
+
+
+
+
+
+// Start Server
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+
+// Load quizzes from JSON file
+const quizFilePath = path.join(__dirname, "quizData.json");
+
+const getQuizzes = () => {
+  const rawData = fs.readFileSync(quizFilePath);
+  return JSON.parse(rawData);
+};
+
+// Get all quizzes
+app.get("/api/quizzes", (req, res) => {
+  try {
+    const quizzes = getQuizzes();
+    res.json(quizzes);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch quizzes" });
+  }
+});
+
+app.get("/api/quizzes/:id", (req, res) => {
+  try {
+    const quizzes = getQuizzes();
+    const quiz = quizzes.find((q) => q._id === req.params.id);
+    if (!quiz) return res.status(404).json({ error: "Quiz not found" });
+    res.json(quiz);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch quiz" });
+  }
+});
+
+// Feedback Schema
+const feedbackSchema = new mongoose.Schema({
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  message: { type: String, required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 }, // ⭐ Include Rating
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Feedback = mongoose.model("Feedback", feedbackSchema);
+
+// Submit Feedback
+app.post("/api/feedback", verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== "student") {
+      return res
+        .status(403)
+        .json({ message: "Only students can submit feedback" });
+    }
+
+    const { message, rating } = req.body;
+    if (!message || !rating) {
+      return res
+        .status(400)
+        .json({ message: "Message and rating are required" });
+    }
+
+    const feedback = new Feedback({
+      studentId: req.user.userId,
+      message,
+      rating,
+    });
+
+    await feedback.save();
+    res.status(201).json({ message: "Feedback submitted successfully" });
+  } catch (error) {
+    console.error("Error submitting feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get All Feedbacks
+app.get("/api/feedback", async (req, res) => {
+  try {
+    const feedbacks = await Feedback.find()
+      .populate("studentId", "name") // Fetch student's name
+      .sort({ createdAt: -1 });
+
+    res.json(feedbacks);
+  } catch (error) {
+    console.error("Error fetching feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Delete Feedback (Only Admins)
+app.delete("/api/feedback/:id", verifyToken, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "Only admins can delete feedback" });
+    }
+
+    const feedback = await Feedback.findById(req.params.id);
+    if (!feedback) {
+      return res.status(404).json({ message: "Feedback not found" });
+    }
+
+    await Feedback.deleteOne({ _id: req.params.id });
+    res.json({ message: "Feedback deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting feedback:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 const discussionSchema = new mongoose.Schema({
   user: String,
   question: String,
@@ -792,121 +1066,5 @@ app.delete(
     res.json({ message: "Reply deleted by admin" });
   }
 );
-
-
-
-
-
 // Start Server
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
-
-  // Load quizzes from JSON file
-const quizFilePath = path.join(__dirname, "quizData.json");
-
-const getQuizzes = () => {
-  const rawData = fs.readFileSync(quizFilePath);
-  return JSON.parse(rawData);
-};
-
-// Get all quizzes
-app.get("/api/quizzes", (req, res) => {
-  try {
-    const quizzes = getQuizzes();
-    res.json(quizzes);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch quizzes" });
-  }
-});
-
-// Get a specific quiz by ID
-app.get("/api/quizzes/:id", (req, res) => {
-  try {
-    const quizzes = getQuizzes();
-    const quiz = quizzes.find(q => q._id === req.params.id);
-    if (!quiz) return res.status(404).json({ error: "Quiz not found" });
-    res.json(quiz);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch quiz" });
-  }
-});
-    
-    // Feedback Schema
-    const feedbackSchema = new mongoose.Schema({
-      studentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-      },
-      message: { type: String, required: true },
-      rating: { type: Number, required: true, min: 1, max: 5 }, // ⭐ Include Rating
-      createdAt: { type: Date, default: Date.now },
-    });
-    
-    const Feedback = mongoose.model("Feedback", feedbackSchema);
-    
-    // Submit Feedback
-    app.post("/api/feedback", verifyToken, async (req, res) => {
-      try {
-        if (req.user.role !== "student") {
-          return res
-            .status(403)
-            .json({ message: "Only students can submit feedback" });
-        }
-    
-        const { message, rating } = req.body;
-        if (!message || !rating) {
-          return res
-            .status(400)
-            .json({ message: "Message and rating are required" });
-        }
-    
-        const feedback = new Feedback({
-          studentId: req.user.userId,
-          message,
-          rating,
-        });
-    
-        await feedback.save();
-        res.status(201).json({ message: "Feedback submitted successfully" });
-      } catch (error) {
-        console.error("Error submitting feedback:", error);
-        res.status(500).json({ message: "Server error" });
-      }
-    });
-    
-    // Get All Feedbacks
-    app.get("/api/feedback", async (req, res) => {
-      try {
-        const feedbacks = await Feedback.find()
-          .populate("studentId", "name") // Fetch student's name
-          .sort({ createdAt: -1 });
-    
-        res.json(feedbacks);
-      } catch (error) {
-        console.error("Error fetching feedback:", error);
-        res.status(500).json({ message: "Server error" });
-      }
-    });
-    
-    // Delete Feedback (Only Admins)
-    app.delete("/api/feedback/:id", verifyToken, async (req, res) => {
-      try {
-        if (req.user.role !== "admin") {
-          return res
-            .status(403)
-            .json({ message: "Only admins can delete feedback" });
-        }
-    
-        const feedback = await Feedback.findById(req.params.id);
-        if (!feedback) {
-          return res.status(404).json({ message: "Feedback not found" });
-        }
-    
-        await Feedback.deleteOne({ _id: req.params.id });
-        res.json({ message: "Feedback deleted successfully" });
-      } catch (error) {
-        console.error("Error deleting feedback:", error);
-        res.status(500).json({ message: "Server error" });
-      }
-    });

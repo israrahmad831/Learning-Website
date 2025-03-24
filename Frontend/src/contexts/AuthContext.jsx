@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   // Fetch user on initial render
   useEffect(() => {
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const res = await axios.get("http://localhost:5001/api/auth/me", {
+      const res = await axios.get(`${BACKEND_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -62,10 +63,12 @@ export const AuthProvider = ({ children }) => {
   // 📝 Register Function
   const register = async (name, email, password, role = "student") => {
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/auth/register",
-        { name, email, password, role }
-      );
+      const response = await axios.post(`${BACKEND_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+        role,
+      });
 
       // If the account requires admin approval
       if (response.data.isApproved === false) {
@@ -94,7 +97,7 @@ export const AuthProvider = ({ children }) => {
   // 🔐 Login Function
   const login = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:5001/api/auth/login", {
+      const res = await axios.post(`${BACKEND_URL}/api/auth/login`, {
         email,
         password,
       });
