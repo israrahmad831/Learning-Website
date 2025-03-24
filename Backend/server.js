@@ -772,16 +772,6 @@ app.put("/api/auth/update", verifyToken, async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-// Start Server
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
-
 // Load quizzes from JSON file
 const quizFilePath = path.join(__dirname, "quizData.json");
 

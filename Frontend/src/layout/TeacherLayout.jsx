@@ -10,12 +10,14 @@ const TeacherLayout = () => {
   return (
     <div className="min-h-screen ">
       {/* Navbar */}
-      <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 flex justify-between items-center shadow-md">
-        <h1 className="text-xl font-bold">Teacher</h1>
+      <nav className="flex items-center justify-between p-4 text-white shadow-md bg-gradient-to-r from-indigo-600 to-purple-600">
+        <NavLink to="/">
+          <h1 className="text-xl font-bold">Home</h1>
+        </NavLink>
         <NavLink
           to="/"
           onClick={logout}
-          className="bg-blue-600 text-white p-2 rounded-lg shadow-lg flex items-center"
+          className="flex items-center p-2 text-white bg-blue-600 rounded-lg shadow-lg"
         >
           Logout
         </NavLink>

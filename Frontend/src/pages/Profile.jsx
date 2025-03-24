@@ -21,7 +21,6 @@ const Profile = () => {
   const [name, setName] = useState(" ");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [isUpdating, setIsUpdating] = useState(false);
   const { darkMode, setDarkMode } = useTheme();
   const [notifications, setNotifications] = useState(
@@ -31,6 +30,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [certificates, setCertificates] = useState([]);
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     document.body.classList.toggle("dark", darkMode);
@@ -40,6 +40,35 @@ const Profile = () => {
   useEffect(() => {
     localStorage.setItem("notifications", notifications);
   }, [notifications]);
+
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("🚨 No authentication token found!");
+          return;
+        }
+
+        const userResponse = await fetch(`${BACKEND_URL}/api/auth/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!userResponse.ok) throw new Error("Failed to fetch user data.");
+
+        const userData = await userResponse.json();
+        setRole(userData.role);
+      } catch (error) {
+        console.error("❌ Error fetching user role:", error);
+      }
+    };
+
+    fetchUserRole();
+  }, []);
 
   useEffect(() => {
     const fetchCertificates = async () => {
@@ -140,7 +169,7 @@ const Profile = () => {
     doc.setFontSize(12);
     doc.text("_______________________", 40, 150);
     doc.text("Instructor", 40, 160);
-  
+
     // Save as PDF
     doc.save("certificate.pdf");
   };
@@ -222,43 +251,46 @@ const Profile = () => {
               : "border-gray-200 bg-gray-100"
           } p-3`}
         >
-          {["profile", "settings", "achievements"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex items-center space-x-2 px-6 py-4 font-medium transition-all ${
-                activeTab === tab
-                  ? "text-indigo-600 border-b-2 border-indigo-600"
-                  : darkMode
-                  ? "text-gray-300 hover:text-gray-400"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab === "profile" && <User className="h-5 w-5" />}
-              {tab === "settings" && <Settings className="h-5 w-5" />}
-              {tab === "achievements" && <Award className="h-5 w-5" />}
-              <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
-            </button>
-          ))}
+          {["profile", "settings", "achievements"].map(
+            (tab) =>
+              (tab !== "achievements" || role === "student") && (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex items-center space-x-2 px-6 py-4 font-medium transition-all ${
+                    activeTab === tab
+                      ? "text-indigo-600 border-b-2 border-indigo-600"
+                      : darkMode
+                      ? "text-gray-300 hover:text-gray-400"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  {tab === "profile" && <User className="w-5 h-5" />}
+                  {tab === "settings" && <Settings className="w-5 h-5" />}
+                  {tab === "achievements" && <Award className="w-5 h-5" />}
+                  <span>{tab.charAt(0).toUpperCase() + tab.slice(1)}</span>
+                </button>
+              )
+          )}
         </div>
 
         {/* Content */}
         <div className="p-6">
           {activeTab === "profile" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">
+              <h2 className="mb-6 text-xl font-semibold">
                 Profile Information
               </h2>
               <form onSubmit={handleUpdateProfile} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium">Full Name</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <User className="absolute w-5 h-5 text-gray-400 left-3 top-3" />
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="pl-10 w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-indigo-500 transition-all"
+                      className="w-full px-4 py-2 pl-10 transition-all border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500"
                       required
                     />
                   </div>
@@ -269,12 +301,12 @@ const Profile = () => {
                     Email Address
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <Mail className="absolute w-5 h-5 text-gray-400 left-3 top-3" />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-indigo-500 transition-all"
+                      className="w-full px-4 py-2 pl-10 transition-all border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500"
                       required
                     />
                   </div>
@@ -285,12 +317,12 @@ const Profile = () => {
                     Enter Password to Confirm
                   </label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <Lock className="absolute w-5 h-5 text-gray-400 left-3 top-3" />
                     <input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="pl-10 w-full border border-gray-300 rounded-md py-2 px-4 focus:ring-2 focus:ring-indigo-500 transition-all"
+                      className="w-full px-4 py-2 pl-10 transition-all border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500"
                       required
                     />
                   </div>
@@ -299,7 +331,7 @@ const Profile = () => {
                 <button
                   type="submit"
                   disabled={isUpdating}
-                  className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-all flex items-center justify-center"
+                  className="flex items-center justify-center w-full px-4 py-2 text-white transition-all bg-indigo-600 rounded-md hover:bg-indigo-700"
                 >
                   {isUpdating ? "Updating..." : "Update Profile"}
                 </button>
@@ -309,17 +341,17 @@ const Profile = () => {
 
           {activeTab === "settings" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">Settings</h2>
+              <h2 className="mb-6 text-xl font-semibold">Settings</h2>
 
               {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <Moon className="h-5 w-5" />
+                  <Moon className="w-5 h-5" />
                   <span>Dark Mode</span>
                 </div>
                 <button
                   onClick={() => setDarkMode(!darkMode)}
-                  className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+                  className="px-4 py-2 mt-4 text-white transition bg-indigo-600 rounded-md hover:bg-indigo-700"
                 >
                   {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
                 </button>
@@ -328,7 +360,7 @@ const Profile = () => {
               {/* Notification Toggle */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <Bell className="h-5 w-5" />
+                  <Bell className="w-5 h-5" />
                   <span>Email Notifications</span>
                 </div>
                 <button
@@ -349,9 +381,9 @@ const Profile = () => {
               <div className="mt-6">
                 <button
                   onClick={() => setShowConfirmPopup(true)}
-                  className="flex items-center text-red-600 hover:text-red-800 font-medium"
+                  className="flex items-center font-medium text-red-600 hover:text-red-800"
                 >
-                  <Trash className="h-5 w-5 mr-2" />
+                  <Trash className="w-5 h-5 mr-2" />
                   Delete Account
                 </button>
               </div>
@@ -359,12 +391,12 @@ const Profile = () => {
           )}
 
           {showConfirmPopup && (
-            <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
-              <div className="bg-white rounded-lg p-6 shadow-lg w-96">
-                <h3 className="text-lg font-semibold mb-4">
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+                <h3 className="mb-4 text-lg font-semibold">
                   Confirm Account Deletion
                 </h3>
-                <p className="text-sm text-gray-600 mb-6">
+                <p className="mb-6 text-sm text-gray-600">
                   Are you sure you want to delete your account? This action
                   cannot be undone.
                 </p>
@@ -377,7 +409,7 @@ const Profile = () => {
                   </button>
                   <button
                     onClick={handleDeleteAccount}
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    className="px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700"
                   >
                     Delete
                   </button>
@@ -387,17 +419,17 @@ const Profile = () => {
           )}
           {activeTab === "achievements" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6 text-gray-800">
+              <h2 className="mb-6 text-xl font-semibold text-gray-800">
                 Your Achievements
               </h2>
               <div className="space-y-4">
                 {certificates.length === 0 ? (
-                  <p className="text-gray-500 text-center py-4">
+                  <p className="py-4 text-center text-gray-500">
                     You haven't completed any courses yet.
                   </p>
                 ) : (
                   certificates.map((certificate, index) => (
-                    <div key={index} className="bg-gray-50 p-4 rounded-md">
+                    <div key={index} className="p-4 rounded-md bg-gray-50">
                       <h4 className="font-medium text-gray-700">
                         {certificate.courseName}
                       </h4>
@@ -407,7 +439,7 @@ const Profile = () => {
                       </p>
                       <button
                         onClick={() => setSelectedCertificate(certificate)}
-                        className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                        className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
                       >
                         View Certificate
                       </button>
@@ -416,41 +448,41 @@ const Profile = () => {
                 )}
               </div>
               {selectedCertificate && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                   <div
                     id="certificate"
-                    className="bg-white shadow-xl border border-gray-300 p-6 rounded-lg w-full max-w-2xl text-center relative"
+                    className="relative w-full max-w-2xl p-6 text-center bg-white border border-gray-300 rounded-lg shadow-xl"
                   >
                     <button
                       onClick={() => setSelectedCertificate(null)}
-                      className="absolute top-4 right-4 text-red-600 hover:text-red-800"
+                      className="absolute text-red-600 top-4 right-4 hover:text-red-800"
                     >
-                      <X className="h-6 w-6" />
+                      <X className="w-6 h-6" />
                     </button>
                     <h1 className="text-3xl font-bold text-indigo-700">
                       Certificate of Completion
                     </h1>
-                    <p className="text-lg text-gray-700 mt-2">
+                    <p className="mt-2 text-lg text-gray-700">
                       This is to certify that
-                      <span className="block text-2xl font-semibold mt-1">
+                      <span className="block mt-1 text-2xl font-semibold">
                         {selectedCertificate.studentName}
                       </span>
                       has successfully completed the course
                     </p>
-                    <h2 className="text-xl font-bold text-indigo-600 mt-2">
+                    <h2 className="mt-2 text-xl font-bold text-indigo-600">
                       {selectedCertificate.courseName}
                     </h2>
-                    <p className="text-gray-500 mt-1">
+                    <p className="mt-1 text-gray-500">
                       with a passing score of {selectedCertificate.percentage}%.
                     </p>
-                    <div className="mt-6 flex justify-between px-8">
+                    <div className="flex justify-between px-8 mt-6">
                       <div>
-                        <p className="border-t border-gray-500 w-40 mx-auto text-gray-700">
+                        <p className="w-40 mx-auto text-gray-700 border-t border-gray-500">
                           Instructor
                         </p>
                       </div>
                       <div>
-                        <p className="border-t border-gray-500 w-40 mx-auto text-gray-700">
+                        <p className="w-40 mx-auto text-gray-700 border-t border-gray-500">
                           Completion Date:{" "}
                           {new Date(
                             selectedCertificate.date
@@ -458,18 +490,18 @@ const Profile = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="mt-6 flex justify-center space-x-4">
+                    <div className="flex justify-center mt-6 space-x-4">
                       <button
                         onClick={handleDownload}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-blue-700"
+                        className="flex items-center px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700"
                       >
-                        <Download className="h-5 w-5 mr-2" /> Download
+                        <Download className="w-5 h-5 mr-2" /> Download
                       </button>
                       <button
                         onClick={handleShare}
-                        className="bg-green-600 text-white px-4 py-2 rounded-md flex items-center hover:bg-green-700"
+                        className="flex items-center px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700"
                       >
-                        <Share2 className="h-5 w-5 mr-2" /> Share
+                        <Share2 className="w-5 h-5 mr-2" /> Share
                       </button>
                     </div>
                   </div>

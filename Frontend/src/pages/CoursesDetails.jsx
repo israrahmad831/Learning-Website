@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import {
-  BookOpen,
-  Clock,
-  Award,
-  Star,
-  MessageSquare,
-  Download,
-} from "lucide-react";
+import { BookOpen, Clock, Star, MessageSquare } from "lucide-react";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const CourseDetails = () => {
@@ -22,6 +15,11 @@ const CourseDetails = () => {
 
   useEffect(() => {
     const fetchCourseDetails = async () => {
+      if (!user) {
+        console.log("User not authenticated");
+        return;
+      }
+
       try {
         setIsLoading(true);
 
@@ -29,15 +27,11 @@ const CourseDetails = () => {
           await Promise.all([
             fetch(`${BACKEND_URL}/api/courses/${id}`),
             fetch(`${BACKEND_URL}/api/courses/${id}/enrolled-students`),
-            user
-              ? fetch(`${BACKEND_URL}/api/courses/${id}/progress`, {
-                  headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                })
-              : Promise.resolve({
-                  json: () => ({ progress: 0, completedLessons: [] }),
-                }),
+            fetch(`${BACKEND_URL}/api/courses/${id}/progress`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }),
           ]);
 
         if (!courseResponse.ok || !studentsResponse.ok) {
@@ -48,10 +42,14 @@ const CourseDetails = () => {
         const studentsData = await studentsResponse.json();
         const progressData = await progressResponse.json();
 
+        console.log("Course Data:", courseData);
+        console.log("Students Data:", studentsData);
+        console.log("Progress Data:", progressData);
+
         courseData.enrolledStudents = studentsData.enrolledStudents;
         courseData.isEnrolled = progressData.progress > 0;
         setProgress(progressData.progress);
-        setCompletedLessons(progressData.completedLessons || []); // ✅ Store completed lessons
+        setCompletedLessons(progressData.completedLessons || []);
 
         setCourse(courseData);
       } catch (error) {
@@ -116,24 +114,24 @@ const CourseDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      <div className="flex items-center justify-center h-64">
+        <div className="w-12 h-12 border-t-2 border-b-2 border-indigo-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (!course) {
     return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <div className="py-12 text-center">
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">
           Course Not Found
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="mb-6 text-gray-600">
           The course you're looking for doesn't exist or has been removed.
         </p>
         <Link
           to="/courses"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+          className="px-6 py-2 text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700"
         >
           Browse Courses
         </Link>
@@ -144,36 +142,36 @@ const CourseDetails = () => {
   return (
     <div className="space-y-8">
       <div className="relative">
-        <div className="h-64 w-full overflow-hidden rounded-xl">
+        <div className="w-full h-64 overflow-hidden rounded-xl">
           <img
             src={course?.image}
             alt={course?.title}
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="flex items-center space-x-2 mb-2">
-            <span className="px-3 py-1 bg-indigo-600 rounded-full text-sm font-medium">
+          <div className="flex items-center mb-2 space-x-2">
+            <span className="px-3 py-1 text-sm font-medium bg-indigo-600 rounded-full">
               {course?.language}
             </span>
-            <span className="px-3 py-1 bg-gray-700 rounded-full text-sm font-medium">
+            <span className="px-3 py-1 text-sm font-medium bg-gray-700 rounded-full">
               {course?.level}
             </span>
           </div>
-          <h1 className="text-3xl font-bold mb-2">{course?.title}</h1>
+          <h1 className="mb-2 text-3xl font-bold">{course?.title}</h1>
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
-              <Star className="h-5 w-5 text-yellow-400 mr-1" />
+              <Star className="w-5 h-5 mr-1 text-yellow-400" />
               <span>{course?.rating.toFixed(1)}</span>
             </div>
             <div className="flex items-center">
-              <BookOpen className="h-5 w-5 mr-1" />
+              <BookOpen className="w-5 h-5 mr-1" />
               <span>{course?.lessons.length} lessons</span>
             </div>
             <div className="flex items-center">
-              <Clock className="h-5 w-5 mr-1" />
+              <Clock className="w-5 h-5 mr-1" />
               <span>
                 {Math.floor(getTotalDuration() / 60)}h {getTotalDuration() % 60}
                 m
@@ -183,14 +181,14 @@ const CourseDetails = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="space-y-8 lg:col-span-2">
           {/* About This Course */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">About This Course</h2>
-            <p className="text-gray-700 mb-6">{course?.description}</p>
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-xl font-semibold">About This Course</h2>
+            <p className="mb-6 text-gray-700">{course?.description}</p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+            <div className="grid grid-cols-2 gap-4 text-center md:grid-cols-4">
               {[
                 { label: "Instructor", value: course?.createdBy.name },
                 { label: "Language", value: course?.language },
@@ -202,7 +200,7 @@ const CourseDetails = () => {
               ].map((info, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 p-4 rounded-lg shadow-sm"
+                  className="p-4 rounded-lg shadow-sm bg-gray-50"
                 >
                   <p className="text-sm text-gray-500">{info.label}</p>
                   <p className="font-medium">{info.value}</p>
@@ -212,9 +210,9 @@ const CourseDetails = () => {
           </div>
 
           {/* Course Content */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-semibold mb-4">Course Content</h2>
-            <p className="text-gray-700 mb-4">
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-xl font-semibold">Course Content</h2>
+            <p className="mb-4 text-gray-700">
               {course?.lessons.length} lessons •{" "}
               {Math.floor(getTotalDuration() / 60)}h {getTotalDuration() % 60}m
               total length
@@ -244,7 +242,7 @@ const CourseDetails = () => {
                       {lesson.order}
                     </span>
                     <div>
-                      <h3 className="font-medium text-lg">{lesson.title}</h3>{" "}
+                      <h3 className="text-lg font-medium">{lesson.title}</h3>{" "}
                       {/* Bigger text */}
                       <p className="text-sm text-gray-500">
                         {lesson.duration} min
@@ -253,19 +251,22 @@ const CourseDetails = () => {
                   </div>
 
                   {/* Lesson Action */}
-                  {course?.isEnrolled ? (
+                  {course?.isEnrolled ||
+                  user?.role === "teacher" ||
+                  user?.role === "admin" ? (
                     <Link
                       to={`/dashboard/lesson/${lesson._id}`}
-                      className="flex items-center space-x-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-all"
+                      className="flex items-center space-x-2 text-sm font-medium text-indigo-600 transition-all hover:text-indigo-800"
                     >
                       <span>View Lesson</span>
-                      {completedLessons.includes(lesson._id) && (
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                      )}
+                      {completedLessons.includes(lesson._id) &&
+                        user?.role === "student" && (
+                          <CheckCircle className="w-5 h-5 text-green-500" />
+                        )}
                     </Link>
                   ) : (
                     <div className="flex items-center space-x-2 text-gray-400 cursor-not-allowed">
-                      <Lock className="h-5 w-5" />
+                      <Lock className="w-5 h-5" />
                       <span className="text-sm">Locked</span>
                     </div>
                   )}
@@ -276,77 +277,81 @@ const CourseDetails = () => {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-            {course?.isEnrolled ? (
-              <>
-                <div className="mb-4 bg-gray-100 p-4 rounded-lg">
-                  <h3 className="text-lg font-semibold mb-2">Your Progress</h3>
+          <div className="sticky p-6 top-6">
+            {course?.isEnrolled && user?.role === "student" ? (
+              <div className="px-8 py-8 bg-white shadow-2xl rounded-2xl">
+                <div className="p-4 mb-4 bg-gray-100 rounded-lg">
+                  <h3 className="mb-2 text-lg font-semibold">Your Progress</h3>
                   <div className="w-full bg-gray-200 rounded-full h-2.5">
                     <div
                       className="bg-indigo-600 h-2.5 rounded-full"
                       style={{ width: `${progress}%` }}
                     ></div>
                   </div>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="mt-1 text-sm text-gray-600">
                     {progress}% complete
                   </p>
                 </div>
                 <Link
                   to={`/dashboard/lesson/${course?.lessons[0]._id}`}
-                  className="block w-full bg-indigo-600 text-white text-center py-3 rounded-md hover:bg-indigo-700 transition-colors mb-4"
+                  className="block w-full py-3 mb-4 text-center text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700"
                 >
                   {progress > 0 ? "Continue Learning" : "Start Learning"}
                 </Link>
 
-                <Link
-                  to="/dashboard/discussions"
-                  className="flex items-center justify-center space-x-2 w-full border border-gray-300 text-gray-700 py-3 rounded-md hover:bg-gray-50 transition-colors"
-                >
-                  <MessageSquare className="h-5 w-5" />
-                  <span>Join Discussion</span>
-                </Link>
-              </>
+                {user?.role === "student" && (
+                  <Link
+                    to="/dashboard/discussions"
+                    className="flex items-center justify-center w-full py-3 space-x-2 text-gray-700 transition-colors border border-gray-300 rounded-md hover:bg-gray-50"
+                  >
+                    <MessageSquare className="w-5 h-5" />
+                    <span>Join Discussion</span>
+                  </Link>
+                )}
+              </div>
             ) : (
-              <>
-                <h3 className="text-xl font-bold mb-4">
-                  Enroll in this course
-                </h3>
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>
-                      Full access to all {course?.lessons.length} lessons
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>10 code examples per lesson</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Quizzes and practice exercises</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span>Certificate of completion</span>
-                  </li>
-                </ul>
+              user?.role === "student" && (
+                <>
+                  <h3 className="mb-4 text-xl font-bold">
+                    Enroll in this course
+                  </h3>
+                  <ul className="mb-6 space-y-3">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>
+                        Full access to all {course?.lessons.length} lessons
+                      </span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>10 code examples per lesson</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Quizzes and practice exercises</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                      <span>Certificate of completion</span>
+                    </li>
+                  </ul>
 
-                <button
-                  onClick={handleEnroll}
-                  disabled={enrolling}
-                  className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition-colors mb-4 flex items-center justify-center"
-                >
-                  {enrolling ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
-                      <span>Enrolling...</span>
-                    </>
-                  ) : (
-                    <span>Enroll Now - Free</span>
-                  )}
-                </button>
-              </>
+                  <button
+                    onClick={handleEnroll}
+                    disabled={enrolling}
+                    className="flex items-center justify-center w-full py-3 mb-4 text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700"
+                  >
+                    {enrolling ? (
+                      <>
+                        <div className="w-5 h-5 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+                        <span>Enrolling...</span>
+                      </>
+                    ) : (
+                      <span>Enroll Now - Free</span>
+                    )}
+                  </button>
+                </>
+              )
             )}
           </div>
         </div>
