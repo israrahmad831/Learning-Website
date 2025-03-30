@@ -184,16 +184,16 @@ const Lesson = () => {
 
   if (!lesson) {
     return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <div className="py-12 text-center">
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">
           Lesson Not Found
         </h2>
-        <p className="text-gray-600 mb-6">
+        <p className="mb-6 text-gray-600">
           The lesson you're looking for doesn't exist or has been removed.
         </p>
         <Link
           to="/dashboard"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+          className="px-6 py-2 text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700"
         >
           Back to Dashboard
         </Link>
@@ -204,10 +204,10 @@ const Lesson = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Lesson Header */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="p-6 mb-6 bg-white rounded-lg shadow-md">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-2xl font-bold mb-2">{lesson?.title}</h1>
+            <h1 className="mb-2 text-2xl font-bold">{lesson?.title}</h1>
             <p className="text-gray-600">
               {lesson?.courseName} • Lesson {lesson?.order}
             </p>
@@ -215,29 +215,31 @@ const Lesson = () => {
 
           <div className="flex items-center space-x-4">
             <div className="flex items-center text-gray-600">
-              <Clock className="h-5 w-5 mr-1" />
+              <Clock className="w-5 h-5 mr-1" />
               <span>{lesson?.duration} min</span>
             </div>
-            <Link
-              to={`/dashboard/discussions`}
-              className="flex items-center text-indigo-600 hover:text-indigo-800"
-            >
-              <MessageSquare className="h-5 w-5 mr-1" />
-              <span>Discussions</span>
-            </Link>
+            {user?.role === "student" && (
+              <Link
+                to={`/dashboard/discussions`}
+                className="flex items-center text-indigo-600 hover:text-indigo-800"
+              >
+                <MessageSquare className="w-5 h-5 mr-1" />
+                <span>Discussions</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
       {/* Lesson Navigation */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div className="flex justify-between items-center">
+      <div className="p-4 mb-6 bg-white rounded-lg shadow-md">
+        <div className="flex items-center justify-between">
           {lesson?.previousLesson ? (
             <Link
               to={`/dashboard/lesson/${lesson?.previousLesson.id}`}
               className="flex items-center text-gray-600 hover:text-gray-800"
             >
-              <ChevronLeft className="h-5 w-5 mr-1" />
+              <ChevronLeft className="w-5 h-5 mr-1" />
               <span>{lesson?.previousLesson.title}</span>
             </Link>
           ) : (
@@ -250,18 +252,18 @@ const Lesson = () => {
               className="flex items-center text-gray-600 hover:text-gray-800"
             >
               <span>{lesson?.nextLesson.title}</span>
-              <ChevronRight className="h-5 w-5 ml-1" />
+              <ChevronRight className="w-5 h-5 ml-1" />
             </Link>
           )}
         </div>
       </div>
 
       {/* Lesson Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Main Content */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           {/* Content Tabs */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <div className="overflow-hidden bg-white rounded-lg shadow-md">
             <div className="border-b border-gray-200">
               <nav className="flex -mb-px">
                 <button
@@ -272,7 +274,7 @@ const Lesson = () => {
                       : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
-                  <FileText className="h-5 w-5 inline mr-2" />
+                  <FileText className="inline w-5 h-5 mr-2" />
                   Lesson Content
                 </button>
                 <button
@@ -283,7 +285,7 @@ const Lesson = () => {
                       : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
-                  <Code className="h-5 w-5 inline mr-2" />
+                  <Code className="inline w-5 h-5 mr-2" />
                   Code Examples
                 </button>
               </nav>
@@ -295,7 +297,7 @@ const Lesson = () => {
                   {lesson?.content ? (
                     <TypingEffect text={lesson.content} />
                   ) : (
-                    <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                    <div className="flex items-center text-lg font-semibold text-indigo-600">
                       <span className="animate-pulse">
                         Generating with AI...
                       </span>
@@ -314,7 +316,7 @@ const Lesson = () => {
                             : "border-gray-200"
                         }`}
                       >
-                        <div className="flex justify-between items-start mb-4">
+                        <div className="flex items-start justify-between mb-4">
                           <h3 className="font-medium">{example?.title}</h3>
                           <button
                             onClick={() =>
@@ -331,12 +333,12 @@ const Lesson = () => {
                           </button>
                         </div>
 
-                        <pre className="bg-gray-800 text-white p-4 rounded-md overflow-x-auto">
+                        <pre className="p-4 overflow-x-auto text-white bg-gray-800 rounded-md">
                           <TypingEffect text={example?.code} speed={2} />
                         </pre>
 
                         {selectedExample === example?.id && (
-                          <div className="mt-4 bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-md">
+                          <div className="p-4 mt-4 border-l-4 border-indigo-500 bg-indigo-50 rounded-r-md">
                             <TypingEffect
                               text={example?.explanation}
                               speed={3}
@@ -346,7 +348,7 @@ const Lesson = () => {
                       </div>
                     ))
                   ) : (
-                    <div className="text-indigo-600 text-lg font-semibold flex items-center">
+                    <div className="flex items-center text-lg font-semibold text-indigo-600">
                       <span className="animate-pulse">
                         This content is out my limit
                       </span>
@@ -361,37 +363,39 @@ const Lesson = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Progress */}
-          <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-            <h2 className="text-lg font-semibold mb-4">Your Progress</h2>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <span>Course Progress</span>
-                <span className="font-medium">{progress}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div
-                  className="bg-indigo-600 h-2 rounded-full"
-                  style={{ width: `${progress}%` }}
-                ></div>
+          {user?.role === "student" && (
+            <div className="p-6 mt-6 bg-white rounded-lg shadow-md">
+              <h2 className="mb-4 text-lg font-semibold">Your Progress</h2>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span>Course Progress</span>
+                  <span className="font-medium">{progress}%</span>
+                </div>
+                <div className="w-full h-2 bg-gray-200 rounded-full">
+                  <div
+                    className="h-2 bg-indigo-600 rounded-full"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Resources */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-4">Additional Resources</h2>
+          <div className="p-6 bg-white rounded-lg shadow-md">
+            <h2 className="mb-4 text-lg font-semibold">Additional Resources</h2>
             <div className="space-y-3">
               {lesson?.resources.map((resource, index) => (
                 <div
                   key={index}
-                  className="p-3 rounded-md hover:bg-gray-50 transition-colors"
+                  className="p-3 transition-colors rounded-md hover:bg-gray-50"
                 >
                   {resource.type === "video" ? (
                     <button
                       onClick={() => setSelectedVideo(resource.url)}
                       className="flex items-center w-full text-left"
                     >
-                      <PlayCircle className="h-5 w-5 text-red-500 mr-3" />
+                      <PlayCircle className="w-5 h-5 mr-3 text-red-500" />
                       <span className="text-gray-700 hover:text-gray-900">
                         {resource.title}
                       </span>
@@ -403,7 +407,7 @@ const Lesson = () => {
                       rel="noopener noreferrer"
                       className="flex items-center"
                     >
-                      <FileText className="h-5 w-5 text-blue-500 mr-3" />
+                      <FileText className="w-5 h-5 mr-3 text-blue-500" />
                       <span className="text-gray-700 hover:text-gray-900">
                         {resource.title}
                       </span>
@@ -415,16 +419,16 @@ const Lesson = () => {
 
             {/* Video Modal */}
             {selectedVideo && (
-              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                <div className="bg-white rounded-lg p-4 max-w-3xl w-full relative">
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="relative w-full max-w-3xl p-4 bg-white rounded-lg">
                   <button
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+                    className="absolute text-gray-500 top-2 right-2 hover:text-gray-800"
                     onClick={() => setSelectedVideo(null)}
                   >
                     <X className="w-6 h-6" />
                   </button>
                   <iframe
-                    className="w-full h-64 sm:h-80 md:h-96 rounded-lg"
+                    className="w-full h-64 rounded-lg sm:h-80 md:h-96"
                     src={
                       "https://www.youtube.com/embed/ajdRvxDWH4w?si=-i9LPJHDEp2yMAtF"
                     }
@@ -436,79 +440,80 @@ const Lesson = () => {
               </div>
             )}
           </div>
-
           {/* Next Steps */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-semibold mb-4">Next Steps</h2>
-            <div className="space-y-4">
-              {lesson.nextLesson === null && (
-                <div className="text-center p-4 border border-gray-300 rounded-md bg-gray-50">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    🎓 Earn Your Certificate!
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    Complete the final quiz to receive your official course
-                    certificate.
-                  </p>
-                  {hasCertificate ? (
-                    <div className="text-center p-4 border border-green-500 rounded-md bg-green-50">
-                      <h3 className="text-lg font-semibold text-green-800">
-                        🎉 Certificate Earned!
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        You've successfully completed the course and earned a
-                        certificate.
-                      </p>
-                      <a
-                        href={`/dashboard/profile`}
-                        // Link to certificate
-                        className="mt-3 block w-full text-center py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition-colors"
+          {user?.role === "student" && (
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <h2 className="mb-4 text-lg font-semibold">Next Steps</h2>
+              <div className="space-y-4">
+                {lesson.nextLesson === null && (
+                  <div className="p-4 text-center border border-gray-300 rounded-md bg-gray-50">
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      🎓 Earn Your Certificate!
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Complete the final quiz to receive your official course
+                      certificate.
+                    </p>
+                    {hasCertificate ? (
+                      <div className="p-4 text-center border border-green-500 rounded-md bg-green-50">
+                        <h3 className="text-lg font-semibold text-green-800">
+                          🎉 Certificate Earned!
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          You've successfully completed the course and earned a
+                          certificate.
+                        </p>
+                        <a
+                          href={`/dashboard/profile`}
+                          // Link to certificate
+                          className="block w-full py-2 mt-3 text-center text-white transition-colors bg-green-600 rounded-md hover:bg-green-700"
+                        >
+                          View Certificate
+                        </a>
+                      </div>
+                    ) : (
+                      <Link
+                        to={
+                          progress > 80
+                            ? `/dashboard/quiz/${lesson?.courseId}`
+                            : "#"
+                        }
+                        className={`mt-3 block w-full text-center py-2 rounded-md transition-colors ${
+                          progress > 80
+                            ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                            : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                        }`}
                       >
-                        View Certificate
-                      </a>
-                    </div>
-                  ) : (
-                    <Link
-                      to={
-                        progress > 80
-                          ? `/dashboard/quiz/${lesson?.courseId}`
-                          : "#"
-                      }
-                      className={`mt-3 block w-full text-center py-2 rounded-md transition-colors ${
-                        progress > 80
-                          ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                          : "bg-gray-400 text-gray-200 cursor-not-allowed"
-                      }`}
-                    >
-                      {progress > 80
-                        ? "Take Final Quiz"
-                        : "Complete More Lessons to Unlock"}
-                    </Link>
-                  )}
-                </div>
-              )}
+                        {progress > 80
+                          ? "Take Final Quiz"
+                          : "Complete More Lessons to Unlock"}
+                      </Link>
+                    )}
+                  </div>
+                )}
 
-              {lesson?.nextLesson && (
-                <Link
-                  to={`/dashboard/lesson/${lesson?.nextLesson.id}`}
-                  className="block w-full bg-gray-100 text-gray-700 text-center py-2 rounded-md hover:bg-gray-200 transition-colors"
+                {lesson?.nextLesson && (
+                  <Link
+                    to={`/dashboard/lesson/${lesson?.nextLesson.id}`}
+                    className="block w-full py-2 text-center text-gray-700 transition-colors bg-gray-100 rounded-md hover:bg-gray-200"
+                  >
+                    Next Lesson: {lesson?.nextLesson.title}
+                  </Link>
+                )}
+                <button
+                  onClick={handleCompleteLesson}
+                  className={`w-full py-3 px-6 rounded-md text-white font-bold transition ${
+                    isCompleted
+                      ? "bg-green-500 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-700"
+                  }`}
+                  disabled={isCompleted}
                 >
-                  Next Lesson: {lesson?.nextLesson.title}
-                </Link>
-              )}
-              <button
-                onClick={handleCompleteLesson}
-                className={`w-full py-3 px-6 rounded-md text-white font-bold transition ${
-                  isCompleted
-                    ? "bg-green-500 cursor-not-allowed"
-                    : "bg-indigo-600 hover:bg-indigo-700"
-                }`}
-                disabled={isCompleted}
-              >
-                {isCompleted ? "✅ Lesson Completed" : "Mark as Completed"}
-              </button>
+                  {isCompleted ? "✅ Lesson Completed" : "Mark as Completed"}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
@@ -541,14 +546,14 @@ const AILoading = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
-      <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 mb-4 animate-pulse">
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
+      <p className="mb-4 text-lg font-semibold text-indigo-600 dark:text-indigo-400 animate-pulse">
         {loadingText}
       </p>
       <div className="relative flex space-x-2">
-        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-100"></div>
-        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-200"></div>
-        <div className="w-3 h-3 bg-indigo-600 rounded-full animate-bounce delay-300"></div>
+        <div className="w-3 h-3 delay-100 bg-indigo-600 rounded-full animate-bounce"></div>
+        <div className="w-3 h-3 delay-200 bg-indigo-600 rounded-full animate-bounce"></div>
+        <div className="w-3 h-3 delay-300 bg-indigo-600 rounded-full animate-bounce"></div>
       </div>
     </div>
   );
