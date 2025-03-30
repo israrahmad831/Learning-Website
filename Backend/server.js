@@ -23,7 +23,10 @@ app.use(
 // Connect to MongoDB
 mongoose
   .connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("✅ MongoDB Connected"))
+  .then(async () => {
+    console.log("✅ MongoDB Connected");
+    await createAdmin();
+  })
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // User Schema
@@ -45,6 +48,27 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
+
+const createAdmin = async () => {
+  try {
+    const existingAdmin = await User.findOne({ role: "admin" });
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash("admin123", 10);
+      await User.create({
+        name: "Admin",
+        email: "Admin@gmail.com",
+        password: hashedPassword,
+        role: "admin",
+        isApproved: true,
+      });
+      console.log("✅ Admin user created successfully");
+    } else {
+      console.log("ℹ️ Admin already exists");
+    }
+  } catch (error) {
+    console.error("❌ Error creating admin:", error);
+  }
+};
 
 // Middleware to verify token (without cookies)
 const verifyToken = (req, res, next) => {
@@ -771,16 +795,6 @@ app.put("/api/auth/update", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
-
-
-
-
-
-
-// Start Server
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
 
 // Load quizzes from JSON file
 const quizFilePath = path.join(__dirname, "quizData.json");

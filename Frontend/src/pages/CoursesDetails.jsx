@@ -21,45 +21,45 @@ const CourseDetails = () => {
   const [completedLessons, setCompletedLessons] = useState([]);
 
   useEffect(() => {
-    const fetchCourseDetails = async () => {
-      try {
-        setIsLoading(true);
+      const fetchCourseDetails = async () => {
+        try {
+          setIsLoading(true);
 
-        const [courseResponse, studentsResponse, progressResponse] =
-          await Promise.all([
-            fetch(`${BACKEND_URL}/api/courses/${id}`),
-            fetch(`${BACKEND_URL}/api/courses/${id}/enrolled-students`),
-            user
-              ? fetch(`${BACKEND_URL}/api/courses/${id}/progress`, {
-                  headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                })
-              : Promise.resolve({
-                  json: () => ({ progress: 0, completedLessons: [] }),
-                }),
-          ]);
+          const [courseResponse, studentsResponse, progressResponse] =
+            await Promise.all([
+              fetch(`${BACKEND_URL}/api/courses/${id}`),
+              fetch(`${BACKEND_URL}/api/courses/${id}/enrolled-students`),
+              user
+                ? fetch(`${BACKEND_URL}/api/courses/${id}/progress`, {
+                    headers: {
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                  })
+                : Promise.resolve({
+                    json: () => ({ progress: 0, completedLessons: [] }),
+                  }),
+            ]);
 
-        if (!courseResponse.ok || !studentsResponse.ok) {
-          throw new Error("Failed to fetch course or student details");
+          if (!courseResponse.ok || !studentsResponse.ok) {
+            throw new Error("Failed to fetch course or student details");
+          }
+
+          const courseData = await courseResponse.json();
+          const studentsData = await studentsResponse.json();
+          const progressData = await progressResponse.json();
+
+          courseData.enrolledStudents = studentsData.enrolledStudents;
+          courseData.isEnrolled = progressData.progress > 0;
+          setProgress(progressData.progress);
+          setCompletedLessons(progressData.completedLessons || []); // ✅ Store completed lessons
+
+          setCourse(courseData);
+        } catch (error) {
+          console.error("Error fetching course details:", error);
+          setCourse(null);
+        } finally {
+          setIsLoading(false);
         }
-
-        const courseData = await courseResponse.json();
-        const studentsData = await studentsResponse.json();
-        const progressData = await progressResponse.json();
-
-        courseData.enrolledStudents = studentsData.enrolledStudents;
-        courseData.isEnrolled = progressData.progress > 0;
-        setProgress(progressData.progress);
-        setCompletedLessons(progressData.completedLessons || []); // ✅ Store completed lessons
-
-        setCourse(courseData);
-      } catch (error) {
-        console.error("Error fetching course details:", error);
-        setCourse(null);
-      } finally {
-        setIsLoading(false);
-      }
     };
 
     fetchCourseDetails();
