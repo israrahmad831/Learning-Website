@@ -11,11 +11,11 @@ function Home() {
       <section className="p-8 text-white bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl md:p-12">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="mb-6 text-3xl font-bold md:text-5xl">
-            Learn Programming with AI-Powered Lessons
+            Learn Programming with Online Lessons
           </h1>
           <p className="mb-8 text-lg md:text-xl">
-            Master coding skills with personalized AI-generated lessons,
-            interactive examples, and a supportive community.
+            Master coding skills with personalized lessons, interactive
+            examples, and a supportive community.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link

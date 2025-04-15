@@ -82,10 +82,10 @@ function MainLayout() {
         darkMode ? "dark bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
       } min-h-screen flex flex-col`}
     >
-      <header className="bg-indigo-600 text-white shadow-md">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <header className="text-white bg-indigo-600 shadow-md">
+        <div className="container flex items-center justify-between px-4 py-3 mx-auto">
           <Link to="/" className="flex items-center space-x-2">
-            <BookOpen className="h-8 w-8" />
+            <BookOpen className="w-8 h-8" />
             <span className="text-xl font-bold">AI Learning Platform</span>
           </Link>
 
@@ -96,21 +96,21 @@ function MainLayout() {
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="items-center hidden space-x-6 md:flex">
             {user ? (
               <>
                 {/* Common Dashboard Link for Students */}
                 {user.role === "student" && (
-                  <div className="md:flex space-x-6">
+                  <div className="space-x-6 md:flex">
                     <Link
                       to="/dashboard"
-                      className="hover:text-indigo-200 transition-colors"
+                      className="transition-colors hover:text-indigo-200"
                     >
                       Dashboard
                     </Link>
                     <Link
                       to="/courses"
-                      className="hover:text-indigo-200 transition-colors"
+                      className="transition-colors hover:text-indigo-200"
                     >
                       Courses
                     </Link>
@@ -121,7 +121,7 @@ function MainLayout() {
                 {user.role === "teacher" && (
                   <Link
                     to="/teacher"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                   >
                     Teacher Portal
                   </Link>
@@ -131,7 +131,7 @@ function MainLayout() {
                 {user.role === "admin" && (
                   <Link
                     to="/admin"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                   >
                     Admin Portal
                   </Link>
@@ -141,7 +141,7 @@ function MainLayout() {
                 <div className="flex items-center space-x-4">
                   <Link
                     to="/dashboard/profile"
-                    className="flex items-center space-x-1 hover:text-indigo-200 transition-colors"
+                    className="flex items-center space-x-1 transition-colors hover:text-indigo-200"
                   >
                     <User size={18} />
                     <span>{user.name}</span>
@@ -151,7 +151,7 @@ function MainLayout() {
                       handleLogout();
                       setIsMenuOpen(false);
                     }}
-                    className="flex items-center space-x-1 hover:text-indigo-200 transition-colors"
+                    className="flex items-center space-x-1 transition-colors hover:text-indigo-200"
                   >
                     <LogOut size={18} />
                     <span>Logout</span>
@@ -163,13 +163,13 @@ function MainLayout() {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/auth/login"
-                  className="px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
+                  className="px-4 py-2 transition-colors rounded-md hover:bg-indigo-700"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="px-4 py-2 bg-white text-indigo-600 rounded-md hover:bg-indigo-100 transition-colors"
+                  className="px-4 py-2 text-indigo-600 transition-colors bg-white rounded-md hover:bg-indigo-100"
                 >
                   Register
                 </Link>
@@ -179,11 +179,11 @@ function MainLayout() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden bg-indigo-700 px-4 py-3">
+          <div className="px-4 py-3 bg-indigo-700 md:hidden">
             <nav className="flex flex-col space-y-3">
               <Link
                 to="/courses"
-                className="hover:text-indigo-200 transition-colors"
+                className="transition-colors hover:text-indigo-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Courses
@@ -192,7 +192,7 @@ function MainLayout() {
                 <>
                   <Link
                     to="/dashboard"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Dashboard
@@ -201,7 +201,7 @@ function MainLayout() {
                   {user?.role === "teacher" && (
                     <Link
                       to="/teacher"
-                      className="hover:text-indigo-200 transition-colors"
+                      className="transition-colors hover:text-indigo-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Teacher Portal
@@ -211,7 +211,7 @@ function MainLayout() {
                   {user?.role === "admin" && (
                     <Link
                       to="/admin"
-                      className="hover:text-indigo-200 transition-colors"
+                      className="transition-colors hover:text-indigo-200"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Admin Portal
@@ -220,7 +220,7 @@ function MainLayout() {
 
                   <Link
                     to="/dashboard/profile"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Profile
@@ -231,7 +231,7 @@ function MainLayout() {
                       handleLogout();
                       setIsMenuOpen(false);
                     }}
-                    className="text-left hover:text-indigo-200 transition-colors"
+                    className="text-left transition-colors hover:text-indigo-200"
                   >
                     Logout
                   </button>
@@ -240,14 +240,14 @@ function MainLayout() {
                 <>
                   <Link
                     to="/auth/login"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Login
                   </Link>
                   <Link
                     to="/auth/register"
-                    className="hover:text-indigo-200 transition-colors"
+                    className="transition-colors hover:text-indigo-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Register
@@ -259,13 +259,13 @@ function MainLayout() {
         )}
       </header>
 
-      <main className="flex-grow container mx-auto px-4 py-6">
+      <main className="container flex-grow px-4 py-6 mx-auto">
         <Outlet />
       </main>
 
-      <footer className="bg-gray-800 text-white py-10 pb-0">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <footer className="py-10 pb-0 text-white bg-gray-800">
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:text-left">
             <div>
               <h3 className="text-lg font-semibold">About Us</h3>
               <p className="mt-2 text-sm">
@@ -275,7 +275,7 @@ function MainLayout() {
             </div>
             <div>
               <h3 className="text-lg font-semibold">Quick Links</h3>
-              <ul className="mt-2 text-sm space-y-2">
+              <ul className="mt-2 space-y-2 text-sm">
                 <li>
                   <a href="#" className="hover:text-indigo-300">
                     Courses
@@ -295,7 +295,7 @@ function MainLayout() {
             </div>
             <div>
               <h3 className="text-lg font-semibold">Follow Us</h3>
-              <div className="flex justify-center md:justify-start space-x-4 mt-2">
+              <div className="flex justify-center mt-2 space-x-4 md:justify-start">
                 <a href="#" className="hover:text-indigo-300">
                   Facebook
                 </a>
@@ -317,7 +317,7 @@ function MainLayout() {
 
                         {/* Star Rating Component */}
                         {/* Star Rating */}
-                        <div className="flex space-x-1 mt-2">
+                        <div className="flex mt-2 space-x-1">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <span
                               key={star}
@@ -335,7 +335,7 @@ function MainLayout() {
 
                         {/* Comment Box */}
                         <textarea
-                          className="w-full p-2 border rounded-md mt-2"
+                          className="w-full p-2 mt-2 border rounded-md"
                           placeholder="Leave a comment..."
                           value={newComment}
                           onChange={(e) => setNewComment(e.target.value)}
@@ -343,7 +343,7 @@ function MainLayout() {
 
                         {/* Submit Button */}
                         <button
-                          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+                          className="px-4 py-2 mt-2 text-white bg-blue-500 rounded-md"
                           onClick={handleReviewSubmit}
                         >
                           Submit Feedback
@@ -363,7 +363,7 @@ function MainLayout() {
           </div>
         </div>
       </footer>
-      <p className="bg-gray-800 text-center text-sm text-white">
+      <p className="text-sm text-center text-white bg-gray-800">
         &copy; {new Date().getFullYear()} AI Learning Platform. All rights
         reserved.
       </p>
