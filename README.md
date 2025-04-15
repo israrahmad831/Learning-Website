@@ -5,33 +5,38 @@ This is a full-featured **Learning Management System (LMS)** built with the **ME
 ## 🔐 Role-Based Functionality
 
 ### 👨‍🎓 Students
+
 - Register & log in securely
 - Enroll in courses
 - Complete lessons
 - Take quizzes
 - Earn certificates
 - Edit profile
+- Track Progress
 - Provide feedback
-- Start discussions  
-> **Note**: Students can log in immediately after registration without admin approval.
+- Start discussions
+  > **Note**: Students can log in immediately after registration without admin approval.
 
 ### 👩‍🏫 Teachers
-- Register & log in securely (admin approval required)  
+
+- Register & log in securely (admin approval required)
 - View assigned courses
 - Reply to student discussions
-- Edit profile  
-> **Note**: Teachers cannot log in until their registration is approved by an admin.
+- Edit profile
+  > **Note**: Teachers cannot log in until their registration is approved by an admin.
 
 ### 👨‍💼 Admins
+
 - Log in securely
 - Manage student and teacher accounts
 - Moderate and reply to all discussions
 - View student feedback
 - Edit profile
-- Approve or reject teacher registrations  
+- Approve or reject teacher registrations
 
-> **Admin Credentials:**  
-> - Email: **Admin@gmail.com**  
+> **Admin Credentials:**
+>
+> - Email: **Admin@gmail.com**
 > - Password: **admin123**
 
 ## 🛠️ Tech Stack
@@ -45,23 +50,28 @@ This is a full-featured **Learning Management System (LMS)** built with the **ME
 - **React Router** – Client-side routing
 
 ## Team:
+
 ## Israr ahmad
+
 Github: israrahmad831
 LinkedIn: israrahmad2004
 
 ## Mehboob Ali
+
 Github:
-LinkedIn: 
+LinkedIn:
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js and npm installed
 - MongoDB running locally or in the cloud
 
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 git clone https://github.com/israrahmad831/Learning-Website.git
 cd Learning-Website
@@ -91,3 +101,4 @@ npm run dev
 
 
 
+```

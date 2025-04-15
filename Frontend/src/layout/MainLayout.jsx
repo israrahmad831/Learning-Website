@@ -86,7 +86,7 @@ function MainLayout() {
         <div className="container flex items-center justify-between px-4 py-3 mx-auto">
           <Link to="/" className="flex items-center space-x-2">
             <BookOpen className="w-8 h-8" />
-            <span className="text-xl font-bold">AI Learning Platform</span>
+            <span className="text-xl font-bold">Online Learning Platform</span>
           </Link>
 
           <button
@@ -364,7 +364,7 @@ function MainLayout() {
         </div>
       </footer>
       <p className="text-sm text-center text-white bg-gray-800">
-        &copy; {new Date().getFullYear()} AI Learning Platform. All rights
+        &copy; {new Date().getFullYear()} Israr Ahmad & Mehboob Ali. All rights
         reserved.
       </p>
     </div>
