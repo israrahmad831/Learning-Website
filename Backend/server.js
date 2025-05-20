@@ -15,7 +15,7 @@ const SECRET_KEY = process.env.JWT_SECRET || "your_super_secret_key";
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Frontend URL
+    origin: "http://localhost:5174", // Frontend URL
     credentials: false, // ❌ No need for credentials (cookies)
   })
 );
